@@ -1,50 +1,50 @@
 [
   {
-    name:     "Channel 1 HD",
-    category: "News",
-    logo:     "📺",
-    url:      "https://5a1178b42cc03.streamlock.net/shamshadtelevision/shamshadtelevision/playlist.m3u8"
+    "name": "Channel 1 HD",
+    "category": "News",
+    "logo": "📺",
+    "url": "https://5a1178b42cc03.streamlock.net/shamshadtelevision/shamshadtelevision/playlist.m3u8"
   },
   {
-    name:     "Sports Live",
-    category: "Sports",
-    logo:     "⚽",
-    url:      "https://your-stream-server.com/sports/index.m3u8"
+    "name": "Sports Live",
+    "category": "Sports",
+    "logo": "⚽",
+    "url": "https://your-stream-server.com/sports/index.m3u8"
   },
   {
-    name:     "Movie Channel",
-    category: "Entertainment",
-    logo:     "🎬",
-    url:      "https://your-stream-server.com/movies/index.m3u8"
+    "name": "Movie Channel",
+    "category": "Entertainment",
+    "logo": "🎬",
+    "url": "https://your-stream-server.com/movies/index.m3u8"
   },
   {
-    name:     "Music TV",
-    category: "Music",
-    logo:     "🎵",
-    url:      "https://your-stream-server.com/music/index.m3u8"
+    "name": "Music TV",
+    "category": "Music",
+    "logo": "🎵",
+    "url": "https://your-stream-server.com/music/index.m3u8"
   },
   {
-    name:     "Kids Zone",
-    category: "Kids",
-    logo:     "🧸",
-    url:      "https://your-stream-server.com/kids/index.m3u8"
+    "name": "Kids Zone",
+    "category": "Kids",
+    "logo": "🧸",
+    "url": "https://your-stream-server.com/kids/index.m3u8"
   },
   {
-    name:     "Documentary HD",
-    category: "Documentary",
-    logo:     "🌍",
-    url:      "https://your-stream-server.com/docs/index.m3u8"
+    "name": "Documentary HD",
+    "category": "Documentary",
+    "logo": "🌍",
+    "url": "https://your-stream-server.com/docs/index.m3u8"
   },
   {
-    name:     "Business Now",
-    category: "Business",
-    logo:     "💼",
-    url:      "https://your-stream-server.com/business/index.m3u8"
+    "name": "Business Now",
+    "category": "Business",
+    "logo": "💼",
+    "url": "https://your-stream-server.com/business/index.m3u8"
   },
   {
-    name:     "Tech & Science",
-    category: "Technology",
-    logo:     "🔬",
-    url:      "https://your-stream-server.com/tech/index.m3u8"
-  },
+    "name": "Tech & Science",
+    "category": "Technology",
+    "logo": "🔬",
+    "url": "https://your-stream-server.com/tech/index.m3u8"
+  }
 ]
