@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Stream TV</title>
+
+<!-- HLS.js for M3U8 playback -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
+
+<style>
+  /* ── RESET & BASE ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0d0f14;
+    --surface:   #161a24;
+    --card:      #1e2333;
+    --border:    #2a3050;
+    --accent:    #e63946;
+    --accent2:   #f4a261;
+    --text:      #e8eaf0;
+    --muted:     #7b82a0;
+    --live-dot:  #22c55e;
+    --radius:    10px;
+    --font:      'Segoe UI', system-ui, sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ───────────────────────────────────────────── */
+  .sv-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .sv-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .sv-logo-icon {
+    width: 34px; height: 34px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sv-logo-icon svg { width: 18px; height: 18px; fill: #fff; }
+  .sv-live-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── MAIN LAYOUT ──────────────────────────────────────── */
+  .sv-main {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: auto 1fr;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  /* ── PLAYER AREA ──────────────────────────────────────── */
+  .sv-player-wrap {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .sv-video-box {
+    background: #000;
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/9;
+    width: 100%;
+  }
+  .sv-video-box video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #000;
+  }
+
+  /* ── FULLSCREEN BUTTON ────────────────────────────────── */
+  .sv-fs-btn {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 7px;
+    color: #fff;
+    cursor: pointer;
+    padding: 7px 10px;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.75rem;
+    font-family: var(--font);
+    transition: background 0.2s;
+    z-index: 10;
+  }
+  .sv-fs-btn:hover { background: rgba(230,57,70,0.85); }
+  .sv-fs-btn svg { width: 14px; height: 14px; fill: #fff; }
+  .sv-now-playing {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+  }
+  .sv-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--live-dot);
+    animation: pulse 1.5s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(1.3); }
+  }
+  .sv-loading-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    display: none;
+  }
+  .sv-loading-overlay.active { display: flex; }
+  .sv-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── CHANNEL INFO BAR ─────────────────────────────────── */
+  .sv-info-bar {
+    margin-top: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sv-channel-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .sv-channel-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .sv-quality-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    border: 1px solid var(--accent2);
+    color: var(--accent2);
+    padding: 3px 9px;
+    border-radius: 5px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CHANNEL LIST (sidebar) ───────────────────────────── */
+  .sv-sidebar {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+  .sv-sidebar-header {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .sv-search {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-family: var(--font);
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .sv-search:focus { border-color: var(--accent); }
+  .sv-search::placeholder { color: var(--muted); }
+
+  .sv-channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .sv-channel-list::-webkit-scrollbar { width: 4px; }
+  .sv-channel-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sv-ch-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    text-align: left;
+    width: 100%;
+    color: var(--text);
+    font-family: var(--font);
+    position: relative;
+    overflow: hidden;
+  }
+  .sv-ch-btn:hover { background: #252b40; border-color: #3a4268; }
+  .sv-ch-btn.active {
+    background: #1e2d4a;
+    border-color: var(--accent);
+  }
+  .sv-ch-btn.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 3px 0 0 3px;
+  }
+  .sv-ch-logo {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .sv-ch-logo img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+  }
+  .sv-ch-info { flex: 1; min-width: 0; }
+  .sv-ch-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sv-ch-cat {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .sv-ch-live {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--live-dot);
+    flex-shrink: 0;
+  }
+
+  /* ── ERROR MESSAGE ────────────────────────────────────── */
+  .sv-error {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.85);
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 20px;
+  }
+  .sv-error.active { display: flex; }
+  .sv-error-icon { font-size: 2.5rem; }
+
+  /* ── RESPONSIVE ───────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .sv-main {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
+    .sv-sidebar {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .sv-channel-list {
+      max-height: 340px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .sv-header { padding: 12px 14px; }
+    .sv-main { padding: 12px 10px; }
+    .sv-info-bar { padding: 10px 12px; }
+    .sv-channel-name { font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="sv-header">
+  <div class="sv-logo">
+    <div class="sv-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M4 6l16 6-16 6V6z"/></svg>
+    </div>
+    StreamTV
+  </div>
+  <span class="sv-live-badge">Live</span>
+</header>
+
+<!-- MAIN -->
+<div class="sv-main">
+
+  <!-- PLAYER -->
+  <div class="sv-player-wrap">
+    <div class="sv-video-box">
+      <video id="sv-video" controls playsinline autoplay webkit-playsinline x5-playsinline></video>
+      <button class="sv-fs-btn" id="sv-fs-btn" title="Fullscreen" onclick="toggleFullscreen()">
+        <svg id="sv-fs-icon" viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
+        Fullscreen
+      </button>
+      <div class="sv-now-playing" id="sv-now-playing">
+        <span class="sv-dot"></span>
+        <span id="sv-now-text">Select a channel</span>
+      </div>
+      <div class="sv-loading-overlay" id="sv-loading">
+        <div class="sv-spinner"></div>
+        <span>Loading stream…</span>
+      </div>
+      <div class="sv-error" id="sv-error">
+        <div class="sv-error-icon">📡</div>
+        <div>Stream unavailable</div>
+        <small>Check the URL or try another channel</small>
+      </div>
+    </div>
+
+    <div class="sv-info-bar">
+      <div>
+        <div class="sv-channel-name" id="sv-ch-name">— No Channel Selected —</div>
+        <div class="sv-channel-meta" id="sv-ch-meta">Choose a channel from the list</div>
+      </div>
+      <span class="sv-quality-badge">HD</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sv-sidebar">
+    <div class="sv-sidebar-header">Channels</div>
+    <input class="sv-search" type="text" placeholder="Search channels…" id="sv-search" oninput="filterChannels(this.value)">
+    <div class="sv-channel-list" id="sv-channel-list"></div>
+  </div>
+
+</div>
+
+<script>
+  let CHANNELS = [];
+let hls = null;
+let activeIdx = -1;
+
+const video = document.getElementById('sv-video');
+const loadDiv = document.getElementById('sv-loading');
+const errDiv = document.getElementById('sv-error');
+const nowText = document.getElementById('sv-now-text');
+const chName = document.getElementById('sv-ch-name');
+const chMeta = document.getElementById('sv-ch-meta');
+
+function showLoading(on) {
+  loadDiv.classList.toggle('active', on);
+}
+
+function showError(on) {
+  errDiv.classList.toggle('active', on);
+}
+
+async function loadChannelsFromJson() {
+  try {
+    const response = await fetch('channels.json');
+
+    if (!response.ok) {
+      throw new Error('Failed to load channels');
+    }
+
+    CHANNELS = await response.json();
+
+    renderChannels(CHANNELS);
+
+    if (CHANNELS.length > 0) {
+      loadChannel(0);
+    }
+
+  } catch (error) {
+    console.error(error);
+    document.getElementById('sv-channel-list').innerHTML =
+      '<div style="padding:20px;color:red;">Failed to load channel list.</div>';
+  }
+}
+
+function loadChannel(idx) {
+
+  const ch = CHANNELS[idx];
+  if (!ch) return;
+
+  activeIdx = idx;
+
+  nowText.textContent = ch.name;
+  chName.textContent = ch.name;
+  chMeta.textContent = `${ch.category} · Live`;
+
+  document.querySelectorAll('.sv-ch-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+
+  showLoading(true);
+  showError(false);
+
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  video.src = '';
+
+  if (Hls.isSupported()) {
+
+    hls = new Hls({
+      enableWorker: true,
+      lowLatencyMode: true
+    });
+
+    hls.loadSource(ch.url);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      showLoading(false);
+      video.play().catch(() => {});
+    });
+
+    hls.on(Hls.Events.ERROR, (_, data) => {
+
+      if (data.fatal) {
+        showLoading(false);
+        showError(true);
+      }
+
+    });
+
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+
+    video.src = ch.url;
+
+    video.addEventListener(
+      'loadedmetadata',
+      () => {
+        showLoading(false);
+        video.play().catch(() => {});
+      },
+      { once: true }
+    );
+
+    video.addEventListener(
+      'error',
+      () => {
+        showLoading(false);
+        showError(true);
+      },
+      { once: true }
+    );
+
+  } else {
+
+    showLoading(false);
+    showError(true);
+
+  }
+}
+
+function renderChannels(list) {
+
+  const container = document.getElementById('sv-channel-list');
+
+  container.innerHTML = '';
+
+  if (list.length === 0) {
+
+    container.innerHTML =
+      '<div style="color:#999;text-align:center;padding:20px;">No channels found</div>';
+
+    return;
+  }
+
+  list.forEach((ch) => {
+
+    const realIdx = CHANNELS.indexOf(ch);
+
+    const btn = document.createElement('button');
+
+    btn.className =
+      'sv-ch-btn' + (realIdx === activeIdx ? ' active' : '');
+
+    const isImgUrl =
+      ch.logo &&
+      (ch.logo.startsWith('http') || ch.logo.startsWith('/'));
+
+    const logoContent = isImgUrl
+      ? `<img src="${ch.logo}" alt="${ch.name}" loading="lazy">`
+      : ch.logo;
+
+    btn.innerHTML = `
+      <div class="sv-ch-logo">${logoContent}</div>
+
+      <div class="sv-ch-info">
+        <div class="sv-ch-title">${ch.name}</div>
+        <div class="sv-ch-cat">${ch.category}</div>
+      </div>
+
+      <div class="sv-ch-live"></div>
+    `;
+
+    btn.addEventListener('click', () => {
+      loadChannel(realIdx);
+    });
+
+    container.appendChild(btn);
+
+  });
+}
+
+function filterChannels(query) {
+
+  const q = query.toLowerCase().trim();
+
+  const filtered = q
+    ? CHANNELS.filter(
+        c =>
+          c.name.toLowerCase().includes(q) ||
+          c.category.toLowerCase().includes(q)
+      )
+    : CHANNELS;
+
+  renderChannels(filtered);
+}
+
+const videoBox = document.querySelector('.sv-video-box');
+const fsIcon = document.getElementById('sv-fs-icon');
+
+const ICON_ENTER =
+  '<path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/>';
+
+const ICON_EXIT =
+  '<path d="M5 16H3v5h5v-2H5v-3zm-2-8h2V5h3V3H3v5zm13 11h3v-3h2v-5h-5v5h-2v3zm3-11V5h-3V3h5v5h-2z"/>';
+
+function toggleFullscreen() {
+
+  const el = videoBox;
+
+  if (!document.fullscreenElement) {
+
+    el.requestFullscreen?.();
+
+  } else {
+
+    document.exitFullscreen?.();
+
+  }
+}
+
+function onFsChange() {
+
+  const isFs = !!document.fullscreenElement;
+
+  fsIcon.innerHTML = isFs ? ICON_EXIT : ICON_ENTER;
+
+  document.getElementById('sv-fs-btn').lastChild.textContent =
+    isFs ? ' Exit' : ' Fullscreen';
+}
+
+document.addEventListener('fullscreenchange', onFsChange);
+
+document.addEventListener('keydown', e => {
+
+  if (e.key.toLowerCase() === 'f') {
+    toggleFullscreen();
+  }
+
+});
+/* Initialize */
+loadChannelsFromJson();
+</script>
+</body>
+</html>
