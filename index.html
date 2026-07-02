@@ -24,6 +24,7 @@
     --gold:        #c9a24b;
     --gold-soft:   #e0bd72;
     --gold-dim:    rgba(201, 162, 75, 0.14);
+    --gold-glow:   rgba(201, 162, 75, 0.38);
 
     --live:        #d64545;
     --live-glow:   rgba(214, 69, 69, 0.35);
@@ -48,6 +49,7 @@
     background:
       radial-gradient(ellipse 1200px 600px at 20% -10%, rgba(201,162,75,0.06), transparent 60%),
       radial-gradient(ellipse 900px 500px at 100% 10%, rgba(80,60,120,0.05), transparent 55%),
+      radial-gradient(ellipse 800px 500px at 50% 100%, rgba(201,162,75,0.04), transparent 60%),
       var(--bg);
     color: var(--text);
     font-family: var(--sans);
@@ -57,30 +59,146 @@
 
   ::selection { background: var(--gold-dim); color: var(--gold-soft); }
 
-  /* ── MAIN LAYOUT ──────────────────────────────────────── */
-  .sv-main {
-    display: grid;
-    grid-template-columns: 85fr 15fr;
+  /* film-grain texture over the whole app — cheap, static, on-theme for "television" */
+  .sv-grain {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ── APP SHELL ────────────────────────────────────────── */
+  .sv-app {
     height: 100vh;
     width: 100vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOPBAR ───────────────────────────────────────────── */
+  .sv-topbar {
+    flex-shrink: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--border-soft);
+    background: linear-gradient(180deg, rgba(16,18,25,0.55), rgba(10,11,15,0.25));
+    position: relative;
+    z-index: 5;
+  }
+  .sv-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sv-brand-mark {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 30% 30%, #1c1f2e, #0c0d13);
+    border: 1px solid rgba(201,162,75,0.55);
+    box-shadow: 0 0 0 1px rgba(201,162,75,0.1), 0 4px 14px -4px var(--gold-glow);
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--gold-soft);
+    flex-shrink: 0;
+  }
+  .sv-brand-word {
+    font-family: var(--serif);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1;
+  }
+  .sv-brand-tag {
+    font-size: 0.66rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+  .sv-topbar-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .sv-kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+  }
+
+  /* ── MAIN LAYOUT ──────────────────────────────────────── */
+  .sv-main {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 85fr 15fr;
   }
 
   /* ── PLAYER AREA ──────────────────────────────────────── */
   .sv-player-wrap {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     padding: 20px;
     min-width: 0;
   }
+
+  .sv-video-frame {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+  }
+  /* signature: a slow ambient glow bleeding from the screen, like a TV lighting
+     a dark room. Echoes the live-dot pulse below at a much slower, calmer tempo. */
+  .sv-video-frame::before {
+    content: '';
+    position: absolute;
+    inset: -36px;
+    background: radial-gradient(ellipse 70% 65% at 50% 45%, rgba(201,162,75,0.16), transparent 72%);
+    filter: blur(38px);
+    z-index: 0;
+    opacity: 0.55;
+    pointer-events: none;
+    animation: glowPulse 7s ease-in-out infinite;
+    will-change: opacity;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 0.75; }
+  }
+
   .sv-video-box {
     background: #000;
     border-radius: var(--radius-lg);
     overflow: hidden;
     position: relative;
-    width: 100%;
+    z-index: 1;
     flex: 1;
-    min-height: 0;
+    min-width: 0;
     box-shadow:
       0 0 0 1px var(--border-soft),
       0 20px 60px -20px rgba(0,0,0,0.7),
@@ -128,6 +246,7 @@
   .sv-now-playing {
     position: absolute;
     top: 14px; left: 14px;
+    max-width: calc(100% - 130px);
     background: rgba(10, 11, 15, 0.6);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.08);
@@ -141,12 +260,22 @@
     gap: 7px;
     pointer-events: none;
     z-index: 10;
-    max-width: calc(100% - 28px);
+    box-shadow: 0 4px 16px -6px rgba(0,0,0,0.5);
   }
   #sv-now-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 200px;
+  }
+  .sv-now-sep { color: var(--faint); }
+  .sv-now-cat {
+    color: var(--text-dim);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
   }
   .sv-dot {
     width: 7px; height: 7px;
@@ -161,9 +290,27 @@
     50%      { opacity: 0.45; transform: scale(1.25); }
   }
 
+  .sv-quality-chip {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: rgba(10, 11, 15, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(201,162,75,0.35);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gold-soft);
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 4px 16px -6px rgba(0,0,0,0.5);
+  }
+
   .sv-loading-overlay {
     position: absolute; inset: 0;
     background: rgba(6, 7, 10, 0.72);
+    backdrop-filter: blur(3px);
     display: none;
     align-items: center; justify-content: center;
     flex-direction: column;
@@ -175,11 +322,12 @@
   }
   .sv-loading-overlay.active { display: flex; }
   .sv-spinner {
-    width: 34px; height: 34px;
-    border: 2.5px solid rgba(201,162,75,0.15);
-    border-top-color: var(--gold);
+    width: 38px; height: 38px;
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    background: conic-gradient(from 0deg, transparent 0deg, var(--gold) 100deg, transparent 280deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    animation: spin 0.85s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -199,55 +347,20 @@
   }
   .sv-error.active { display: flex; }
   .sv-error-icon {
-    width: 44px; height: 44px;
-    border: 1px solid var(--border);
+    width: 46px; height: 46px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 6px;
-    color: var(--faint);
+    color: var(--gold-soft);
+    background: radial-gradient(circle at 30% 30%, rgba(201,162,75,0.12), transparent 70%);
+    border: 1px solid rgba(201,162,75,0.25);
   }
   .sv-error-icon svg { width: 20px; height: 20px; }
   .sv-error small { color: var(--muted); font-size: 0.78rem; }
 
-  /* ── CHANNEL INFO BAR ─────────────────────────────────── */
-  .sv-info-bar {
-    margin-top: 16px;
-    flex-shrink: 0;
-    background: linear-gradient(180deg, var(--surface-2), var(--surface));
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-lg);
-    padding: 18px 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .sv-channel-name {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
-  .sv-channel-meta {
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-top: 4px;
-    letter-spacing: 0.02em;
-  }
-  .sv-quality-badge {
-    font-size: 0.68rem;
-    font-weight: 700;
-    background: var(--gold-dim);
-    color: var(--gold-soft);
-    padding: 5px 11px;
-    border-radius: 5px;
-    letter-spacing: 0.1em;
-  }
-
   /* ── SIDEBAR / CHANNEL LIST ───────────────────────────── */
   .sv-sidebar {
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -268,7 +381,9 @@
     text-transform: uppercase;
     letter-spacing: 0.16em;
     color: var(--muted);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-soft);
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -304,9 +419,9 @@
     font-size: 0.85rem;
     font-family: var(--sans);
     outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
   }
-  .sv-search:focus { border-color: var(--gold); background: var(--card-hover); }
+  .sv-search:focus { border-color: var(--gold); background: var(--card-hover); box-shadow: 0 0 0 3px var(--gold-dim); }
   .sv-search::placeholder { color: var(--faint); }
 
   .sv-channel-list {
@@ -320,6 +435,7 @@
   }
   .sv-channel-list::-webkit-scrollbar { width: 4px; }
   .sv-channel-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .sv-channel-list::-webkit-scrollbar-thumb:hover { background: rgba(201,162,75,0.4); }
   .sv-channel-list::-webkit-scrollbar-track { background: transparent; }
 
   .sv-ch-btn {
@@ -331,17 +447,23 @@
     border-radius: var(--radius-md);
     padding: 10px 12px;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
     text-align: left;
     width: 100%;
     color: var(--text);
     font-family: var(--sans);
     position: relative;
   }
-  .sv-ch-btn:hover { background: var(--card-hover); border-color: #313650; }
+  .sv-ch-btn:hover {
+    background: var(--card-hover);
+    border-color: #313650;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px -10px rgba(0,0,0,0.6);
+  }
   .sv-ch-btn.active {
     background: var(--gold-dim);
     border-color: rgba(201,162,75,0.45);
+    box-shadow: 0 0 0 1px rgba(201,162,75,0.08), 0 8px 20px -12px var(--gold-glow);
   }
   .sv-ch-btn.active::before {
     content: '';
@@ -353,10 +475,14 @@
   }
   .sv-ch-logo {
     width: 38px; height: 38px;
-    border-radius: 8px;
-    background: var(--surface-2);
+    border-radius: 9px;
+    background: linear-gradient(150deg, var(--surface-2), var(--surface));
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--gold-soft);
     flex-shrink: 0;
     overflow: hidden;
     border: 1px solid var(--border-soft);
@@ -414,29 +540,33 @@
 
   /* auto-hide chrome in fullscreen when idle */
   .sv-video-box.sv-theater .sv-fs-btn,
-  .sv-video-box.sv-theater .sv-now-playing {
+  .sv-video-box.sv-theater .sv-now-playing,
+  .sv-video-box.sv-theater .sv-quality-chip {
     opacity: 0;
     transition: opacity 0.4s ease;
   }
   .sv-video-box.sv-theater:hover .sv-fs-btn,
   .sv-video-box.sv-theater:hover .sv-now-playing,
+  .sv-video-box.sv-theater:hover .sv-quality-chip,
   .sv-video-box.sv-theater.sv-show-chrome .sv-fs-btn,
-  .sv-video-box.sv-theater.sv-show-chrome .sv-now-playing {
+  .sv-video-box.sv-theater.sv-show-chrome .sv-now-playing,
+  .sv-video-box.sv-theater.sv-show-chrome .sv-quality-chip {
     opacity: 1;
   }
 
   /* ── RESPONSIVE ───────────────────────────────────────── */
   @media (max-width: 900px) {
     html, body { overflow: auto; }
+    .sv-app { height: auto; min-height: 100vh; }
     .sv-main {
       grid-template-columns: 1fr;
       height: auto;
-      min-height: 100vh;
+      flex: none;
     }
     .sv-player-wrap {
       height: auto;
     }
-    .sv-video-box {
+    .sv-video-frame {
       aspect-ratio: 16/9;
       flex: none;
     }
@@ -453,13 +583,16 @@
       max-height: 400px;
       flex: none;
     }
+    .sv-topbar-hint {
+      display: none;
+    }
   }
 
   @media (max-width: 500px) {
     .sv-player-wrap { padding: 12px; }
-    .sv-info-bar { padding: 14px 16px; }
-    .sv-channel-name { font-size: 1.05rem; }
     .sv-sidebar { padding: 16px; }
+    .sv-topbar { padding: 0 16px; }
+    .sv-brand-tag { display: none; }
   }
 
   /* focus visibility for accessibility */
@@ -475,61 +608,78 @@
 </head>
 <body>
 
-<!-- MAIN -->
-<div class="sv-main">
+<div class="sv-grain"></div>
 
-  <!-- PLAYER -->
-  <div class="sv-player-wrap">
-    <div class="sv-video-box" id="sv-video-box">
-      <video id="sv-video" controls playsinline autoplay webkit-playsinline x5-playsinline></video>
-      <div class="sv-vignette"></div>
+<div class="sv-app">
 
-      <button class="sv-fs-btn" id="sv-fs-btn" title="Fullscreen (F)" onclick="toggleFullscreen()">
-        <svg id="sv-fs-icon" viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
-        <span id="sv-fs-label">Fullscreen</span>
-      </button>
-
-      <div class="sv-now-playing" id="sv-now-playing">
-        <span class="sv-dot"></span>
-        <span id="sv-now-text">Select a channel</span>
-      </div>
-
-      <div class="sv-loading-overlay" id="sv-loading">
-        <div class="sv-spinner"></div>
-        <span>Loading stream…</span>
-      </div>
-
-      <div class="sv-error" id="sv-error">
-        <div class="sv-error-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
-        </div>
-        <div>Stream unavailable</div>
-        <small>Check the URL or try another channel</small>
-      </div>
-    </div>
-
-    <div class="sv-info-bar">
+  <header class="sv-topbar">
+    <div class="sv-brand">
+      <div class="sv-brand-mark">A</div>
       <div>
-        <div class="sv-channel-name" id="sv-ch-name">— No Channel Selected —</div>
-        <div class="sv-channel-meta" id="sv-ch-meta">Choose a channel from the list</div>
+        <div class="sv-brand-word">Aurel</div>
+        <div class="sv-brand-tag">Live Television</div>
       </div>
-      <span class="sv-quality-badge">HD</span>
     </div>
-  </div>
+    <div class="sv-topbar-hint">
+      <kbd class="sv-kbd">F</kbd> Fullscreen
+    </div>
+  </header>
 
-  <!-- SIDEBAR -->
-  <div class="sv-sidebar">
-    <div class="sv-sidebar-inner">
-      <div class="sv-sidebar-header">
-        <span>Channels</span>
-        <span class="sv-count" id="sv-count"></span>
+  <!-- MAIN -->
+  <div class="sv-main">
+
+    <!-- PLAYER -->
+    <div class="sv-player-wrap">
+      <div class="sv-video-frame">
+        <div class="sv-video-box" id="sv-video-box">
+          <video id="sv-video" controls playsinline autoplay webkit-playsinline x5-playsinline></video>
+          <div class="sv-vignette"></div>
+
+          <button class="sv-fs-btn" id="sv-fs-btn" title="Fullscreen (F)" onclick="toggleFullscreen()">
+            <svg id="sv-fs-icon" viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
+            <span id="sv-fs-label">Fullscreen</span>
+          </button>
+
+          <div class="sv-now-playing" id="sv-now-playing">
+            <span class="sv-dot"></span>
+            <span id="sv-now-text">Select a channel</span>
+            <span class="sv-now-sep" id="sv-now-sep" hidden>·</span>
+            <span id="sv-now-cat" class="sv-now-cat"></span>
+          </div>
+
+          <div class="sv-quality-chip">HD</div>
+
+          <div class="sv-loading-overlay" id="sv-loading">
+            <div class="sv-spinner"></div>
+            <span>Loading stream…</span>
+          </div>
+
+          <div class="sv-error" id="sv-error">
+            <div class="sv-error-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+            </div>
+            <div>Stream unavailable</div>
+            <small>Check the URL or try another channel</small>
+          </div>
+        </div>
       </div>
-      <div class="sv-search-wrap">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input class="sv-search" type="text" placeholder="Search channels…" id="sv-search" oninput="filterChannels(this.value)">
-      </div>
-      <div class="sv-channel-list" id="sv-channel-list"></div>
     </div>
+
+    <!-- SIDEBAR -->
+    <div class="sv-sidebar">
+      <div class="sv-sidebar-inner">
+        <div class="sv-sidebar-header">
+          <span>Channels</span>
+          <span class="sv-count" id="sv-count"></span>
+        </div>
+        <div class="sv-search-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input class="sv-search" type="text" placeholder="Search channels…" id="sv-search" oninput="filterChannels(this.value)">
+        </div>
+        <div class="sv-channel-list" id="sv-channel-list"></div>
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -543,8 +693,8 @@
   const loadDiv = document.getElementById('sv-loading');
   const errDiv = document.getElementById('sv-error');
   const nowText = document.getElementById('sv-now-text');
-  const chName = document.getElementById('sv-ch-name');
-  const chMeta = document.getElementById('sv-ch-meta');
+  const nowCat = document.getElementById('sv-now-cat');
+  const nowSep = document.getElementById('sv-now-sep');
   const countEl = document.getElementById('sv-count');
 
   function showLoading(on) {
@@ -586,8 +736,13 @@
     activeIdx = idx;
 
     nowText.textContent = ch.name;
-    chName.textContent = ch.name;
-    chMeta.textContent = `${ch.category} · Live`;
+    if (ch.category) {
+      nowCat.textContent = ch.category;
+      nowSep.hidden = false;
+    } else {
+      nowCat.textContent = '';
+      nowSep.hidden = true;
+    }
 
     document.querySelectorAll('.sv-ch-btn').forEach((btn) => {
       btn.classList.toggle('active', Number(btn.dataset.idx) === idx);
