@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark">
-<title>Aurel — Live</title>
+<title>Audiibly — Live</title>
 
 <!-- HLS.js for M3U8 playback -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
@@ -631,7 +631,7 @@
 
     <div class="sv-brand-header">
       <div class="sv-brand-row">
-        <span class="sv-brand-word">AUREL</span>
+        <span class="sv-brand-word">Audiibly Play</span>
         <span class="sv-brand-tagline">— live channels</span>
       </div>
       <div class="sv-brand-shimmer"></div>
@@ -755,7 +755,7 @@
     nowText.textContent = ch.name;
     nowSub.innerHTML = `${ch.category} <span class="sv-now-hd">HD</span>`;
     loadingText.textContent = `Loading ${ch.name}…`;
-    document.title = `${ch.name} — Aurel Live`;
+    document.title = `${ch.name} — Audiibly Live`;
 
     document.querySelectorAll('.sv-ch-btn').forEach((btn) => {
       btn.classList.toggle('active', Number(btn.dataset.idx) === idx);
