@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <title>Audiibly — Live</title>
 
@@ -46,9 +46,17 @@
     --serif:  'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', serif;
     --sans:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
     --mono:   'SF Mono', 'Roboto Mono', Consolas, monospace;
+
+    /* dynamic viewport height with graceful fallback (fixes mobile browser chrome + iframe sizing) */
+    --app-height: 100vh;
   }
 
-  html, body { height: 100%; overflow: hidden; }
+  html, body {
+    height: 100%;
+    /* allow scrolling as a safety fallback instead of clipping content
+       if the WordPress iframe height ends up shorter than the layout */
+    overflow: auto;
+  }
 
   body {
     position: relative;
@@ -58,6 +66,7 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     isolation: isolate;
+    min-height: 100dvh;
   }
 
   /* slow-drifting ambient light behind everything — the "aureate" glow */
@@ -86,8 +95,17 @@
   .sv-main {
     display: grid;
     grid-template-columns: 85fr 15fr;
+    height: 100dvh;
+    min-height: 100dvh;
+    width: 100%;
+  }
+
+  /* when the whole app itself is put into fullscreen mode */
+  .sv-main:fullscreen,
+  .sv-main:-webkit-full-screen {
     height: 100vh;
     width: 100vw;
+    background: var(--bg);
   }
 
   /* ── BRAND HEADER ─────────────────────────────────────── */
@@ -151,9 +169,10 @@
   .sv-player-wrap {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
     padding: 20px;
     min-width: 0;
+    min-height: 0;
   }
   .sv-video-box {
     background: #000;
@@ -382,10 +401,11 @@
 
   /* ── SIDEBAR / CHANNEL LIST ───────────────────────────── */
   .sv-sidebar {
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     min-width: 0;
+    min-height: 0;
     padding: 20px 20px 20px 0;
     border-left: 1px solid var(--border-soft);
     background: rgba(16, 18, 25, 0.4);
@@ -579,7 +599,7 @@
     .sv-main {
       grid-template-columns: 1fr;
       height: auto;
-      min-height: 100vh;
+      min-height: 100dvh;
     }
     .sv-player-wrap {
       height: auto;
@@ -624,7 +644,7 @@
 <body>
 
 <!-- MAIN -->
-<div class="sv-main">
+<div class="sv-main" id="sv-main">
 
   <!-- PLAYER -->
   <div class="sv-player-wrap">
@@ -713,6 +733,19 @@
   const nowText = document.getElementById('sv-now-text');
   const nowSub = document.getElementById('sv-now-sub');
   const countEl = document.getElementById('sv-count');
+
+  /* ── DYNAMIC VIEWPORT HEIGHT FIX (mobile browser chrome + iframe) ──
+     Sets a --app-height custom property to the real visible height,
+     recalculated on resize/orientation change. This makes the layout
+     adapt correctly no matter what height the WordPress iframe ends
+     up rendering at, on any device. */
+  function setAppHeight() {
+    const h = window.innerHeight;
+    document.documentElement.style.setProperty('--app-height', h + 'px');
+  }
+  setAppHeight();
+  window.addEventListener('resize', setAppHeight);
+  window.addEventListener('orientationchange', setAppHeight);
 
   function showLoading(on) {
     loadDiv.classList.toggle('active', on);
@@ -940,6 +973,7 @@
 
   /* ── FULLSCREEN ─────────────────────────────────────────── */
   const videoBox = document.getElementById('sv-video-box');
+  const svMain = document.getElementById('sv-main');
   const fsIcon = document.getElementById('sv-fs-icon');
 
   const ICON_FS_ENTER =
@@ -947,13 +981,38 @@
   const ICON_FS_EXIT =
     '<path d="M5 16H3v5h5v-2H5v-3zm-2-8h2V5h3V3H3v5zm13 11h3v-3h2v-5h-5v5h-2v3zm3-11V5h-3V3h5v5h-2z"/>';
 
+  function isFullscreenSupported(el) {
+    return !!(el.requestFullscreen || el.webkitRequestFullscreen);
+  }
+
   function toggleFullscreen() {
 
-    const el = videoBox;
+    const alreadyFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
 
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+    if (!alreadyFs) {
 
-      (el.requestFullscreen || el.webkitRequestFullscreen)?.call(el);
+      // Fullscreen the video box (player only). If that fails (e.g. some
+      // in-iframe restrictions), fall back to fullscreening the whole app
+      // so the person still gets a true fullscreen experience.
+      const target = videoBox;
+
+      const request = target.requestFullscreen || target.webkitRequestFullscreen;
+
+      if (request) {
+        request.call(target).catch?.(() => {
+          const fallback = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+          fallback?.call(svMain);
+        });
+
+        // Some browsers (older WebKit) don't return a promise, so also
+        // guard with a short timeout fallback check.
+        if (!(request.call.length)) {
+          // no-op, promise path already attempted above
+        }
+      } else {
+        const fallback = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+        fallback?.call(svMain);
+      }
 
     } else {
 
