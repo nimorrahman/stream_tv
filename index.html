@@ -117,14 +117,28 @@
     min-width: 0;
     min-height: 0;
   }
+  /* ── FRAME WITH SPREAD SHADOW ─────────────────────────────
+     A soft, wide drop shadow behind the video box for a
+     premium "floating panel" look, without any animation. */
+  .sv-video-frame {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 30px 80px -12px rgba(0,0,0,0.75),
+      0 0 90px -10px rgba(201,162,75,0.14),
+      0 0 140px -20px rgba(124,107,184,0.10);
+  }
+
   .sv-video-box {
     background: #000;
     border-radius: var(--radius-lg);
     overflow: hidden;
     position: relative;
     width: 100%;
-    flex: 1;
-    min-height: 0;
+    height: 100%;
     isolation: isolate;
     box-shadow:
       0 0 0 1px rgba(201,162,75,0.09),
@@ -463,6 +477,48 @@
     min-height: 0;
     flex: 1;
   }
+  .sv-sidebar-top {
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    margin-bottom: 14px;
+  }
+  .sv-brand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(201,162,75,0.16), rgba(201,162,75,0.06));
+    border: 1px solid rgba(201,162,75,0.35);
+    color: var(--gold-soft);
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, color 0.2s ease;
+  }
+  .sv-brand-btn svg {
+    width: 12px; height: 12px;
+    flex-shrink: 0;
+    opacity: 0.75;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .sv-brand-btn:hover {
+    background: linear-gradient(135deg, rgba(201,162,75,0.28), rgba(201,162,75,0.1));
+    border-color: var(--gold);
+    color: var(--gold-bright);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px -8px rgba(201,162,75,0.4);
+  }
+  .sv-brand-btn:hover svg {
+    transform: translate(1px, -1px);
+    opacity: 1;
+  }
+  .sv-brand-btn:active { transform: translateY(0); }
+
   .sv-sidebar-header {
     font-size: 0.68rem;
     font-weight: 700;
@@ -650,9 +706,13 @@
     .sv-player-wrap {
       height: auto;
     }
-    .sv-video-box {
+    .sv-video-frame {
       aspect-ratio: 16/9;
       flex: none;
+    }
+    .sv-video-box {
+      height: auto;
+      aspect-ratio: 16/9;
     }
     .sv-sidebar {
       height: auto;
@@ -694,7 +754,8 @@
   <!-- PLAYER -->
   <div class="sv-player-wrap">
 
-    <div class="sv-video-box" id="sv-video-box">
+    <div class="sv-video-frame">
+      <div class="sv-video-box" id="sv-video-box">
       <video id="sv-video" playsinline webkit-playsinline x5-playsinline autoplay></video>
       <div class="sv-vignette"></div>
 
@@ -738,6 +799,7 @@
           <svg id="sv-fs-icon" viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
         </button>
       </div>
+      </div>
     </div>
 
   </div>
@@ -745,6 +807,12 @@
   <!-- SIDEBAR -->
   <div class="sv-sidebar">
     <div class="sv-sidebar-inner">
+      <div class="sv-sidebar-top">
+        <a class="sv-brand-btn" href="https://audiibly.com" target="_blank" rel="noopener noreferrer">
+          Audiibly
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+        </a>
+      </div>
       <div class="sv-sidebar-header">
         <span>Channels</span>
         <span class="sv-count" id="sv-count"></span>
