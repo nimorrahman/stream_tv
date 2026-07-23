@@ -813,6 +813,19 @@
   }
   .sv-empty strong { font-size: 0.88rem; font-weight: 600; color: var(--text-dim); }
 
+  /* the <video> goes fullscreen on its own, so the custom overlays
+     must step aside — the browser draws its own controls on top */
+  .sv-native-fs .sv-controls,
+  .sv-native-fs .sv-now-playing,
+  .sv-native-fs .sv-vignette {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  video:fullscreen { width: 100%; height: 100%; object-fit: contain; background: #000; }
+  video:-webkit-full-screen { width: 100%; height: 100%; background: #000; }
+
+  /* fallback path, if the video element refuses and the box is used instead */
   .sv-video-box:fullscreen {
     display: flex; align-items: center; justify-content: center;
     border-radius: 0;
@@ -1346,26 +1359,31 @@ function toggleFullscreen() {
   var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
 
   if (!isFs) {
-    // iOS Safari only allows fullscreen on the video element itself
-    if (!videoBox.requestFullscreen && !videoBox.webkitRequestFullscreen &&
-        video.webkitEnterFullscreen) {
-      video.webkitEnterFullscreen();
-      return;
-    }
+    // fullscreen the <video> itself, so the browser's native player takes over
+    var req = video.requestFullscreen || video.webkitRequestFullscreen;
 
-    var req = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
     if (req) {
-      var r = req.call(videoBox);
+      // native controls only exist while fullscreen; the custom bar hides
+      video.setAttribute('controls', '');
+
+      var r = req.call(video);
       if (r && typeof r.catch === 'function') {
         r.catch(function () {
-          var fb = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
-          if (fb) fb.call(svMain);
+          video.removeAttribute('controls');
+          var fb = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
+          if (fb) fb.call(videoBox);
         });
       }
+
+    } else if (video.webkitEnterFullscreen) {
+      // iOS Safari: hands off to the system player
+      video.webkitEnterFullscreen();
+
     } else {
-      var fb2 = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
-      if (fb2) fb2.call(svMain);
+      var fb2 = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
+      if (fb2) fb2.call(videoBox);
     }
+
   } else {
     var exit = document.exitFullscreen || document.webkitExitFullscreen;
     if (exit) exit.call(document);
@@ -1376,16 +1394,38 @@ document.getElementById('sv-fs-btn').addEventListener('click', toggleFullscreen)
 
 function onFsChange() {
   var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+
   fsIcon.innerHTML = isFs ? ICON_FS_EXIT : ICON_FS_ENTER;
+
+  // native controls belong to fullscreen only — strip them on the way out
+  // so they don't stack on top of the custom bar in windowed mode
+  if (!isFs) video.removeAttribute('controls');
+
+  // hide our own chrome while the native player owns the screen
+  videoBox.classList.toggle('sv-native-fs', isFs);
+
   armIdle();
 }
 document.addEventListener('fullscreenchange', onFsChange);
 document.addEventListener('webkitfullscreenchange', onFsChange);
 
+// iOS fires these instead of fullscreenchange
+video.addEventListener('webkitbeginfullscreen', function () {
+  videoBox.classList.add('sv-native-fs');
+});
+video.addEventListener('webkitendfullscreen', function () {
+  videoBox.classList.remove('sv-native-fs');
+  video.removeAttribute('controls');
+});
+
 /* ── idle chrome ────────────────────────────────────────── */
 function armIdle() {
   clearTimeout(idleTimer);
   videoBox.classList.remove('sv-idle');
+
+  // the native player runs its own auto-hide in fullscreen
+  if (videoBox.classList.contains('sv-native-fs')) return;
+
   if (!video.paused) {
     idleTimer = setTimeout(function () { videoBox.classList.add('sv-idle'); }, 2800);
   }
