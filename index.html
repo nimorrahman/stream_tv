@@ -6,57 +6,50 @@
 <meta name="color-scheme" content="dark">
 <title>Audiibly — Live</title>
 
-<!-- HLS.js for M3U8 playback -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
 
 <style>
-  /* ── RESET & BASE ─────────────────────────────────────── */
+  /* ══ RESET ══════════════════════════════════════════════ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:          #0a0b0f;
-    --surface:     #101219;
-    --surface-2:   #151824;
-    --card:        #12141d;
-    --card-hover:  #1a1e2c;
-    --border:      #23273a;
-    --border-soft: #1a1d2b;
+    --bg:          #08090d;
+    --surface:     #0e1016;
+    --surface-2:   #13161f;
+    --card:        #11131b;
+    --card-hover:  #191d29;
+    --border:      #232739;
+    --border-soft: #191c28;
 
     --gold:        #c9a24b;
-    --gold-soft:   #e0bd72;
-    --gold-bright: #f2d597;
-    --gold-dim:    rgba(201, 162, 75, 0.14);
-    --gold-line:   rgba(201, 162, 75, 0.55);
+    --gold-soft:   #e2c07a;
+    --gold-bright: #f5dca8;
+    --gold-dim:    rgba(201, 162, 75, 0.13);
+    --gold-line:   rgba(201, 162, 75, 0.5);
 
     --violet:      #7c6bb8;
-    --violet-dim:  rgba(124, 107, 184, 0.10);
+    --violet-dim:  rgba(124, 107, 184, 0.09);
 
-    --live:        #d64545;
-    --live-glow:   rgba(214, 69, 69, 0.35);
+    --live:        #e05252;
+    --live-glow:   rgba(224, 82, 82, 0.4);
 
-    --text:        #eef0f4;
-    --text-dim:    #b7bbc9;
-    --muted:       #6b7086;
-    --faint:       #454a5e;
+    --text:        #f0f2f6;
+    --text-dim:    #b4b9c8;
+    --muted:       #6a6f85;
+    --faint:       #42465a;
 
-    --radius-lg:   14px;
-    --radius-md:   10px;
-    --radius-sm:   7px;
+    --r-lg: 16px;
+    --r-md: 11px;
+    --r-sm: 8px;
 
-    --serif:  'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', serif;
-    --sans:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
-    --mono:   'SF Mono', 'Roboto Mono', Consolas, monospace;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
 
-    /* dynamic viewport height with graceful fallback (fixes mobile browser chrome + iframe sizing) */
-    --app-height: 100vh;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  html, body {
-    height: 100%;
-    /* allow scrolling as a safety fallback instead of clipping content
-       if the WordPress iframe height ends up shorter than the layout */
-    overflow: auto;
-  }
+  html, body { height: 100%; overflow: auto; }
 
   body {
     position: relative;
@@ -69,7 +62,7 @@
     min-height: 100dvh;
   }
 
-  /* slow-drifting ambient light behind everything — the "aureate" glow */
+  /* ambient aureate glow */
   body::before {
     content: '';
     position: fixed;
@@ -77,705 +70,731 @@
     z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 1100px 620px at 18% -8%, rgba(201,162,75,0.09), transparent 58%),
-      radial-gradient(ellipse 900px 560px at 104% 12%, var(--violet-dim), transparent 55%),
-      radial-gradient(ellipse 700px 500px at 60% 108%, rgba(201,162,75,0.05), transparent 60%),
+      radial-gradient(ellipse 1100px 620px at 16% -10%, rgba(201,162,75,0.10), transparent 58%),
+      radial-gradient(ellipse 900px 560px at 106% 14%, var(--violet-dim), transparent 55%),
+      radial-gradient(ellipse 760px 520px at 55% 110%, rgba(201,162,75,0.055), transparent 62%),
       var(--bg);
     background-repeat: no-repeat;
-    animation: ambientDrift 42s ease-in-out infinite;
+    animation: drift 46s ease-in-out infinite;
   }
-  @keyframes ambientDrift {
+  @keyframes drift {
     0%, 100% { transform: translate3d(0,0,0) scale(1); }
-    50%      { transform: translate3d(-1.5%, 1%, 0) scale(1.03); }
+    50%      { transform: translate3d(-1.6%, 1.2%, 0) scale(1.035); }
   }
 
-  ::selection { background: var(--gold-dim); color: var(--gold-soft); }
+  ::selection { background: var(--gold-dim); color: var(--gold-bright); }
 
-  /* ── MAIN LAYOUT ──────────────────────────────────────── */
+  /* ══ LAYOUT ═════════════════════════════════════════════ */
   .sv-main {
     display: grid;
-    grid-template-columns: 85fr 15fr;
+    grid-template-columns: minmax(0,1fr) 340px;
     height: 100dvh;
     min-height: 100dvh;
     width: 100%;
   }
-
-  /* when the whole app itself is put into fullscreen mode */
-  .sv-main:fullscreen,
-  .sv-main:-webkit-full-screen {
-    height: 100vh;
-    width: 100vw;
-    background: var(--bg);
+  .sv-main:fullscreen, .sv-main:-webkit-full-screen {
+    height: 100vh; width: 100vw; background: var(--bg);
   }
 
-  /* ── PLAYER AREA ──────────────────────────────────────── */
+  /* ══ PLAYER ═════════════════════════════════════════════ */
   .sv-player-wrap {
     display: flex;
     flex-direction: column;
     height: 100dvh;
-    padding: 20px;
-    min-width: 0;
-    min-height: 0;
+    padding: 22px;
+    min-width: 0; min-height: 0;
   }
-  /* ── FRAME WITH SPREAD SHADOW ─────────────────────────────
-     A soft, wide drop shadow behind the video box for a
-     premium "floating panel" look, without any animation. */
+
   .sv-video-frame {
     position: relative;
     flex: 1;
     min-height: 0;
     width: 100%;
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-lg);
     box-shadow:
-      0 30px 80px -12px rgba(0,0,0,0.75),
-      0 0 90px -10px rgba(201,162,75,0.14),
-      0 0 140px -20px rgba(124,107,184,0.10);
+      0 34px 90px -14px rgba(0,0,0,0.8),
+      0 0 100px -12px rgba(201,162,75,0.13),
+      0 0 150px -22px rgba(124,107,184,0.09);
   }
 
   .sv-video-box {
     background: #000;
-    border-radius: var(--radius-lg);
+    border-radius: var(--r-lg);
     overflow: hidden;
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     isolation: isolate;
     box-shadow:
-      0 0 0 1px rgba(201,162,75,0.09),
+      0 0 0 1px rgba(201,162,75,0.10),
       0 0 0 1.5px var(--border-soft),
-      0 1px 0 0 rgba(255,255,255,0.03) inset,
-      0 32px 90px -24px rgba(0,0,0,0.8),
-      0 12px 32px -10px rgba(0,0,0,0.6),
-      0 0 60px -18px rgba(201,162,75,0.06);
-    transition: box-shadow 0.4s ease;
+      0 1px 0 0 rgba(255,255,255,0.035) inset;
   }
 
-  /* fine hairline bezel that sits just inside the shadow ring, like a screen edge */
   .sv-video-box::before {
     content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
+    position: absolute; inset: 0;
+    z-index: 3; pointer-events: none;
     border-radius: inherit;
-    border: 1px solid rgba(255,255,255,0.055);
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.45);
   }
 
-  /* faint gold corner brackets — premium "framed" cue, fades in on hover */
+  /* gold corner brackets */
   .sv-video-box::after {
     content: '';
-    position: absolute;
-    inset: 10px;
-    z-index: 3;
-    pointer-events: none;
+    position: absolute; inset: 12px;
+    z-index: 3; pointer-events: none;
     border-radius: 8px;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.55s var(--ease);
     background:
-      linear-gradient(var(--gold-line), var(--gold-line)) top left / 18px 1.4px no-repeat,
-      linear-gradient(var(--gold-line), var(--gold-line)) top left / 1.4px 18px no-repeat,
-      linear-gradient(var(--gold-line), var(--gold-line)) top right / 18px 1.4px no-repeat,
-      linear-gradient(var(--gold-line), var(--gold-line)) top right / 1.4px 18px no-repeat,
-      linear-gradient(var(--gold-line), var(--gold-line)) bottom left / 18px 1.4px no-repeat,
-      linear-gradient(var(--gold-line), var(--gold-line)) bottom left / 1.4px 18px no-repeat,
-      linear-gradient(var(--gold-line), var(--gold-line)) bottom right / 18px 1.4px no-repeat,
-      linear-gradient(var(--gold-line), var(--gold-line)) bottom right / 1.4px 18px no-repeat;
+      linear-gradient(var(--gold-line),var(--gold-line)) top left / 20px 1.4px no-repeat,
+      linear-gradient(var(--gold-line),var(--gold-line)) top left / 1.4px 20px no-repeat,
+      linear-gradient(var(--gold-line),var(--gold-line)) top right / 20px 1.4px no-repeat,
+      linear-gradient(var(--gold-line),var(--gold-line)) top right / 1.4px 20px no-repeat,
+      linear-gradient(var(--gold-line),var(--gold-line)) bottom left / 20px 1.4px no-repeat,
+      linear-gradient(var(--gold-line),var(--gold-line)) bottom left / 1.4px 20px no-repeat,
+      linear-gradient(var(--gold-line),var(--gold-line)) bottom right / 20px 1.4px no-repeat,
+      linear-gradient(var(--gold-line),var(--gold-line)) bottom right / 1.4px 20px no-repeat;
   }
-  .sv-video-box:hover::after {
-    opacity: 0.55;
-  }
+  .sv-video-box:hover::after { opacity: 0.5; }
 
   .sv-video-box video {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     display: block;
     object-fit: contain;
     background: #000;
   }
 
-  /* subtle vignette over the player for a cinematic frame */
   .sv-vignette {
     position: absolute; inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    box-shadow: inset 0 0 150px 30px rgba(0,0,0,0.42), inset 0 0 2px 0 rgba(0,0,0,0.5);
-    background:
-      linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 10%, transparent 88%, rgba(0,0,0,0.28) 100%);
+    pointer-events: none; z-index: 1;
+    box-shadow: inset 0 0 160px 34px rgba(0,0,0,0.45);
+    background: linear-gradient(180deg, rgba(0,0,0,0.24) 0%, transparent 11%, transparent 86%, rgba(0,0,0,0.34) 100%);
   }
 
-  /* ── NOW PLAYING CHIP ─────────────────────────────────── */
+  /* ══ NOW PLAYING ════════════════════════════════════════ */
   .sv-now-playing {
     position: absolute;
-    top: 16px; left: 16px;
-    background: linear-gradient(155deg, rgba(16,18,27,0.72), rgba(8,9,13,0.68));
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    top: 18px; left: 18px;
+    background: linear-gradient(155deg, rgba(16,18,27,0.78), rgba(8,9,13,0.72));
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
     border: 1px solid rgba(201,162,75,0.2);
-    border-radius: 13px;
-    padding: 9px 16px 9px 12px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    pointer-events: none;
-    z-index: 10;
-    max-width: calc(100% - 32px);
-    box-shadow:
-      0 8px 24px -8px rgba(0,0,0,0.55),
-      0 1px 0 0 rgba(255,255,255,0.05) inset,
-      0 0 0 1px rgba(0,0,0,0.3);
-    transition: opacity 0.45s ease, transform 0.45s ease;
-  }
-  .sv-now-text-group {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    min-width: 0;
-  }
-  #sv-now-text {
-    font-size: 0.83rem;
-    font-weight: 650;
-    letter-spacing: 0.005em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-  }
-  .sv-now-sub {
+    border-radius: 14px;
+    padding: 9px 16px 9px 9px;
     display: flex;
     align-items: center;
-    gap: 7px;
-    font-size: 0.63rem;
+    gap: 11px;
+    pointer-events: none;
+    z-index: 10;
+    max-width: calc(100% - 36px);
+    box-shadow:
+      0 10px 30px -10px rgba(0,0,0,0.6),
+      0 1px 0 0 rgba(255,255,255,0.055) inset;
+    transition: opacity 0.45s var(--ease), transform 0.45s var(--ease-out);
+  }
+  .sv-np-logo {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: var(--surface-2);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; flex-shrink: 0;
+    border: 1px solid rgba(201,162,75,0.22);
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--gold-soft);
+  }
+  .sv-np-logo img { width: 100%; height: 100%; object-fit: contain; }
+  .sv-now-text-group {
+    display: flex; flex-direction: column; gap: 2px; min-width: 0;
+  }
+  #sv-now-text {
+    font-size: 0.86rem;
+    font-weight: 650;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .sv-now-sub {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.62rem;
     color: var(--muted);
-    letter-spacing: 0.07em;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
     white-space: nowrap;
     min-height: 13px;
   }
   .sv-now-hd {
-    background: linear-gradient(135deg, var(--gold-dim), rgba(201,162,75,0.22));
+    background: linear-gradient(135deg, rgba(201,162,75,0.26), rgba(201,162,75,0.1));
     color: var(--gold-bright);
     font-weight: 750;
     padding: 2px 7px;
     border-radius: 4px;
-    font-size: 0.58rem;
-    letter-spacing: 0.09em;
-    border: 1px solid rgba(201,162,75,0.25);
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(201,162,75,0.28);
   }
   .sv-dot {
-    width: 7px; height: 7px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--live);
-    box-shadow: 0 0 0 3px rgba(214,69,69,0.14), 0 0 10px var(--live-glow);
-    animation: pulse 1.8s infinite;
+    box-shadow: 0 0 0 3px rgba(224,82,82,0.15), 0 0 10px var(--live-glow);
+    animation: pulse 1.9s infinite;
     flex-shrink: 0;
-    margin-top: 4px;
   }
   @keyframes pulse {
     0%,100% { opacity: 1; transform: scale(1); }
-    50%      { opacity: 0.45; transform: scale(1.25); }
+    50%     { opacity: 0.4; transform: scale(1.3); }
   }
 
-  /* ── LOADING / ERROR ──────────────────────────────────── */
+  /* ══ LOADING ════════════════════════════════════════════ */
   .sv-loading-overlay {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, rgba(16,18,27,0.7), rgba(4,5,8,0.88));
+    background: radial-gradient(ellipse at center, rgba(16,18,27,0.72), rgba(4,5,8,0.9));
     display: none;
     align-items: center; justify-content: center;
     flex-direction: column;
-    gap: 16px;
-    font-size: 0.85rem;
+    gap: 18px;
+    font-size: 0.84rem;
     color: var(--text-dim);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
     z-index: 8;
-    text-align: center;
-    padding: 20px;
+    text-align: center; padding: 20px;
   }
-  .sv-loading-overlay.active { display: flex; }
-  .sv-spinner {
-    width: 40px; height: 40px;
-    position: relative;
-  }
+  .sv-loading-overlay.active { display: flex; animation: fadeIn 0.3s var(--ease); }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .sv-spinner { width: 42px; height: 42px; position: relative; }
   .sv-spinner::before, .sv-spinner::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2.5px solid transparent;
+    content: ''; position: absolute; inset: 0;
+    border-radius: 50%; border: 2.5px solid transparent;
   }
   .sv-spinner::before {
     border-top-color: var(--gold-soft);
-    border-right-color: rgba(201,162,75,0.25);
-    animation: spin 0.9s cubic-bezier(0.5,0,0.5,1) infinite;
+    border-right-color: rgba(201,162,75,0.22);
+    animation: spin 0.95s cubic-bezier(0.5,0,0.5,1) infinite;
   }
   .sv-spinner::after {
-    inset: 7px;
-    border-top-color: var(--gold-dim);
-    animation: spin 1.4s linear infinite reverse;
+    inset: 8px;
+    border-top-color: rgba(201,162,75,0.35);
+    animation: spin 1.5s linear infinite reverse;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  #sv-loading-text {
-    font-weight: 500;
+  #sv-loading-text { font-weight: 500; }
+  .sv-load-bar {
+    width: 130px; height: 2px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.07);
+    overflow: hidden;
+    position: relative;
+  }
+  .sv-load-bar::after {
+    content: '';
+    position: absolute; inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+    animation: shimmer 1.3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%   { transform: translateX(-120%); }
+    100% { transform: translateX(320%); }
   }
 
+  /* ══ ERROR ══════════════════════════════════════════════ */
   .sv-error {
     position: absolute; inset: 0;
     display: none;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(ellipse at center, rgba(20,12,12,0.55), rgba(4,5,8,0.94));
-    gap: 9px;
-    font-size: 0.88rem;
+    align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, rgba(22,13,13,0.6), rgba(4,5,8,0.95));
+    gap: 10px;
+    font-size: 0.87rem;
     color: var(--text-dim);
-    text-align: center;
-    padding: 20px;
+    text-align: center; padding: 24px;
     z-index: 9;
   }
-  .sv-error.active { display: flex; }
+  .sv-error.active { display: flex; animation: fadeIn 0.35s var(--ease); }
   .sv-error-icon {
-    width: 48px; height: 48px;
-    border: 1px solid rgba(214,69,69,0.3);
-    background: rgba(214,69,69,0.08);
+    width: 52px; height: 52px;
+    border: 1px solid rgba(224,82,82,0.3);
+    background: rgba(224,82,82,0.07);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 8px;
-    color: #e07a7a;
-    box-shadow: 0 0 24px -6px rgba(214,69,69,0.25);
+    margin-bottom: 6px;
+    color: #e58585;
+    box-shadow: 0 0 28px -6px rgba(224,82,82,0.28);
   }
-  .sv-error-icon svg { width: 21px; height: 21px; }
-  .sv-error div:not(.sv-error-icon) { font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
+  .sv-error-icon svg { width: 22px; height: 22px; }
+  .sv-error-title { font-weight: 650; color: var(--text); font-size: 0.95rem; }
   .sv-error small { color: var(--muted); font-size: 0.78rem; }
+  .sv-retry {
+    margin-top: 10px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.78rem; font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
+  }
+  .sv-retry:hover {
+    background: rgba(201,162,75,0.16);
+    border-color: rgba(201,162,75,0.5);
+    transform: translateY(-1px);
+  }
 
-  /* ── CUSTOM CONTROLS BAR ──────────────────────────────── */
+  /* ══ CONTROLS ═══════════════════════════════════════════ */
   .sv-controls-bar {
     position: absolute;
-    left: 10px; right: 10px; bottom: 10px;
+    left: 12px; right: 12px; bottom: 12px;
     z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 10px;
     padding: 9px 12px;
-    border-radius: 13px;
-    background: linear-gradient(155deg, rgba(18,20,29,0.66), rgba(9,10,15,0.72));
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(255,255,255,0.075);
+    border-radius: 14px;
+    background: linear-gradient(155deg, rgba(18,20,29,0.72), rgba(9,10,15,0.76));
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(255,255,255,0.08);
     box-shadow:
-      0 10px 30px -10px rgba(0,0,0,0.6),
-      0 1px 0 0 rgba(255,255,255,0.06) inset,
-      0 0 0 1px rgba(0,0,0,0.3);
-    transition: opacity 0.45s ease, transform 0.45s ease;
+      0 12px 34px -12px rgba(0,0,0,0.65),
+      0 1px 0 0 rgba(255,255,255,0.065) inset;
+    transition: opacity 0.4s var(--ease), transform 0.45s var(--ease-out);
   }
   .sv-ctrl-btn {
-    width: 36px; height: 36px;
+    width: 37px; height: 37px;
     flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.045);
-    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.085);
     border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.22s ease, border-color 0.22s ease, transform 0.15s ease, box-shadow 0.22s ease;
+    color: #fff; cursor: pointer;
+    position: relative; overflow: hidden;
+    transition: background 0.22s var(--ease), border-color 0.22s var(--ease),
+                transform 0.16s var(--ease), box-shadow 0.22s var(--ease);
   }
   .sv-ctrl-btn::before {
     content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(201,162,75,0.35), transparent 70%);
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 110%, rgba(201,162,75,0.4), transparent 70%);
     opacity: 0;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.25s var(--ease);
   }
   .sv-ctrl-btn:hover {
-    background: rgba(201,162,75,0.16);
+    background: rgba(201,162,75,0.15);
     border-color: rgba(201,162,75,0.55);
-    transform: translateY(-1.5px);
-    box-shadow: 0 6px 16px -6px rgba(201,162,75,0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -8px rgba(201,162,75,0.4);
   }
   .sv-ctrl-btn:hover::before { opacity: 1; }
   .sv-ctrl-btn:active { transform: translateY(0); }
   .sv-ctrl-btn svg { width: 16px; height: 16px; fill: #fff; position: relative; z-index: 1; }
 
-  .sv-volume-group {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-  }
+  .sv-volume-group { display: flex; align-items: center; gap: 10px; }
   .sv-volume-slider {
-    width: 80px;
-    height: 4px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: linear-gradient(90deg, var(--gold-soft) var(--vol-pct, 100%), rgba(255,255,255,0.15) var(--vol-pct, 100%));
-    border-radius: 4px;
-    outline: none;
-    cursor: pointer;
-    transition: background 0.15s;
+    width: 86px; height: 4px;
+    -webkit-appearance: none; appearance: none;
+    background: linear-gradient(90deg, var(--gold-soft) var(--vol-pct,100%), rgba(255,255,255,0.14) var(--vol-pct,100%));
+    border-radius: 4px; outline: none; cursor: pointer;
+    transition: background 0.12s;
   }
   .sv-volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 12px; height: 12px;
-    border-radius: 50%;
+    width: 12px; height: 12px; border-radius: 50%;
     background: var(--gold-bright);
-    box-shadow: 0 0 0 3px rgba(201,162,75,0.18), 0 1px 4px rgba(0,0,0,0.5);
-    cursor: pointer;
-    margin-top: -4px;
-    transition: transform 0.15s ease;
+    box-shadow: 0 0 0 3px rgba(201,162,75,0.2), 0 1px 4px rgba(0,0,0,0.6);
+    cursor: pointer; margin-top: -4px;
+    transition: transform 0.16s var(--ease);
   }
-  .sv-volume-slider:hover::-webkit-slider-thumb { transform: scale(1.15); }
+  .sv-volume-slider:hover::-webkit-slider-thumb { transform: scale(1.2); }
   .sv-volume-slider::-moz-range-thumb {
-    width: 12px; height: 12px;
-    border: none;
-    border-radius: 50%;
+    width: 12px; height: 12px; border: none; border-radius: 50%;
     background: var(--gold-bright);
-    box-shadow: 0 0 0 3px rgba(201,162,75,0.18), 0 1px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 0 0 3px rgba(201,162,75,0.2);
     cursor: pointer;
   }
   .sv-volume-slider::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; }
-  .sv-volume-slider::-moz-range-track { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.15); }
+  .sv-volume-slider::-moz-range-track { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.14); }
 
   .sv-ctrl-spacer { flex: 1; }
+  .sv-ctrl-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.09); flex-shrink: 0; }
 
-  .sv-ctrl-divider {
-    width: 1px;
-    height: 20px;
-    background: rgba(255,255,255,0.1);
+  .sv-live-badge {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(224,82,82,0.12);
+    border: 1px solid rgba(224,82,82,0.3);
+    font-size: 0.6rem; font-weight: 750;
+    letter-spacing: 0.12em;
+    color: #f0a0a0;
     flex-shrink: 0;
   }
 
-  /* auto-hide chrome when idle, in both windowed and fullscreen */
-  .sv-video-box.sv-idle .sv-controls-bar,
-  .sv-video-box.sv-idle .sv-now-playing {
-    opacity: 0;
-    pointer-events: none;
+  /* idle hide */
+  .sv-video-box.sv-idle .sv-controls-bar {
+    opacity: 0; transform: translateY(12px); pointer-events: none;
   }
-.sv-video-box:not(:fullscreen).sv-idle:hover .sv-controls-bar,
-.sv-video-box:not(:fullscreen).sv-idle:hover .sv-now-playing {
-  opacity: 1;
-  pointer-events: auto;
-}
+  .sv-video-box.sv-idle .sv-now-playing {
+    opacity: 0; transform: translateY(-10px); pointer-events: none;
+  }
+  .sv-video-box:not(:fullscreen).sv-idle:hover .sv-controls-bar,
+  .sv-video-box:not(:fullscreen).sv-idle:hover .sv-now-playing {
+    opacity: 1; transform: translateY(0); pointer-events: auto;
+  }
   .sv-video-box:fullscreen.sv-idle { cursor: none; }
 
-  /* ── SIDEBAR / CHANNEL LIST ───────────────────────────── */
+  /* ══ SIDEBAR ════════════════════════════════════════════ */
   .sv-sidebar {
     height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-    padding: 20px 20px 20px 0;
+    display: flex; flex-direction: column;
+    min-width: 0; min-height: 0;
+    padding: 22px 22px 22px 0;
     border-left: 1px solid var(--border-soft);
-    background: rgba(16, 18, 25, 0.4);
+    background: linear-gradient(180deg, rgba(16,18,25,0.55), rgba(10,11,16,0.42));
   }
   .sv-sidebar-inner {
-    padding-left: 18px;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    flex: 1;
+    padding-left: 20px;
+    display: flex; flex-direction: column;
+    min-height: 0; flex: 1;
   }
-  .sv-sidebar-top {
-    display: flex;
-    justify-content: flex-end;
-    flex-shrink: 0;
-    margin-bottom: 14px;
-  }
-  .sv-brand-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 13px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, rgba(201,162,75,0.16), rgba(201,162,75,0.06));
-    border: 1px solid rgba(201,162,75,0.35);
-    color: var(--gold-soft);
-    font-family: var(--serif);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, color 0.2s ease;
-  }
-  .sv-brand-btn svg {
-    width: 12px; height: 12px;
-    flex-shrink: 0;
-    opacity: 0.75;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-  .sv-brand-btn:hover {
-    background: linear-gradient(135deg, rgba(201,162,75,0.28), rgba(201,162,75,0.1));
-    border-color: var(--gold);
-    color: var(--gold-bright);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px -8px rgba(201,162,75,0.4);
-  }
-  .sv-brand-btn:hover svg {
-    transform: translate(1px, -1px);
-    opacity: 1;
-  }
-  .sv-brand-btn:active { transform: translateY(0); }
 
-  .sv-sidebar-header {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--muted);
-    margin-bottom: 12px;
-    padding-bottom: 12px;
+  /* brand */
+  .sv-brand {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
     border-bottom: 1px solid var(--border-soft);
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
-  .sv-count {
+  .sv-brand-mark {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .sv-brand-glyph {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(140deg, rgba(201,162,75,0.28), rgba(124,107,184,0.16));
+    border: 1px solid rgba(201,162,75,0.38);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px -6px rgba(201,162,75,0.4);
+  }
+  .sv-brand-glyph svg { width: 16px; height: 16px; stroke: var(--gold-bright); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .sv-brand-name {
+    font-family: var(--serif);
+    font-size: 1.05rem; font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--gold-soft);
+    line-height: 1.15;
+  }
+  .sv-brand-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
     color: var(--faint);
     font-weight: 600;
-    letter-spacing: 0.05em;
   }
-  .sv-search-wrap {
-    position: relative;
-    margin-bottom: 16px;
+  .sv-brand-ext {
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    background: rgba(18,20,29,0.6);
+    color: var(--muted);
     flex-shrink: 0;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.18s var(--ease);
   }
-  .sv-search-wrap svg {
-    position: absolute;
-    left: 12px; top: 50%;
+  .sv-brand-ext svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .sv-brand-ext:hover {
+    color: var(--gold-bright);
+    border-color: rgba(201,162,75,0.45);
+    transform: translate(1px,-1px);
+  }
+
+  /* search */
+  .sv-search-wrap { position: relative; margin-bottom: 14px; flex-shrink: 0; }
+  .sv-search-wrap > svg {
+    position: absolute; left: 13px; top: 50%;
     transform: translateY(-50%);
     width: 14px; height: 14px;
-    fill: none;
-    stroke: var(--muted);
-    stroke-width: 2;
+    fill: none; stroke: var(--muted); stroke-width: 2;
     pointer-events: none;
+    transition: stroke 0.2s var(--ease);
   }
+  .sv-search-wrap:focus-within > svg { stroke: var(--gold-soft); }
   .sv-search {
     width: 100%;
-    background: rgba(18, 20, 29, 0.7);
-    backdrop-filter: blur(6px);
+    background: rgba(17,19,27,0.75);
     border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 10px 12px 10px 34px;
+    border-radius: 10px;
+    padding: 11px 34px 11px 36px;
     color: var(--text);
     font-size: 0.85rem;
     font-family: var(--sans);
     outline: none;
-    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
   }
   .sv-search:focus {
-    border-color: var(--gold);
+    border-color: rgba(201,162,75,0.6);
     background: var(--card-hover);
     box-shadow: 0 0 0 3px var(--gold-dim);
   }
   .sv-search::placeholder { color: var(--faint); }
+  .sv-search-clear {
+    position: absolute; right: 9px; top: 50%;
+    transform: translateY(-50%);
+    width: 20px; height: 20px;
+    border: none; background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+    color: var(--muted);
+    display: none;
+    align-items: center; justify-content: center;
+    cursor: pointer; font-size: 0.75rem; line-height: 1;
+    transition: background 0.18s, color 0.18s;
+  }
+  .sv-search-clear.show { display: flex; }
+  .sv-search-clear:hover { background: rgba(201,162,75,0.2); color: var(--gold-bright); }
+
+  /* category rail */
+  .sv-cat-shell { position: relative; flex-shrink: 0; margin-bottom: 14px; }
+  .sv-cat-shell::before, .sv-cat-shell::after {
+    content: ''; position: absolute; top: 0; bottom: 0;
+    width: 22px; pointer-events: none; z-index: 2;
+  }
+  .sv-cat-shell::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+  .sv-cat-shell::after  { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
 
   .sv-cat-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
-    flex-shrink: 0;
-    max-height: 88px;
-    overflow-y: auto;
-    padding-right: 2px;
+    display: flex; gap: 7px;
+    overflow-x: auto;
+    padding: 2px 4px;
+    scrollbar-width: none;
   }
-  .sv-cat-row::-webkit-scrollbar { width: 3px; }
-  .sv-cat-row::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .sv-cat-row::-webkit-scrollbar { display: none; }
+
   .sv-cat-chip {
-    padding: 5px 11px;
+    padding: 6px 13px;
     border-radius: 999px;
-    background: rgba(18,20,29,0.7);
+    background: rgba(17,19,27,0.7);
     border: 1px solid var(--border-soft);
     color: var(--text-dim);
     font-family: var(--sans);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
+    font-size: 0.71rem; font-weight: 600;
+    letter-spacing: 0.015em;
+    cursor: pointer; white-space: nowrap;
+    flex-shrink: 0;
+    display: flex; align-items: center; gap: 6px;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease),
+                color 0.2s var(--ease), transform 0.16s var(--ease);
+  }
+  .sv-cat-chip span {
+    font-size: 0.62rem;
+    color: var(--faint);
+    font-weight: 700;
   }
   .sv-cat-chip:hover {
     background: var(--card-hover);
-    border-color: #313650;
+    border-color: #2e3348;
     color: var(--text);
-    transform: translateY(-1px);
+    transform: translateY(-1.5px);
   }
   .sv-cat-chip.active {
-    background: linear-gradient(135deg, rgba(201,162,75,0.22), rgba(201,162,75,0.07));
-    border-color: rgba(201,162,75,0.5);
+    background: linear-gradient(135deg, rgba(201,162,75,0.24), rgba(201,162,75,0.07));
+    border-color: rgba(201,162,75,0.52);
     color: var(--gold-bright);
-    box-shadow: 0 4px 14px -6px rgba(201,162,75,0.35);
+    box-shadow: 0 5px 16px -7px rgba(201,162,75,0.45);
   }
+  .sv-cat-chip.active span { color: rgba(245,220,168,0.6); }
 
-  .sv-channel-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    padding-right: 4px;
+  /* list header */
+  .sv-list-head {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.63rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.17em;
+    color: var(--muted);
+    margin-bottom: 10px;
+    flex-shrink: 0;
   }
-  .sv-channel-list::-webkit-scrollbar { width: 4px; }
-  .sv-channel-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-  .sv-channel-list::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+  .sv-count { color: var(--faint); font-weight: 600; letter-spacing: 0.06em; }
+
+  /* channel list */
+  .sv-channel-list {
+    display: flex; flex-direction: column; gap: 6px;
+    flex: 1; min-height: 0;
+    overflow-y: auto;
+    padding-right: 5px;
+    scroll-behavior: smooth;
+  }
+  .sv-channel-list::-webkit-scrollbar { width: 5px; }
+  .sv-channel-list::-webkit-scrollbar-thumb {
+    background: var(--border); border-radius: 5px;
+  }
+  .sv-channel-list::-webkit-scrollbar-thumb:hover { background: rgba(201,162,75,0.4); }
   .sv-channel-list::-webkit-scrollbar-track { background: transparent; }
 
-  @keyframes chFadeIn {
-    from { opacity: 0; transform: translateY(6px); }
+  @keyframes chIn {
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   .sv-ch-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     background: var(--card);
     border: 1px solid var(--border-soft);
-    border-radius: var(--radius-md);
+    border-radius: var(--r-md);
     padding: 10px 12px;
     cursor: pointer;
-    transition: background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s;
-    text-align: left;
-    width: 100%;
+    text-align: left; width: 100%;
     color: var(--text);
     font-family: var(--sans);
     position: relative;
-    animation: chFadeIn 0.4s ease backwards;
-    animation-delay: calc(var(--i, 0) * 28ms);
+    overflow: hidden;
+    animation: chIn 0.42s var(--ease-out) backwards;
+    animation-delay: calc(var(--i,0) * 22ms);
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease),
+                transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
   }
   .sv-ch-btn:hover {
     background: var(--card-hover);
-    border-color: #313650;
-    transform: translateX(2px);
+    border-color: #2e3348;
+    transform: translateX(3px);
+    box-shadow: 0 6px 18px -10px rgba(0,0,0,0.7);
   }
   .sv-ch-btn.active {
-    background: linear-gradient(90deg, var(--gold-dim), rgba(201,162,75,0.03));
-    border-color: rgba(201,162,75,0.45);
-    box-shadow: 0 4px 18px -8px rgba(201,162,75,0.25);
+    background: linear-gradient(90deg, rgba(201,162,75,0.15), rgba(201,162,75,0.025) 60%);
+    border-color: rgba(201,162,75,0.42);
+    box-shadow: 0 6px 22px -10px rgba(201,162,75,0.3);
   }
   .sv-ch-btn.active::before {
     content: '';
     position: absolute;
-    left: -1px; top: 8px; bottom: 8px;
+    left: 0; top: 7px; bottom: 7px;
     width: 3px;
     background: linear-gradient(180deg, var(--gold-bright), var(--gold));
-    border-radius: 3px;
-    box-shadow: 0 0 8px rgba(201,162,75,0.55);
+    border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 10px rgba(201,162,75,0.6);
   }
+
   .sv-ch-logo {
-    width: 38px; height: 38px;
-    border-radius: 8px;
-    background: var(--surface-2);
+    width: 40px; height: 40px;
+    border-radius: 9px;
+    background: linear-gradient(150deg, var(--surface-2), #0f1219);
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    overflow: hidden;
+    font-size: 1rem; font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0; overflow: hidden;
     border: 1px solid var(--border-soft);
-    transition: box-shadow 0.2s, border-color 0.2s;
+    transition: box-shadow 0.22s var(--ease), border-color 0.22s var(--ease);
   }
+  .sv-ch-btn:hover .sv-ch-logo { border-color: #2e3348; }
   .sv-ch-btn.active .sv-ch-logo {
     border-color: rgba(201,162,75,0.5);
-    box-shadow: 0 0 0 3px var(--gold-dim);
+    box-shadow: 0 0 0 3px var(--gold-dim), 0 0 14px -4px rgba(201,162,75,0.5);
+    color: var(--gold-soft);
   }
-  .sv-ch-logo img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-  }
+  .sv-ch-logo img { width: 100%; height: 100%; object-fit: contain; }
+
   .sv-ch-info { flex: 1; min-width: 0; }
   .sv-ch-title {
-    font-size: 0.84rem;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.845rem; font-weight: 600;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: color 0.2s var(--ease);
   }
-  .sv-ch-btn.active .sv-ch-title { color: var(--gold-soft); }
+  .sv-ch-btn.active .sv-ch-title { color: var(--gold-bright); }
   .sv-ch-cat {
-    font-size: 0.7rem;
+    font-size: 0.685rem;
     color: var(--muted);
     margin-top: 2px;
-    letter-spacing: 0.01em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
+
   .sv-ch-live {
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--faint);
     flex-shrink: 0;
+    transition: background 0.22s var(--ease), box-shadow 0.22s var(--ease);
   }
   .sv-ch-btn.active .sv-ch-live {
     background: var(--live);
-    box-shadow: 0 0 6px var(--live-glow);
+    box-shadow: 0 0 8px var(--live-glow);
+    animation: pulse 1.9s infinite;
   }
 
+  /* empty state */
   .sv-empty {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
     color: var(--faint);
     text-align: center;
-    padding: 30px 10px;
-    font-size: 0.85rem;
+    padding: 40px 16px;
+    font-size: 0.84rem;
   }
+  .sv-empty svg {
+    width: 30px; height: 30px;
+    stroke: var(--faint); fill: none; stroke-width: 1.5;
+    opacity: 0.7;
+  }
+  .sv-empty strong { color: var(--text-dim); font-weight: 600; font-size: 0.88rem; }
 
-  /* ── FULLSCREEN MODE ───────────────────────────────────── */
+  /* fullscreen */
   .sv-video-box:fullscreen {
     border-radius: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
   }
-  .sv-video-box:fullscreen video {
-    max-height: 100vh;
-  }
-  .sv-video-box:-webkit-full-screen {
-    border-radius: 0;
+  .sv-video-box:fullscreen video { max-height: 100vh; }
+  .sv-video-box:-webkit-full-screen { border-radius: 0; }
+
+  /* ══ RESPONSIVE ═════════════════════════════════════════ */
+  @media (max-width: 1000px) {
+    .sv-main { grid-template-columns: minmax(0,1fr) 300px; }
   }
 
-  /* ── RESPONSIVE ───────────────────────────────────────── */
   @media (max-width: 900px) {
     html, body { overflow: auto; }
     .sv-main {
       grid-template-columns: 1fr;
-      height: auto;
-      min-height: 100dvh;
+      height: auto; min-height: 100dvh;
     }
     .sv-player-wrap {
       height: auto;
+      padding: 14px 14px 6px;
+      position: sticky; top: 0; z-index: 20;
+      background: linear-gradient(180deg, var(--bg) 78%, transparent);
     }
-    .sv-video-frame {
-      aspect-ratio: 16/9;
-      flex: none;
-    }
-    .sv-video-box {
-      height: auto;
-      aspect-ratio: 16/9;
-    }
+    .sv-video-frame { aspect-ratio: 16/9; flex: none; }
+    .sv-video-box { height: auto; aspect-ratio: 16/9; }
     .sv-sidebar {
       height: auto;
       border-left: none;
       border-top: 1px solid var(--border-soft);
-      padding: 20px;
+      padding: 18px 16px 24px;
+      border-radius: 20px 20px 0 0;
+      margin-top: 8px;
     }
-    .sv-sidebar-inner {
-      padding-left: 0;
-    }
-    .sv-channel-list {
-      max-height: 400px;
-      flex: none;
-    }
+    .sv-sidebar-inner { padding-left: 0; }
+    .sv-channel-list { max-height: none; flex: none; overflow: visible; padding-right: 0; }
+    .sv-cat-shell::before, .sv-cat-shell::after { display: none; }
   }
 
   @media (max-width: 500px) {
-    .sv-player-wrap { padding: 12px; }
-    .sv-sidebar { padding: 16px; }
-    .sv-volume-slider { width: 52px; }
+    .sv-player-wrap { padding: 10px 10px 4px; }
+    .sv-sidebar { padding: 16px 13px 22px; }
+    .sv-volume-slider { width: 54px; }
+    .sv-now-playing { top: 12px; left: 12px; padding: 7px 13px 7px 7px; }
+    .sv-np-logo { width: 28px; height: 28px; }
+    .sv-controls-bar { left: 9px; right: 9px; bottom: 9px; padding: 8px 10px; gap: 8px; }
+    .sv-ctrl-btn { width: 34px; height: 34px; }
+    .sv-live-badge { display: none; }
   }
 
-  /* focus visibility for accessibility */
-  button:focus-visible, input:focus-visible {
+  button:focus-visible, input:focus-visible, a:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 2px;
   }
@@ -787,452 +806,457 @@
 </head>
 <body>
 
-<!-- MAIN -->
 <div class="sv-main" id="sv-main">
 
-  <!-- PLAYER -->
+  <!-- ══ PLAYER ══ -->
   <div class="sv-player-wrap">
-
     <div class="sv-video-frame">
       <div class="sv-video-box" id="sv-video-box">
-      <video id="sv-video" playsinline webkit-playsinline x5-playsinline autoplay></video>
-      <div class="sv-vignette"></div>
 
-      <div class="sv-now-playing" id="sv-now-playing">
-        <span class="sv-dot"></span>
-        <div class="sv-now-text-group">
-          <span id="sv-now-text">Select a channel</span>
-          <span class="sv-now-sub" id="sv-now-sub"></span>
+        <video id="sv-video" playsinline webkit-playsinline x5-playsinline autoplay></video>
+        <div class="sv-vignette"></div>
+
+        <div class="sv-now-playing" id="sv-now-playing">
+          <div class="sv-np-logo" id="sv-np-logo">—</div>
+          <div class="sv-now-text-group">
+            <span id="sv-now-text">Select a channel</span>
+            <span class="sv-now-sub" id="sv-now-sub"></span>
+          </div>
         </div>
-      </div>
 
-      <div class="sv-loading-overlay" id="sv-loading">
-        <div class="sv-spinner"></div>
-        <span id="sv-loading-text">Loading stream…</span>
-      </div>
-
-      <div class="sv-error" id="sv-error">
-        <div class="sv-error-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+        <div class="sv-loading-overlay" id="sv-loading">
+          <div class="sv-spinner"></div>
+          <span id="sv-loading-text">Loading stream…</span>
+          <div class="sv-load-bar"></div>
         </div>
-        <div>Stream unavailable</div>
-        <small>Check the URL or try another channel</small>
-      </div>
 
-      <div class="sv-controls-bar" id="sv-controls-bar">
-        <button class="sv-ctrl-btn" id="sv-play-btn" title="Play / Pause (Space)" aria-label="Play or pause" onclick="togglePlay()">
-          <svg id="sv-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
+        <div class="sv-error" id="sv-error">
+          <div class="sv-error-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
+            </svg>
+          </div>
+          <div class="sv-error-title">Stream unavailable</div>
+          <small>This source may be offline. Try another channel.</small>
+          <button class="sv-retry" id="sv-retry">Retry</button>
+        </div>
 
-        <div class="sv-volume-group">
-          <button class="sv-ctrl-btn" id="sv-mute-btn" title="Mute (M)" aria-label="Mute or unmute" onclick="toggleMute()">
-            <svg id="sv-mute-icon" viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/><path d="M14 4.45v2.06c2.89.86 5 3.54 5 6.49s-2.11 5.63-5 6.49v2.06c4.01-.91 7-4.49 7-8.55s-2.99-7.64-7-8.55z"/></svg>
+        <div class="sv-controls-bar" id="sv-controls-bar">
+          <button class="sv-ctrl-btn" id="sv-play-btn" title="Play / Pause (Space)" aria-label="Play or pause">
+            <svg id="sv-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </button>
-          <input type="range" class="sv-volume-slider" id="sv-volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+
+          <div class="sv-volume-group">
+            <button class="sv-ctrl-btn" id="sv-mute-btn" title="Mute (M)" aria-label="Mute or unmute">
+              <svg id="sv-mute-icon" viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/><path d="M14 4.45v2.06c2.89.86 5 3.54 5 6.49s-2.11 5.63-5 6.49v2.06c4.01-.91 7-4.49 7-8.55s-2.99-7.64-7-8.55z"/></svg>
+            </button>
+            <input type="range" class="sv-volume-slider" id="sv-volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+          </div>
+
+          <div class="sv-ctrl-spacer"></div>
+
+          <div class="sv-live-badge"><span class="sv-dot"></span>LIVE</div>
+          <div class="sv-ctrl-divider"></div>
+
+          <button class="sv-ctrl-btn" id="sv-fs-btn" title="Fullscreen (F)" aria-label="Toggle fullscreen">
+            <svg id="sv-fs-icon" viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
+          </button>
         </div>
 
-        <div class="sv-ctrl-spacer"></div>
-        <div class="sv-ctrl-divider"></div>
-
-        <button class="sv-ctrl-btn" id="sv-fs-btn" title="Fullscreen (F)" aria-label="Toggle fullscreen" onclick="toggleFullscreen()">
-          <svg id="sv-fs-icon" viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
-        </button>
-      </div>
       </div>
     </div>
-
   </div>
 
-  <!-- SIDEBAR -->
+  <!-- ══ SIDEBAR ══ -->
   <div class="sv-sidebar">
     <div class="sv-sidebar-inner">
-      <div class="sv-sidebar-top">
-        <a class="sv-brand-btn" href="https://audiibly.com" target="_blank" rel="noopener noreferrer">
-          Audiibly
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+
+      <div class="sv-brand">
+        <a class="sv-brand-mark" href="https://audiibly.com" target="_blank" rel="noopener noreferrer">
+          <div class="sv-brand-glyph">
+            <svg viewBox="0 0 24 24"><path d="M4 12h2l2-6 3 13 3-9 2 4h4"/></svg>
+          </div>
+          <div>
+            <div class="sv-brand-name">Audiibly</div>
+            <div class="sv-brand-tag">Live TV</div>
+          </div>
+        </a>
+        <a class="sv-brand-ext" href="https://audiibly.com" target="_blank" rel="noopener noreferrer" title="Visit Audiibly">
+          <svg viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
         </a>
       </div>
-      <div class="sv-sidebar-header">
+
+      <div class="sv-search-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input class="sv-search" type="text" placeholder="Search channels…" id="sv-search" autocomplete="off">
+        <button class="sv-search-clear" id="sv-search-clear" aria-label="Clear search">✕</button>
+      </div>
+
+      <div class="sv-cat-shell">
+        <div class="sv-cat-row" id="sv-cat-row"></div>
+      </div>
+
+      <div class="sv-list-head">
         <span>Channels</span>
         <span class="sv-count" id="sv-count"></span>
       </div>
-      <div class="sv-search-wrap">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input class="sv-search" type="text" placeholder="Search channels…" id="sv-search" oninput="filterChannels(this.value)">
-      </div>
-      <div class="sv-cat-row" id="sv-cat-row"></div>
+
       <div class="sv-channel-list" id="sv-channel-list"></div>
+
     </div>
   </div>
 
 </div>
 
 <script>
-  let CHANNELS = [];
-  let hls = null;
-  let activeIdx = -1;
+'use strict';
 
-  const video = document.getElementById('sv-video');
-  const loadDiv = document.getElementById('sv-loading');
-  const loadingText = document.getElementById('sv-loading-text');
-  const errDiv = document.getElementById('sv-error');
-  const nowText = document.getElementById('sv-now-text');
-  const nowSub = document.getElementById('sv-now-sub');
-  const countEl = document.getElementById('sv-count');
+let CHANNELS = [];
+let hls = null;
+let activeIdx = -1;
+let activeCat = 'All';
+let idleTimer = null;
 
-  /* ── DYNAMIC VIEWPORT HEIGHT FIX (mobile browser chrome + iframe) ──
-     Sets a --app-height custom property to the real visible height,
-     recalculated on resize/orientation change. This makes the layout
-     adapt correctly no matter what height the WordPress iframe ends
-     up rendering at, on any device. */
-  function setAppHeight() {
-    const h = window.innerHeight;
-    document.documentElement.style.setProperty('--app-height', h + 'px');
+const video       = document.getElementById('sv-video');
+const videoBox    = document.getElementById('sv-video-box');
+const svMain      = document.getElementById('sv-main');
+const loadDiv     = document.getElementById('sv-loading');
+const loadingText = document.getElementById('sv-loading-text');
+const errDiv      = document.getElementById('sv-error');
+const nowText     = document.getElementById('sv-now-text');
+const nowSub      = document.getElementById('sv-now-sub');
+const npLogo      = document.getElementById('sv-np-logo');
+const countEl     = document.getElementById('sv-count');
+const listEl      = document.getElementById('sv-channel-list');
+const catRow      = document.getElementById('sv-cat-row');
+const searchEl    = document.getElementById('sv-search');
+const clearBtn    = document.getElementById('sv-search-clear');
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+const isImg = u => typeof u === 'string' && (u.startsWith('http') || u.startsWith('/'));
+
+/* ── viewport height fix ─────────────────────────────── */
+function setAppHeight() {
+  document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
+}
+setAppHeight();
+window.addEventListener('resize', setAppHeight);
+window.addEventListener('orientationchange', setAppHeight);
+
+const showLoading = on => loadDiv.classList.toggle('active', on);
+const showError   = on => errDiv.classList.toggle('active', on);
+
+/* ── load data ───────────────────────────────────────── */
+async function loadChannelsFromJson() {
+  try {
+    const res = await fetch('channels.json');
+    if (!res.ok) throw new Error('Failed to load channels');
+    CHANNELS = await res.json();
+
+    renderCategories();
+    applyFilters();
+
+    if (CHANNELS.length) loadChannel(0);
+  } catch (err) {
+    console.error(err);
+    listEl.innerHTML = `
+      <div class="sv-empty">
+        <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        <strong>Couldn't load channels</strong>
+        <span>Check that channels.json is reachable.</span>
+      </div>`;
   }
-  setAppHeight();
-  window.addEventListener('resize', setAppHeight);
-  window.addEventListener('orientationchange', setAppHeight);
+}
 
-  function showLoading(on) {
-    loadDiv.classList.toggle('active', on);
+/* ── categories ──────────────────────────────────────── */
+function renderCategories() {
+  const counts = CHANNELS.reduce((m, c) => {
+    m[c.category] = (m[c.category] || 0) + 1;
+    return m;
+  }, {});
+
+  const cats = ['All', ...Object.keys(counts).sort()];
+  catRow.innerHTML = '';
+
+  cats.forEach(cat => {
+    const n = cat === 'All' ? CHANNELS.length : counts[cat];
+    const chip = document.createElement('button');
+    chip.className = 'sv-cat-chip' + (cat === activeCat ? ' active' : '');
+    chip.dataset.cat = cat;
+    chip.innerHTML = `${esc(cat)}<span>${n}</span>`;
+    chip.addEventListener('click', () => {
+      activeCat = cat;
+      catRow.querySelectorAll('.sv-cat-chip').forEach(c =>
+        c.classList.toggle('active', c.dataset.cat === cat));
+      chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      applyFilters();
+    });
+    catRow.appendChild(chip);
+  });
+}
+
+/* ── filtering ───────────────────────────────────────── */
+function applyFilters() {
+  const q = searchEl.value.toLowerCase().trim();
+  clearBtn.classList.toggle('show', q.length > 0);
+
+  const filtered = CHANNELS.filter(c => {
+    const catOk = activeCat === 'All' || c.category === activeCat;
+    if (!catOk) return false;
+    if (!q) return true;
+    return c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q);
+  });
+
+  renderChannels(filtered);
+}
+
+searchEl.addEventListener('input', applyFilters);
+clearBtn.addEventListener('click', () => {
+  searchEl.value = '';
+  applyFilters();
+  searchEl.focus();
+});
+
+/* ── render list ─────────────────────────────────────── */
+function renderChannels(list) {
+  listEl.innerHTML = '';
+  countEl.textContent = CHANNELS.length ? `${list.length} / ${CHANNELS.length}` : '';
+
+  if (!list.length) {
+    listEl.innerHTML = `
+      <div class="sv-empty">
+        <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <strong>No channels found</strong>
+        <span>Try a different search or category.</span>
+      </div>`;
+    return;
   }
 
-  function showError(on) {
-    errDiv.classList.toggle('active', on);
-  }
+  const frag = document.createDocumentFragment();
 
-  async function loadChannelsFromJson() {
-    try {
-      const response = await fetch('channels.json');
+  list.forEach((ch, i) => {
+    const realIdx = CHANNELS.indexOf(ch);
+    const btn = document.createElement('button');
 
-      if (!response.ok) {
-        throw new Error('Failed to load channels');
-      }
+    btn.className = 'sv-ch-btn' + (realIdx === activeIdx ? ' active' : '');
+    btn.dataset.idx = realIdx;
+    btn.style.setProperty('--i', Math.min(i, 24));
 
-      CHANNELS = await response.json();
-      renderCategories();
-      renderChannels(CHANNELS);
+    const logo = isImg(ch.logo)
+      ? `<img src="${esc(ch.logo)}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${esc(ch.name.charAt(0))}'))">`
+      : esc(ch.name.charAt(0).toUpperCase());
 
-      if (CHANNELS.length > 0) {
-        loadChannel(0);
-      }
+    btn.innerHTML = `
+      <div class="sv-ch-logo">${logo}</div>
+      <div class="sv-ch-info">
+        <div class="sv-ch-title">${esc(ch.name)}</div>
+        <div class="sv-ch-cat">${esc(ch.category)}</div>
+      </div>
+      <div class="sv-ch-live"></div>`;
 
-    } catch (error) {
-      console.error(error);
-      document.getElementById('sv-channel-list').innerHTML =
-        '<div class="sv-empty">Couldn\'t load the channel list.</div>';
-    }
-  }
+    btn.addEventListener('click', () => loadChannel(realIdx));
+    frag.appendChild(btn);
+  });
 
-  function loadChannel(idx) {
+  listEl.appendChild(frag);
+}
 
-    const ch = CHANNELS[idx];
-    if (!ch) return;
+/* ── playback ────────────────────────────────────────── */
+function loadChannel(idx) {
+  const ch = CHANNELS[idx];
+  if (!ch) return;
 
-    activeIdx = idx;
+  activeIdx = idx;
 
-    nowText.textContent = ch.name;
-    nowSub.innerHTML = `${ch.category} <span class="sv-now-hd">HD</span>`;
-    loadingText.textContent = `Loading ${ch.name}…`;
-    document.title = `${ch.name} — Audiibly Live`;
+  nowText.textContent = ch.name;
+  nowSub.innerHTML = `${esc(ch.category)} <span class="sv-now-hd">HD</span>`;
+  npLogo.innerHTML = isImg(ch.logo)
+    ? `<img src="${esc(ch.logo)}" alt="" onerror="this.replaceWith(document.createTextNode('${esc(ch.name.charAt(0))}'))">`
+    : esc(ch.name.charAt(0).toUpperCase());
 
-    document.querySelectorAll('.sv-ch-btn').forEach((btn) => {
-      btn.classList.toggle('active', Number(btn.dataset.idx) === idx);
+  loadingText.textContent = `Loading ${ch.name}…`;
+  document.title = `${ch.name} — Audiibly Live`;
+
+  document.querySelectorAll('.sv-ch-btn').forEach(b =>
+    b.classList.toggle('active', Number(b.dataset.idx) === idx));
+
+  showLoading(true);
+  showError(false);
+  clearTimeout(idleTimer);
+  videoBox.classList.remove('sv-idle');
+
+  if (hls) { hls.destroy(); hls = null; }
+  video.removeAttribute('src');
+  video.load();
+
+  if (window.Hls && Hls.isSupported()) {
+    hls = new Hls({ enableWorker: true, lowLatencyMode: true });
+    hls.loadSource(ch.url);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      showLoading(false);
+      video.play().catch(() => {});
     });
 
-    showLoading(true);
-    showError(false);
-    clearTimeout(idleTimer);
-    videoBox.classList.remove('sv-idle');
-
-    if (hls) {
-      hls.destroy();
-      hls = null;
-    }
-
-    video.src = '';
-
-    if (Hls.isSupported()) {
-
-      hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: true
-      });
-
-      hls.loadSource(ch.url);
-      hls.attachMedia(video);
-
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        showLoading(false);
-        video.play().catch(() => {});
-      });
-
-      hls.on(Hls.Events.ERROR, (_, data) => {
-
-        if (data.fatal) {
-          showLoading(false);
-          showError(true);
-        }
-
-      });
-
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-
-      video.src = ch.url;
-
-      video.addEventListener(
-        'loadedmetadata',
-        () => {
-          showLoading(false);
-          video.play().catch(() => {});
-        },
-        { once: true }
-      );
-
-      video.addEventListener(
-        'error',
-        () => {
-          showLoading(false);
-          showError(true);
-        },
-        { once: true }
-      );
-
-    } else {
-
+    hls.on(Hls.Events.ERROR, (_, data) => {
+      if (!data.fatal) return;
       showLoading(false);
       showError(true);
-
-    }
-  }
-
-  function renderChannels(list) {
-
-    const container = document.getElementById('sv-channel-list');
-
-    container.innerHTML = '';
-    countEl.textContent = CHANNELS.length ? `${list.length} / ${CHANNELS.length}` : '';
-
-    if (list.length === 0) {
-      container.innerHTML = '<div class="sv-empty">No channels match your search.</div>';
-      return;
-    }
-
-    list.forEach((ch, i) => {
-
-      const realIdx = CHANNELS.indexOf(ch);
-
-      const btn = document.createElement('button');
-
-      btn.className = 'sv-ch-btn' + (realIdx === activeIdx ? ' active' : '');
-      btn.dataset.idx = realIdx;
-      btn.style.setProperty('--i', i);
-
-      const isImgUrl =
-        ch.logo &&
-        (ch.logo.startsWith('http') || ch.logo.startsWith('/'));
-
-      const logoContent = isImgUrl
-        ? `<img src="${ch.logo}" alt="${ch.name}" loading="lazy">`
-        : (ch.logo || ch.name.charAt(0));
-
-      btn.innerHTML = `
-        <div class="sv-ch-logo">${logoContent}</div>
-
-        <div class="sv-ch-info">
-          <div class="sv-ch-title">${ch.name}</div>
-          <div class="sv-ch-cat">${ch.category}</div>
-        </div>
-
-        <div class="sv-ch-live"></div>
-      `;
-
-      btn.addEventListener('click', () => {
-        loadChannel(realIdx);
-      });
-
-      container.appendChild(btn);
-
     });
-  }
 
-let activeCat = 'All';
-
-  function renderCategories() {
-    const row = document.getElementById('sv-cat-row');
-    const cats = ['All', ...[...new Set(CHANNELS.map(c => c.category))].sort()];
-    row.innerHTML = '';
-    cats.forEach(cat => {
-      const chip = document.createElement('button');
-      chip.className = 'sv-cat-chip' + (cat === activeCat ? ' active' : '');
-      chip.textContent = cat;
-      chip.addEventListener('click', () => {
-        activeCat = cat;
-        row.querySelectorAll('.sv-cat-chip').forEach(c =>
-          c.classList.toggle('active', c.textContent === cat));
-        applyFilters();
-      });
-      row.appendChild(chip);
-    });
-  }
-
-  function applyFilters() {
-    const q = document.getElementById('sv-search').value.toLowerCase().trim();
-    const filtered = CHANNELS.filter(c => {
-      const catOk = activeCat === 'All' || c.category === activeCat;
-      const qOk = !q || c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q);
-      return catOk && qOk;
-    });
-    renderChannels(filtered);
-  }
-
-  function filterChannels() { applyFilters(); }
-
-  /* ── PLAY / MUTE CONTROLS ──────────────────────────────── */
-  const playIcon = document.getElementById('sv-play-icon');
-  const muteIcon = document.getElementById('sv-mute-icon');
-  const volumeSlider = document.getElementById('sv-volume-slider');
-
-  const ICON_PLAY  = '<path d="M8 5v14l11-7z"/>';
-  const ICON_PAUSE = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
-  const ICON_SOUND = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/><path d="M14 4.45v2.06c2.89.86 5 3.54 5 6.49s-2.11 5.63-5 6.49v2.06c4.01-.91 7-4.49 7-8.55s-2.99-7.64-7-8.55z"/>';
-  const ICON_MUTED = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M19 9l-4.5 4.5M14.5 9l4.5 4.5" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/>';
-
-  function togglePlay() {
-    if (video.paused) {
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = ch.url;
+    video.addEventListener('loadedmetadata', () => {
+      showLoading(false);
       video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
+    }, { once: true });
+    video.addEventListener('error', () => {
+      showLoading(false);
+      showError(true);
+    }, { once: true });
+
+  } else {
+    showLoading(false);
+    showError(true);
   }
+}
 
-  function toggleMute() {
-    video.muted = !video.muted;
-    if (!video.muted && video.volume === 0) {
-      video.volume = 0.6;
-      volumeSlider.value = 0.6;
-    }
-    updateMuteIcon();
-  }
+document.getElementById('sv-retry').addEventListener('click', () => {
+  if (activeIdx >= 0) loadChannel(activeIdx);
+});
 
-  function updateMuteIcon() {
-    const silent = video.muted || video.volume === 0;
-    muteIcon.innerHTML = silent ? ICON_MUTED : ICON_SOUND;
-  }
+/* ── controls ────────────────────────────────────────── */
+const playIcon = document.getElementById('sv-play-icon');
+const muteIcon = document.getElementById('sv-mute-icon');
+const volumeSlider = document.getElementById('sv-volume-slider');
 
-  video.addEventListener('play', () => { playIcon.innerHTML = ICON_PAUSE; armIdle(); });
-  video.addEventListener('pause', () => {
-    playIcon.innerHTML = ICON_PLAY;
-    clearTimeout(idleTimer);
-    videoBox.classList.remove('sv-idle');
-  });
-  video.addEventListener('volumechange', updateMuteIcon);
+const ICON_PLAY  = '<path d="M8 5v14l11-7z"/>';
+const ICON_PAUSE = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+const ICON_SOUND = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/><path d="M14 4.45v2.06c2.89.86 5 3.54 5 6.49s-2.11 5.63-5 6.49v2.06c4.01-.91 7-4.49 7-8.55s-2.99-7.64-7-8.55z"/>';
+const ICON_MUTED = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M19 9l-4.5 4.5M14.5 9l4.5 4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>';
 
-  function updateVolumeFill() {
-    volumeSlider.style.setProperty('--vol-pct', `${Number(volumeSlider.value) * 100}%`);
-  }
+function togglePlay() {
+  video.paused ? video.play().catch(() => {}) : video.pause();
+}
 
-  volumeSlider.addEventListener('input', () => {
-    video.volume = Number(volumeSlider.value);
-    video.muted = false;
-    updateMuteIcon();
+function toggleMute() {
+  video.muted = !video.muted;
+  if (!video.muted && video.volume === 0) {
+    video.volume = 0.6;
+    volumeSlider.value = 0.6;
     updateVolumeFill();
-  });
+  }
+  updateMuteIcon();
+}
 
+function updateMuteIcon() {
+  muteIcon.innerHTML = (video.muted || video.volume === 0) ? ICON_MUTED : ICON_SOUND;
+}
+
+function updateVolumeFill() {
+  volumeSlider.style.setProperty('--vol-pct', `${Number(volumeSlider.value) * 100}%`);
+}
+
+document.getElementById('sv-play-btn').addEventListener('click', togglePlay);
+document.getElementById('sv-mute-btn').addEventListener('click', toggleMute);
+
+video.addEventListener('play',  () => { playIcon.innerHTML = ICON_PAUSE; armIdle(); });
+video.addEventListener('pause', () => {
+  playIcon.innerHTML = ICON_PLAY;
+  clearTimeout(idleTimer);
+  videoBox.classList.remove('sv-idle');
+});
+video.addEventListener('volumechange', updateMuteIcon);
+video.addEventListener('waiting', () => showLoading(true));
+video.addEventListener('playing', () => { showLoading(false); showError(false); });
+
+volumeSlider.addEventListener('input', () => {
+  video.volume = Number(volumeSlider.value);
+  video.muted = false;
+  updateMuteIcon();
   updateVolumeFill();
+});
+updateVolumeFill();
 
-  /* ── FULLSCREEN ─────────────────────────────────────────── */
-  const videoBox = document.getElementById('sv-video-box');
-  const svMain = document.getElementById('sv-main');
-  const fsIcon = document.getElementById('sv-fs-icon');
+/* ── fullscreen ──────────────────────────────────────── */
+const fsIcon = document.getElementById('sv-fs-icon');
+const ICON_FS_ENTER = '<path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/>';
+const ICON_FS_EXIT  = '<path d="M5 16H3v5h5v-2H5v-3zm-2-8h2V5h3V3H3v5zm13 11h3v-3h2v-5h-5v5h-2v3zm3-11V5h-3V3h5v5h-2z"/>';
 
-  const ICON_FS_ENTER =
-    '<path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/>';
-  const ICON_FS_EXIT =
-    '<path d="M5 16H3v5h5v-2H5v-3zm-2-8h2V5h3V3H3v5zm13 11h3v-3h2v-5h-5v5h-2v3zm3-11V5h-3V3h5v5h-2z"/>';
+function toggleFullscreen() {
+  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
 
-  function isFullscreenSupported(el) {
-    return !!(el.requestFullscreen || el.webkitRequestFullscreen);
-  }
-
-  function toggleFullscreen() {
-
-    const alreadyFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
-
-    if (!alreadyFs) {
-
-      // Fullscreen the video box (player only). If that fails (e.g. some
-      // in-iframe restrictions), fall back to fullscreening the whole app
-      // so the person still gets a true fullscreen experience.
-      const target = videoBox;
-
-      const request = target.requestFullscreen || target.webkitRequestFullscreen;
-
-      if (request) {
-        request.call(target).catch?.(() => {
-          const fallback = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
-          fallback?.call(svMain);
+  if (!isFs) {
+    const req = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
+    if (req) {
+      const r = req.call(videoBox);
+      if (r && typeof r.catch === 'function') {
+        r.catch(() => {
+          const fb = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+          fb && fb.call(svMain);
         });
-
-        // Some browsers (older WebKit) don't return a promise, so also
-        // guard with a short timeout fallback check.
-        if (!(request.call.length)) {
-          // no-op, promise path already attempted above
-        }
-      } else {
-        const fallback = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
-        fallback?.call(svMain);
       }
-
     } else {
-
-      (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
-
+      const fb = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+      fb && fb.call(svMain);
     }
+  } else {
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    exit && exit.call(document);
+  }
+}
+
+document.getElementById('sv-fs-btn').addEventListener('click', toggleFullscreen);
+
+function onFsChange() {
+  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  fsIcon.innerHTML = isFs ? ICON_FS_EXIT : ICON_FS_ENTER;
+  armIdle();
+}
+document.addEventListener('fullscreenchange', onFsChange);
+document.addEventListener('webkitfullscreenchange', onFsChange);
+
+/* ── idle chrome ─────────────────────────────────────── */
+function armIdle() {
+  clearTimeout(idleTimer);
+  videoBox.classList.remove('sv-idle');
+  if (!video.paused) {
+    idleTimer = setTimeout(() => videoBox.classList.add('sv-idle'), 2800);
+  }
+}
+videoBox.addEventListener('mousemove', armIdle);
+videoBox.addEventListener('touchstart', armIdle, { passive: true });
+
+/* ── keyboard ────────────────────────────────────────── */
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') {
+    if (e.key === 'Escape') { searchEl.value = ''; applyFilters(); searchEl.blur(); }
+    return;
   }
 
-  function onFsChange() {
-    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    fsIcon.innerHTML = isFs ? ICON_FS_EXIT : ICON_FS_ENTER;
-    armIdle();
-  }
+  const key = e.key.toLowerCase();
 
-  document.addEventListener('fullscreenchange', onFsChange);
-  document.addEventListener('webkitfullscreenchange', onFsChange);
+  if (key === 'f')      toggleFullscreen();
+  else if (key === 'm') toggleMute();
+  else if (key === '/') { e.preventDefault(); searchEl.focus(); }
+  else if (e.key === ' ') { e.preventDefault(); togglePlay(); }
+  else if (e.key === 'ArrowUp')   { e.preventDefault(); step(-1); }
+  else if (e.key === 'ArrowDown') { e.preventDefault(); step(1); }
+});
 
-  /* ── IDLE / AUTO-HIDE CHROME ───────────────────────────── */
-  let idleTimer = null;
+function step(dir) {
+  const btns = [...listEl.querySelectorAll('.sv-ch-btn')];
+  if (!btns.length) return;
+  const cur = btns.findIndex(b => Number(b.dataset.idx) === activeIdx);
+  const next = btns[(cur + dir + btns.length) % btns.length];
+  loadChannel(Number(next.dataset.idx));
+  next.scrollIntoView({ block: 'nearest' });
+}
 
-  function armIdle() {
-    clearTimeout(idleTimer);
-    videoBox.classList.remove('sv-idle');
-    if (!video.paused) {
-      idleTimer = setTimeout(() => videoBox.classList.add('sv-idle'), 2800);
-    }
-  }
-
-  videoBox.addEventListener('mousemove', armIdle);
-  videoBox.addEventListener('touchstart', armIdle, { passive: true });
-
-  document.addEventListener('keydown', e => {
-
-    if (e.target.tagName === 'INPUT') return;
-
-    const key = e.key.toLowerCase();
-
-    if (key === 'f') {
-      toggleFullscreen();
-    } else if (key === 'm') {
-      toggleMute();
-    } else if (e.key === ' ') {
-      e.preventDefault();
-      togglePlay();
-    }
-
-  });
-
-  /* Initialize */
-  loadChannelsFromJson();
+loadChannelsFromJson();
 </script>
 </body>
 </html>
