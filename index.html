@@ -6,17 +6,6 @@
 <meta name="color-scheme" content="dark">
 <title>Audiibly — Live</title>
 
-<!-- PWA -->
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#08090d">
-<meta name="description" content="Live Bangla, Indian and international TV channels.">
-<link rel="icon" type="image/png" href="icons/favicon.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Audiibly">
-<meta name="mobile-web-app-capable" content="yes">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
 
 <style>
@@ -543,45 +532,6 @@
     transform: translate(1px,-1px);
   }
 
-  /* install button — only shown when the browser offers the prompt */
-  .sv-install {
-    flex-shrink: 0;
-    display: none;
-    align-items: center; justify-content: center;
-    gap: 6px;
-    height: 30px;
-    padding: 0 11px;
-    border: 1px solid rgba(201,162,75,0.4);
-    border-radius: 8px;
-    background: linear-gradient(135deg, rgba(201,162,75,0.22), rgba(201,162,75,0.07));
-    color: var(--gold-bright);
-    font-family: var(--sans);
-    font-size: 0.68rem; font-weight: 650;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.16s var(--ease);
-  }
-  .sv-install.show { display: inline-flex; }
-  .sv-install svg {
-    width: 12px; height: 12px;
-    fill: none; stroke: currentColor;
-    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .sv-install:hover {
-    background: linear-gradient(135deg, rgba(201,162,75,0.32), rgba(201,162,75,0.12));
-    border-color: var(--gold);
-    transform: translateY(-1px);
-  }
-
-  .sv-brand-actions { flex-shrink: 0; display: flex; align-items: center; gap: 7px; }
-
-  /* respect notches when running installed/fullscreen */
-  @supports (padding: env(safe-area-inset-top)) {
-    .sv-player-wrap { padding-top: calc(22px + env(safe-area-inset-top)); }
-    .sv-sidebar { padding-bottom: calc(22px + env(safe-area-inset-bottom)); }
-  }
-
   .sv-search-wrap { position: relative; flex-shrink: 0; margin-bottom: 12px; }
   .sv-search-wrap > svg {
     position: absolute; left: 13px; top: 50%;
@@ -813,19 +763,6 @@
   }
   .sv-empty strong { font-size: 0.88rem; font-weight: 600; color: var(--text-dim); }
 
-  /* the <video> goes fullscreen on its own, so the custom overlays
-     must step aside — the browser draws its own controls on top */
-  .sv-native-fs .sv-controls,
-  .sv-native-fs .sv-now-playing,
-  .sv-native-fs .sv-vignette {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  video:fullscreen { width: 100%; height: 100%; object-fit: contain; background: #000; }
-  video:-webkit-full-screen { width: 100%; height: 100%; background: #000; }
-
-  /* fallback path, if the video element refuses and the box is used instead */
   .sv-video-box:fullscreen {
     display: flex; align-items: center; justify-content: center;
     border-radius: 0;
@@ -969,15 +906,9 @@
           <span class="sv-brand-tag" style="display:block">Live TV</span>
         </span>
       </a>
-      <div class="sv-brand-actions">
-        <button class="sv-install" id="sv-install" title="Install Audiibly">
-          <svg viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
-          Install
-        </button>
-        <a class="sv-brand-ext" href="https://audiibly.com" target="_blank" rel="noopener noreferrer" title="Visit Audiibly">
-          <svg viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-        </a>
-      </div>
+      <a class="sv-brand-ext" href="https://audiibly.com" target="_blank" rel="noopener noreferrer" title="Visit Audiibly">
+        <svg viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+      </a>
     </div>
 
     <div class="sv-search-wrap">
@@ -1359,31 +1290,26 @@ function toggleFullscreen() {
   var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
 
   if (!isFs) {
-    // fullscreen the <video> itself, so the browser's native player takes over
-    var req = video.requestFullscreen || video.webkitRequestFullscreen;
-
-    if (req) {
-      // native controls only exist while fullscreen; the custom bar hides
-      video.setAttribute('controls', '');
-
-      var r = req.call(video);
-      if (r && typeof r.catch === 'function') {
-        r.catch(function () {
-          video.removeAttribute('controls');
-          var fb = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
-          if (fb) fb.call(videoBox);
-        });
-      }
-
-    } else if (video.webkitEnterFullscreen) {
-      // iOS Safari: hands off to the system player
+    // iOS Safari only allows fullscreen on the video element itself
+    if (!videoBox.requestFullscreen && !videoBox.webkitRequestFullscreen &&
+        video.webkitEnterFullscreen) {
       video.webkitEnterFullscreen();
-
-    } else {
-      var fb2 = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
-      if (fb2) fb2.call(videoBox);
+      return;
     }
 
+    var req = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
+    if (req) {
+      var r = req.call(videoBox);
+      if (r && typeof r.catch === 'function') {
+        r.catch(function () {
+          var fb = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+          if (fb) fb.call(svMain);
+        });
+      }
+    } else {
+      var fb2 = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+      if (fb2) fb2.call(svMain);
+    }
   } else {
     var exit = document.exitFullscreen || document.webkitExitFullscreen;
     if (exit) exit.call(document);
@@ -1394,38 +1320,16 @@ document.getElementById('sv-fs-btn').addEventListener('click', toggleFullscreen)
 
 function onFsChange() {
   var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
-
   fsIcon.innerHTML = isFs ? ICON_FS_EXIT : ICON_FS_ENTER;
-
-  // native controls belong to fullscreen only — strip them on the way out
-  // so they don't stack on top of the custom bar in windowed mode
-  if (!isFs) video.removeAttribute('controls');
-
-  // hide our own chrome while the native player owns the screen
-  videoBox.classList.toggle('sv-native-fs', isFs);
-
   armIdle();
 }
 document.addEventListener('fullscreenchange', onFsChange);
 document.addEventListener('webkitfullscreenchange', onFsChange);
 
-// iOS fires these instead of fullscreenchange
-video.addEventListener('webkitbeginfullscreen', function () {
-  videoBox.classList.add('sv-native-fs');
-});
-video.addEventListener('webkitendfullscreen', function () {
-  videoBox.classList.remove('sv-native-fs');
-  video.removeAttribute('controls');
-});
-
 /* ── idle chrome ────────────────────────────────────────── */
 function armIdle() {
   clearTimeout(idleTimer);
   videoBox.classList.remove('sv-idle');
-
-  // the native player runs its own auto-hide in fullscreen
-  if (videoBox.classList.contains('sv-native-fs')) return;
-
   if (!video.paused) {
     idleTimer = setTimeout(function () { videoBox.classList.add('sv-idle'); }, 2800);
   }
@@ -1466,45 +1370,6 @@ function step(dir) {
   var next = rows[(cur + dir + rows.length) % rows.length];
   loadChannel(Number(next.dataset.idx));
   next.scrollIntoView({ block: 'nearest' });
-}
-
-/* ── PWA: service worker + install prompt ───────────────── */
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').catch(function (err) {
-      console.warn('[pwa] service worker not registered:', err);
-    });
-  });
-}
-
-var installBtn = document.getElementById('sv-install');
-var deferredPrompt = null;
-
-window.addEventListener('beforeinstallprompt', function (e) {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.classList.add('show');
-});
-
-installBtn.addEventListener('click', function () {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(function () {
-    deferredPrompt = null;
-    installBtn.classList.remove('show');
-  });
-});
-
-window.addEventListener('appinstalled', function () {
-  deferredPrompt = null;
-  installBtn.classList.remove('show');
-});
-
-// already running installed — no need to offer it
-if (window.matchMedia('(display-mode: standalone)').matches ||
-    window.matchMedia('(display-mode: fullscreen)').matches ||
-    window.navigator.standalone === true) {
-  installBtn.classList.remove('show');
 }
 
 loadChannelsFromJson();
