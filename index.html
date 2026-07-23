@@ -452,11 +452,11 @@
     opacity: 0;
     pointer-events: none;
   }
-  .sv-video-box.sv-idle:hover .sv-controls-bar,
-  .sv-video-box.sv-idle:hover .sv-now-playing {
-    opacity: 1;
-    pointer-events: auto;
-  }
+.sv-video-box:not(:fullscreen).sv-idle:hover .sv-controls-bar,
+.sv-video-box:not(:fullscreen).sv-idle:hover .sv-now-playing {
+  opacity: 1;
+  pointer-events: auto;
+}
   .sv-video-box:fullscreen.sv-idle { cursor: none; }
 
   /* ── SIDEBAR / CHANNEL LIST ───────────────────────────── */
