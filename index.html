@@ -9,12 +9,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.12/hls.min.js"></script>
 
 <style>
-  /* ══ RESET ══════════════════════════════════════════════ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --bg:          #08090d;
-    --surface:     #0e1016;
     --surface-2:   #13161f;
     --card:        #11131b;
     --card-hover:  #191d29;
@@ -27,7 +25,6 @@
     --gold-dim:    rgba(201, 162, 75, 0.13);
     --gold-line:   rgba(201, 162, 75, 0.5);
 
-    --violet:      #7c6bb8;
     --violet-dim:  rgba(124, 107, 184, 0.09);
 
     --live:        #e05252;
@@ -40,7 +37,6 @@
 
     --r-lg: 16px;
     --r-md: 11px;
-    --r-sm: 8px;
 
     --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
     --sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
@@ -49,20 +45,19 @@
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  html, body { height: 100%; overflow: auto; }
+  html { height: 100%; }
 
   body {
     position: relative;
+    min-height: 100%;
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     isolation: isolate;
-    min-height: 100dvh;
   }
 
-  /* ambient aureate glow */
   body::before {
     content: '';
     position: fixed;
@@ -84,25 +79,27 @@
 
   ::selection { background: var(--gold-dim); color: var(--gold-bright); }
 
-  /* ══ LAYOUT ═════════════════════════════════════════════ */
+  /* ══ LAYOUT ══════════════════════════════════════════════
+     Desktop: two fixed-height columns, each scrolls internally.
+     Mobile:  single column, page scrolls, player sticks. */
   .sv-main {
     display: grid;
-    grid-template-columns: minmax(0,1fr) 340px;
+    grid-template-columns: minmax(0, 1fr) 340px;
     height: 100dvh;
-    min-height: 100dvh;
     width: 100%;
+    overflow: hidden;
   }
   .sv-main:fullscreen, .sv-main:-webkit-full-screen {
     height: 100vh; width: 100vw; background: var(--bg);
   }
 
-  /* ══ PLAYER ═════════════════════════════════════════════ */
+  /* ══ PLAYER ══ */
   .sv-player-wrap {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
+    min-width: 0;
+    min-height: 0;
     padding: 22px;
-    min-width: 0; min-height: 0;
   }
 
   .sv-video-frame {
@@ -118,11 +115,12 @@
   }
 
   .sv-video-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
     background: #000;
     border-radius: var(--r-lg);
     overflow: hidden;
-    position: relative;
-    width: 100%; height: 100%;
     isolation: isolate;
     box-shadow:
       0 0 0 1px rgba(201,162,75,0.10),
@@ -139,7 +137,6 @@
     box-shadow: inset 0 0 0 1px rgba(0,0,0,0.45);
   }
 
-  /* gold corner brackets */
   .sv-video-box::after {
     content: '';
     position: absolute; inset: 12px;
@@ -160,8 +157,9 @@
   .sv-video-box:hover::after { opacity: 0.5; }
 
   .sv-video-box video {
-    width: 100%; height: 100%;
     display: block;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     background: #000;
   }
@@ -173,100 +171,104 @@
     background: linear-gradient(180deg, rgba(0,0,0,0.24) 0%, transparent 11%, transparent 86%, rgba(0,0,0,0.34) 100%);
   }
 
-  /* ══ NOW PLAYING ════════════════════════════════════════ */
+  /* ══ NOW PLAYING ══ */
   .sv-now-playing {
     position: absolute;
     top: 18px; left: 18px;
-    background: linear-gradient(155deg, rgba(16,18,27,0.78), rgba(8,9,13,0.72));
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(201,162,75,0.2);
-    border-radius: 14px;
-    padding: 9px 16px 9px 9px;
+    z-index: 10;
     display: flex;
     align-items: center;
     gap: 11px;
-    pointer-events: none;
-    z-index: 10;
     max-width: calc(100% - 36px);
+    padding: 8px 15px 8px 8px;
+    border: 1px solid rgba(201,162,75,0.2);
+    border-radius: 14px;
+    background: linear-gradient(155deg, rgba(16,18,27,0.78), rgba(8,9,13,0.72));
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    pointer-events: none;
     box-shadow:
       0 10px 30px -10px rgba(0,0,0,0.6),
       0 1px 0 0 rgba(255,255,255,0.055) inset;
-    transition: opacity 0.45s var(--ease), transform 0.45s var(--ease-out);
+    transition: opacity 0.4s var(--ease), transform 0.45s var(--ease-out);
   }
   .sv-np-logo {
     width: 34px; height: 34px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    border: 1px solid rgba(201,162,75,0.22);
     border-radius: 9px;
     background: var(--surface-2);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden; flex-shrink: 0;
-    border: 1px solid rgba(201,162,75,0.22);
-    font-size: 0.95rem; font-weight: 700;
+    font-size: 0.9rem; font-weight: 700;
     color: var(--gold-soft);
   }
   .sv-np-logo img { width: 100%; height: 100%; object-fit: contain; }
-  .sv-now-text-group {
-    display: flex; flex-direction: column; gap: 2px; min-width: 0;
-  }
+
+  .sv-np-text { min-width: 0; }
   #sv-now-text {
     font-size: 0.86rem;
     font-weight: 650;
+    line-height: 1.3;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5);
   }
-  .sv-now-sub {
+  .sv-np-sub {
     display: flex; align-items: center; gap: 7px;
+    margin-top: 1px;
     font-size: 0.62rem;
-    color: var(--muted);
+    line-height: 1.4;
     letter-spacing: 0.09em;
     text-transform: uppercase;
+    color: var(--muted);
     white-space: nowrap;
-    min-height: 13px;
   }
-  .sv-now-hd {
+  .sv-np-hd {
+    padding: 1px 6px;
+    border: 1px solid rgba(201,162,75,0.28);
+    border-radius: 4px;
     background: linear-gradient(135deg, rgba(201,162,75,0.26), rgba(201,162,75,0.1));
     color: var(--gold-bright);
+    font-size: 0.55rem;
     font-weight: 750;
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-size: 0.56rem;
     letter-spacing: 0.1em;
-    border: 1px solid rgba(201,162,75,0.28);
   }
+
   .sv-dot {
     width: 6px; height: 6px;
+    flex-shrink: 0;
     border-radius: 50%;
     background: var(--live);
     box-shadow: 0 0 0 3px rgba(224,82,82,0.15), 0 0 10px var(--live-glow);
     animation: pulse 1.9s infinite;
-    flex-shrink: 0;
   }
   @keyframes pulse {
     0%,100% { opacity: 1; transform: scale(1); }
     50%     { opacity: 0.4; transform: scale(1.3); }
   }
 
-  /* ══ LOADING ════════════════════════════════════════════ */
-  .sv-loading-overlay {
+  /* ══ LOADING ══ */
+  .sv-loading {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, rgba(16,18,27,0.72), rgba(4,5,8,0.9));
+    z-index: 8;
     display: none;
-    align-items: center; justify-content: center;
     flex-direction: column;
+    align-items: center; justify-content: center;
     gap: 18px;
+    padding: 20px;
+    text-align: center;
     font-size: 0.84rem;
     color: var(--text-dim);
-    letter-spacing: 0.02em;
-    z-index: 8;
-    text-align: center; padding: 20px;
+    background: radial-gradient(ellipse at center, rgba(16,18,27,0.72), rgba(4,5,8,0.9));
   }
-  .sv-loading-overlay.active { display: flex; animation: fadeIn 0.3s var(--ease); }
+  .sv-loading.active { display: flex; animation: fadeIn 0.3s var(--ease); }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-  .sv-spinner { width: 42px; height: 42px; position: relative; }
+  .sv-spinner { position: relative; width: 42px; height: 42px; }
   .sv-spinner::before, .sv-spinner::after {
     content: ''; position: absolute; inset: 0;
-    border-radius: 50%; border: 2.5px solid transparent;
+    border: 2.5px solid transparent;
+    border-radius: 50%;
   }
   .sv-spinner::before {
     border-top-color: var(--gold-soft);
@@ -280,13 +282,17 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  #sv-loading-text { font-weight: 500; }
+  #sv-loading-text {
+    max-width: 260px;
+    font-weight: 500;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
   .sv-load-bar {
+    position: relative;
     width: 130px; height: 2px;
+    overflow: hidden;
     border-radius: 2px;
     background: rgba(255,255,255,0.07);
-    overflow: hidden;
-    position: relative;
   }
   .sv-load-bar::after {
     content: '';
@@ -300,39 +306,40 @@
     100% { transform: translateX(320%); }
   }
 
-  /* ══ ERROR ══════════════════════════════════════════════ */
+  /* ══ ERROR ══ */
   .sv-error {
     position: absolute; inset: 0;
+    z-index: 9;
     display: none;
     flex-direction: column;
     align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at center, rgba(22,13,13,0.6), rgba(4,5,8,0.95));
-    gap: 10px;
-    font-size: 0.87rem;
+    gap: 9px;
+    padding: 24px;
+    text-align: center;
+    font-size: 0.85rem;
     color: var(--text-dim);
-    text-align: center; padding: 24px;
-    z-index: 9;
+    background: radial-gradient(ellipse at center, rgba(22,13,13,0.6), rgba(4,5,8,0.95));
   }
   .sv-error.active { display: flex; animation: fadeIn 0.35s var(--ease); }
   .sv-error-icon {
-    width: 52px; height: 52px;
-    border: 1px solid rgba(224,82,82,0.3);
-    background: rgba(224,82,82,0.07);
-    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 6px;
+    width: 52px; height: 52px;
+    margin-bottom: 4px;
+    border: 1px solid rgba(224,82,82,0.3);
+    border-radius: 50%;
+    background: rgba(224,82,82,0.07);
     color: #e58585;
     box-shadow: 0 0 28px -6px rgba(224,82,82,0.28);
   }
   .sv-error-icon svg { width: 22px; height: 22px; }
-  .sv-error-title { font-weight: 650; color: var(--text); font-size: 0.95rem; }
-  .sv-error small { color: var(--muted); font-size: 0.78rem; }
+  .sv-error-title { font-size: 0.95rem; font-weight: 650; color: var(--text); }
+  .sv-error small { font-size: 0.78rem; color: var(--muted); }
   .sv-retry {
-    margin-top: 10px;
+    margin-top: 8px;
     padding: 8px 18px;
+    border: 1px solid rgba(255,255,255,0.12);
     border-radius: 999px;
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
     color: var(--text);
     font-family: var(--sans);
     font-size: 0.78rem; font-weight: 600;
@@ -345,177 +352,187 @@
     transform: translateY(-1px);
   }
 
-  /* ══ CONTROLS ═══════════════════════════════════════════ */
-  .sv-controls-bar {
+  /* ══ CONTROLS ══ */
+  .sv-controls {
     position: absolute;
     left: 12px; right: 12px; bottom: 12px;
     z-index: 10;
-    display: flex; align-items: center; gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 9px 12px;
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
     background: linear-gradient(155deg, rgba(18,20,29,0.72), rgba(9,10,15,0.76));
     backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgba(255,255,255,0.08);
     box-shadow:
       0 12px 34px -12px rgba(0,0,0,0.65),
       0 1px 0 0 rgba(255,255,255,0.065) inset;
     transition: opacity 0.4s var(--ease), transform 0.45s var(--ease-out);
   }
-  .sv-ctrl-btn {
-    width: 37px; height: 37px;
+  .sv-btn {
+    position: relative;
     flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.04);
+    width: 37px; height: 37px;
+    overflow: hidden;
     border: 1px solid rgba(255,255,255,0.085);
     border-radius: 10px;
-    color: #fff; cursor: pointer;
-    position: relative; overflow: hidden;
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    cursor: pointer;
     transition: background 0.22s var(--ease), border-color 0.22s var(--ease),
                 transform 0.16s var(--ease), box-shadow 0.22s var(--ease);
   }
-  .sv-ctrl-btn::before {
+  .sv-btn::before {
     content: '';
     position: absolute; inset: 0;
     background: radial-gradient(circle at 50% 110%, rgba(201,162,75,0.4), transparent 70%);
     opacity: 0;
     transition: opacity 0.25s var(--ease);
   }
-  .sv-ctrl-btn:hover {
+  .sv-btn:hover {
     background: rgba(201,162,75,0.15);
     border-color: rgba(201,162,75,0.55);
     transform: translateY(-2px);
     box-shadow: 0 8px 18px -8px rgba(201,162,75,0.4);
   }
-  .sv-ctrl-btn:hover::before { opacity: 1; }
-  .sv-ctrl-btn:active { transform: translateY(0); }
-  .sv-ctrl-btn svg { width: 16px; height: 16px; fill: #fff; position: relative; z-index: 1; }
+  .sv-btn:hover::before { opacity: 1; }
+  .sv-btn:active { transform: translateY(0); }
+  .sv-btn svg { position: relative; z-index: 1; width: 16px; height: 16px; fill: #fff; }
 
-  .sv-volume-group { display: flex; align-items: center; gap: 10px; }
-  .sv-volume-slider {
+  .sv-vol-group { display: flex; align-items: center; gap: 10px; }
+  .sv-vol {
     width: 86px; height: 4px;
     -webkit-appearance: none; appearance: none;
+    border-radius: 4px;
     background: linear-gradient(90deg, var(--gold-soft) var(--vol-pct,100%), rgba(255,255,255,0.14) var(--vol-pct,100%));
-    border-radius: 4px; outline: none; cursor: pointer;
-    transition: background 0.12s;
+    outline: none;
+    cursor: pointer;
   }
-  .sv-volume-slider::-webkit-slider-thumb {
+  .sv-vol::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 12px; height: 12px; border-radius: 50%;
+    width: 12px; height: 12px;
+    margin-top: -4px;
+    border-radius: 50%;
     background: var(--gold-bright);
     box-shadow: 0 0 0 3px rgba(201,162,75,0.2), 0 1px 4px rgba(0,0,0,0.6);
-    cursor: pointer; margin-top: -4px;
+    cursor: pointer;
     transition: transform 0.16s var(--ease);
   }
-  .sv-volume-slider:hover::-webkit-slider-thumb { transform: scale(1.2); }
-  .sv-volume-slider::-moz-range-thumb {
-    width: 12px; height: 12px; border: none; border-radius: 50%;
+  .sv-vol:hover::-webkit-slider-thumb { transform: scale(1.2); }
+  .sv-vol::-moz-range-thumb {
+    width: 12px; height: 12px;
+    border: none; border-radius: 50%;
     background: var(--gold-bright);
     box-shadow: 0 0 0 3px rgba(201,162,75,0.2);
     cursor: pointer;
   }
-  .sv-volume-slider::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; }
-  .sv-volume-slider::-moz-range-track { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.14); }
+  .sv-vol::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; }
+  .sv-vol::-moz-range-track { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.14); }
 
-  .sv-ctrl-spacer { flex: 1; }
-  .sv-ctrl-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.09); flex-shrink: 0; }
+  .sv-spacer { flex: 1; }
+  .sv-divider { flex-shrink: 0; width: 1px; height: 20px; background: rgba(255,255,255,0.09); }
 
   .sv-live-badge {
+    flex-shrink: 0;
     display: flex; align-items: center; gap: 6px;
     padding: 5px 11px;
+    border: 1px solid rgba(224,82,82,0.3);
     border-radius: 999px;
     background: rgba(224,82,82,0.12);
-    border: 1px solid rgba(224,82,82,0.3);
     font-size: 0.6rem; font-weight: 750;
     letter-spacing: 0.12em;
     color: #f0a0a0;
-    flex-shrink: 0;
   }
 
-  /* idle hide */
-  .sv-video-box.sv-idle .sv-controls-bar {
+  .sv-video-box.sv-idle .sv-controls {
     opacity: 0; transform: translateY(12px); pointer-events: none;
   }
   .sv-video-box.sv-idle .sv-now-playing {
     opacity: 0; transform: translateY(-10px); pointer-events: none;
   }
-  .sv-video-box:not(:fullscreen).sv-idle:hover .sv-controls-bar,
+  .sv-video-box:not(:fullscreen).sv-idle:hover .sv-controls,
   .sv-video-box:not(:fullscreen).sv-idle:hover .sv-now-playing {
     opacity: 1; transform: translateY(0); pointer-events: auto;
   }
   .sv-video-box:fullscreen.sv-idle { cursor: none; }
 
-  /* ══ SIDEBAR ════════════════════════════════════════════ */
+  /* ══ SIDEBAR ══
+     Fixed-size header stack + one flexible scroll region. */
   .sv-sidebar {
-    height: 100dvh;
-    display: flex; flex-direction: column;
-    min-width: 0; min-height: 0;
-    padding: 22px 22px 22px 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    padding: 22px 22px 22px 20px;
     border-left: 1px solid var(--border-soft);
     background: linear-gradient(180deg, rgba(16,18,25,0.55), rgba(10,11,16,0.42));
   }
-  .sv-sidebar-inner {
-    padding-left: 20px;
-    display: flex; flex-direction: column;
-    min-height: 0; flex: 1;
-  }
 
-  /* brand */
   .sv-brand {
+    flex-shrink: 0;
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px;
     padding-bottom: 16px;
     margin-bottom: 16px;
     border-bottom: 1px solid var(--border-soft);
-    flex-shrink: 0;
   }
   .sv-brand-mark {
     display: flex; align-items: center; gap: 10px;
     text-decoration: none;
   }
   .sv-brand-glyph {
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
     width: 34px; height: 34px;
+    border: 1px solid rgba(201,162,75,0.38);
     border-radius: 10px;
     background: linear-gradient(140deg, rgba(201,162,75,0.28), rgba(124,107,184,0.16));
-    border: 1px solid rgba(201,162,75,0.38);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
     box-shadow: 0 4px 16px -6px rgba(201,162,75,0.4);
   }
-  .sv-brand-glyph svg { width: 16px; height: 16px; stroke: var(--gold-bright); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .sv-brand-glyph svg {
+    width: 16px; height: 16px;
+    fill: none; stroke: var(--gold-bright);
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
   .sv-brand-name {
     font-family: var(--serif);
     font-size: 1.05rem; font-weight: 600;
     letter-spacing: 0.03em;
+    line-height: 1.2;
     color: var(--gold-soft);
-    line-height: 1.15;
   }
   .sv-brand-tag {
-    font-size: 0.58rem;
+    font-size: 0.57rem;
+    font-weight: 600;
     letter-spacing: 0.19em;
     text-transform: uppercase;
     color: var(--faint);
-    font-weight: 600;
   }
   .sv-brand-ext {
-    width: 30px; height: 30px;
+    flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    border-radius: 8px;
+    width: 30px; height: 30px;
     border: 1px solid var(--border-soft);
+    border-radius: 8px;
     background: rgba(18,20,29,0.6);
     color: var(--muted);
-    flex-shrink: 0;
     transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.18s var(--ease);
   }
-  .sv-brand-ext svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .sv-brand-ext svg {
+    width: 13px; height: 13px;
+    fill: none; stroke: currentColor;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
   .sv-brand-ext:hover {
     color: var(--gold-bright);
     border-color: rgba(201,162,75,0.45);
     transform: translate(1px,-1px);
   }
 
-  /* search */
-  .sv-search-wrap { position: relative; margin-bottom: 14px; flex-shrink: 0; }
+  .sv-search-wrap { position: relative; flex-shrink: 0; margin-bottom: 12px; }
   .sv-search-wrap > svg {
     position: absolute; left: 13px; top: 50%;
     transform: translateY(-50%);
@@ -527,13 +544,13 @@
   .sv-search-wrap:focus-within > svg { stroke: var(--gold-soft); }
   .sv-search {
     width: 100%;
-    background: rgba(17,19,27,0.75);
+    padding: 11px 34px 11px 36px;
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 11px 34px 11px 36px;
+    background: rgba(17,19,27,0.75);
     color: var(--text);
-    font-size: 0.85rem;
     font-family: var(--sans);
+    font-size: 0.85rem;
     outline: none;
     transition: border-color 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
   }
@@ -543,254 +560,260 @@
     box-shadow: 0 0 0 3px var(--gold-dim);
   }
   .sv-search::placeholder { color: var(--faint); }
-  .sv-search-clear {
+  .sv-clear {
     position: absolute; right: 9px; top: 50%;
     transform: translateY(-50%);
-    width: 20px; height: 20px;
-    border: none; background: rgba(255,255,255,0.06);
-    border-radius: 50%;
-    color: var(--muted);
     display: none;
     align-items: center; justify-content: center;
-    cursor: pointer; font-size: 0.75rem; line-height: 1;
+    width: 20px; height: 20px;
+    border: none; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+    font-size: 0.7rem; line-height: 1;
+    cursor: pointer;
     transition: background 0.18s, color 0.18s;
   }
-  .sv-search-clear.show { display: flex; }
-  .sv-search-clear:hover { background: rgba(201,162,75,0.2); color: var(--gold-bright); }
+  .sv-clear.show { display: flex; }
+  .sv-clear:hover { background: rgba(201,162,75,0.2); color: var(--gold-bright); }
 
-  /* category rail */
-  .sv-cat-shell { position: relative; flex-shrink: 0; margin-bottom: 14px; }
-  .sv-cat-shell::before, .sv-cat-shell::after {
-    content: ''; position: absolute; top: 0; bottom: 0;
-    width: 22px; pointer-events: none; z-index: 2;
-  }
-  .sv-cat-shell::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
-  .sv-cat-shell::after  { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
-
-  .sv-cat-row {
-    display: flex; gap: 7px;
+  /* ══ CATEGORY RAIL ══
+     Owns its own height and horizontal scroll. flex-shrink:0 stops the
+     sidebar's flex layout from squeezing it to nothing. */
+  .sv-cats {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 7px;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
     overflow-x: auto;
-    padding: 2px 4px;
-    scrollbar-width: none;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
   }
-  .sv-cat-row::-webkit-scrollbar { display: none; }
+  .sv-cats::-webkit-scrollbar { height: 4px; }
+  .sv-cats::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .sv-cats::-webkit-scrollbar-thumb:hover { background: rgba(201,162,75,0.45); }
+  .sv-cats::-webkit-scrollbar-track { background: transparent; }
 
-  .sv-cat-chip {
-    padding: 6px 13px;
+  .sv-chip {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 13px;
+    border: 1px solid var(--border-soft);
     border-radius: 999px;
     background: rgba(17,19,27,0.7);
-    border: 1px solid var(--border-soft);
     color: var(--text-dim);
     font-family: var(--sans);
     font-size: 0.71rem; font-weight: 600;
-    letter-spacing: 0.015em;
-    cursor: pointer; white-space: nowrap;
-    flex-shrink: 0;
-    display: flex; align-items: center; gap: 6px;
-    transition: background 0.2s var(--ease), border-color 0.2s var(--ease),
-                color 0.2s var(--ease), transform 0.16s var(--ease);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
   }
-  .sv-cat-chip span {
-    font-size: 0.62rem;
-    color: var(--faint);
-    font-weight: 700;
-  }
-  .sv-cat-chip:hover {
+  .sv-chip b { font-size: 0.62rem; font-weight: 700; color: var(--faint); }
+  .sv-chip:hover {
     background: var(--card-hover);
     border-color: #2e3348;
     color: var(--text);
-    transform: translateY(-1.5px);
   }
-  .sv-cat-chip.active {
+  .sv-chip.active {
     background: linear-gradient(135deg, rgba(201,162,75,0.24), rgba(201,162,75,0.07));
     border-color: rgba(201,162,75,0.52);
     color: var(--gold-bright);
     box-shadow: 0 5px 16px -7px rgba(201,162,75,0.45);
   }
-  .sv-cat-chip.active span { color: rgba(245,220,168,0.6); }
+  .sv-chip.active b { color: rgba(245,220,168,0.65); }
 
-  /* list header */
   .sv-list-head {
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.63rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.17em;
-    color: var(--muted);
-    margin-bottom: 10px;
     flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.63rem; font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
-  .sv-count { color: var(--faint); font-weight: 600; letter-spacing: 0.06em; }
+  .sv-count { font-weight: 600; letter-spacing: 0.06em; color: var(--faint); }
 
-  /* channel list */
-  .sv-channel-list {
-    display: flex; flex-direction: column; gap: 6px;
-    flex: 1; min-height: 0;
+  /* ══ CHANNEL LIST ══
+     Rows are a fixed 60px with an inner grid, so nothing can overflow
+     into the row below no matter how long a channel name runs. */
+  .sv-list {
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 5px;
-    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
-  .sv-channel-list::-webkit-scrollbar { width: 5px; }
-  .sv-channel-list::-webkit-scrollbar-thumb {
-    background: var(--border); border-radius: 5px;
-  }
-  .sv-channel-list::-webkit-scrollbar-thumb:hover { background: rgba(201,162,75,0.4); }
-  .sv-channel-list::-webkit-scrollbar-track { background: transparent; }
+  .sv-list::-webkit-scrollbar { width: 5px; }
+  .sv-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+  .sv-list::-webkit-scrollbar-thumb:hover { background: rgba(201,162,75,0.4); }
+  .sv-list::-webkit-scrollbar-track { background: transparent; }
 
-  @keyframes chIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .sv-ch-btn {
-    display: flex; align-items: center; gap: 12px;
-    background: var(--card);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--r-md);
-    padding: 10px 12px;
-    cursor: pointer;
-    text-align: left; width: 100%;
-    color: var(--text);
-    font-family: var(--sans);
+  .sv-row {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 8px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 6px;
+    padding: 0 12px;
     position: relative;
     overflow: hidden;
-    animation: chIn 0.42s var(--ease-out) backwards;
-    animation-delay: calc(var(--i,0) * 22ms);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-md);
+    background: var(--card);
+    color: var(--text);
+    font-family: var(--sans);
+    text-align: left;
+    cursor: pointer;
     transition: background 0.2s var(--ease), border-color 0.2s var(--ease),
                 transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
   }
-  .sv-ch-btn:hover {
+  .sv-row:last-child { margin-bottom: 0; }
+  .sv-row:hover {
     background: var(--card-hover);
     border-color: #2e3348;
     transform: translateX(3px);
     box-shadow: 0 6px 18px -10px rgba(0,0,0,0.7);
   }
-  .sv-ch-btn.active {
+  .sv-row.active {
     background: linear-gradient(90deg, rgba(201,162,75,0.15), rgba(201,162,75,0.025) 60%);
     border-color: rgba(201,162,75,0.42);
     box-shadow: 0 6px 22px -10px rgba(201,162,75,0.3);
   }
-  .sv-ch-btn.active::before {
+  .sv-row.active::before {
     content: '';
     position: absolute;
-    left: 0; top: 7px; bottom: 7px;
+    left: 0; top: 8px; bottom: 8px;
     width: 3px;
-    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
     border-radius: 0 3px 3px 0;
+    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
     box-shadow: 0 0 10px rgba(201,162,75,0.6);
   }
 
-  .sv-ch-logo {
+  .sv-logo {
+    display: flex; align-items: center; justify-content: center;
     width: 40px; height: 40px;
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
     border-radius: 9px;
     background: linear-gradient(150deg, var(--surface-2), #0f1219);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; font-weight: 700;
+    font-size: 0.95rem; font-weight: 700;
     color: var(--muted);
-    flex-shrink: 0; overflow: hidden;
-    border: 1px solid var(--border-soft);
-    transition: box-shadow 0.22s var(--ease), border-color 0.22s var(--ease);
+    transition: border-color 0.22s var(--ease), box-shadow 0.22s var(--ease), color 0.22s var(--ease);
   }
-  .sv-ch-btn:hover .sv-ch-logo { border-color: #2e3348; }
-  .sv-ch-btn.active .sv-ch-logo {
+  .sv-logo img { width: 100%; height: 100%; object-fit: contain; }
+  .sv-row:hover .sv-logo { border-color: #2e3348; }
+  .sv-row.active .sv-logo {
     border-color: rgba(201,162,75,0.5);
-    box-shadow: 0 0 0 3px var(--gold-dim), 0 0 14px -4px rgba(201,162,75,0.5);
     color: var(--gold-soft);
+    box-shadow: 0 0 0 3px var(--gold-dim), 0 0 14px -4px rgba(201,162,75,0.5);
   }
-  .sv-ch-logo img { width: 100%; height: 100%; object-fit: contain; }
 
-  .sv-ch-info { flex: 1; min-width: 0; }
-  .sv-ch-title {
-    font-size: 0.845rem; font-weight: 600;
+  .sv-meta { min-width: 0; }
+  .sv-name {
+    font-size: 0.845rem;
+    font-weight: 600;
+    line-height: 1.25;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     transition: color 0.2s var(--ease);
   }
-  .sv-ch-btn.active .sv-ch-title { color: var(--gold-bright); }
-  .sv-ch-cat {
-    font-size: 0.685rem;
-    color: var(--muted);
+  .sv-row.active .sv-name { color: var(--gold-bright); }
+  .sv-cat {
     margin-top: 2px;
+    font-size: 0.68rem;
+    line-height: 1.25;
+    color: var(--muted);
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
-  .sv-ch-live {
+  .sv-pip {
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--faint);
-    flex-shrink: 0;
     transition: background 0.22s var(--ease), box-shadow 0.22s var(--ease);
   }
-  .sv-ch-btn.active .sv-ch-live {
+  .sv-row.active .sv-pip {
     background: var(--live);
     box-shadow: 0 0 8px var(--live-glow);
     animation: pulse 1.9s infinite;
   }
 
-  /* empty state */
   .sv-empty {
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 10px;
-    color: var(--faint);
+    gap: 8px;
+    padding: 44px 16px;
     text-align: center;
-    padding: 40px 16px;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
+    color: var(--faint);
   }
   .sv-empty svg {
-    width: 30px; height: 30px;
-    stroke: var(--faint); fill: none; stroke-width: 1.5;
+    width: 28px; height: 28px;
+    fill: none; stroke: var(--faint); stroke-width: 1.5;
+    stroke-linecap: round;
     opacity: 0.7;
   }
-  .sv-empty strong { color: var(--text-dim); font-weight: 600; font-size: 0.88rem; }
+  .sv-empty strong { font-size: 0.88rem; font-weight: 600; color: var(--text-dim); }
 
-  /* fullscreen */
   .sv-video-box:fullscreen {
-    border-radius: 0;
     display: flex; align-items: center; justify-content: center;
+    border-radius: 0;
   }
   .sv-video-box:fullscreen video { max-height: 100vh; }
   .sv-video-box:-webkit-full-screen { border-radius: 0; }
 
-  /* ══ RESPONSIVE ═════════════════════════════════════════ */
+  /* ══ RESPONSIVE ══ */
   @media (max-width: 1000px) {
     .sv-main { grid-template-columns: minmax(0,1fr) 300px; }
   }
 
   @media (max-width: 900px) {
-    html, body { overflow: auto; }
     .sv-main {
       grid-template-columns: 1fr;
-      height: auto; min-height: 100dvh;
+      height: auto;
+      min-height: 100dvh;
+      overflow: visible;
     }
     .sv-player-wrap {
-      height: auto;
-      padding: 14px 14px 6px;
-      position: sticky; top: 0; z-index: 20;
-      background: linear-gradient(180deg, var(--bg) 78%, transparent);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 14px 14px 8px;
+      background: linear-gradient(180deg, var(--bg) 82%, transparent);
     }
-    .sv-video-frame { aspect-ratio: 16/9; flex: none; }
+    .sv-video-frame { flex: none; aspect-ratio: 16/9; }
     .sv-video-box { height: auto; aspect-ratio: 16/9; }
+
     .sv-sidebar {
-      height: auto;
+      padding: 18px 16px 28px;
       border-left: none;
       border-top: 1px solid var(--border-soft);
-      padding: 18px 16px 24px;
-      border-radius: 20px 20px 0 0;
-      margin-top: 8px;
     }
-    .sv-sidebar-inner { padding-left: 0; }
-    .sv-channel-list { max-height: none; flex: none; overflow: visible; padding-right: 0; }
-    .sv-cat-shell::before, .sv-cat-shell::after { display: none; }
+    /* page scrolls instead of the list, so the list must not clip */
+    .sv-list {
+      flex: none;
+      min-height: 0;
+      overflow: visible;
+      padding-right: 0;
+    }
   }
 
   @media (max-width: 500px) {
-    .sv-player-wrap { padding: 10px 10px 4px; }
-    .sv-sidebar { padding: 16px 13px 22px; }
-    .sv-volume-slider { width: 54px; }
-    .sv-now-playing { top: 12px; left: 12px; padding: 7px 13px 7px 7px; }
+    .sv-player-wrap { padding: 10px 10px 6px; }
+    .sv-sidebar { padding: 16px 13px 26px; }
+    .sv-vol { width: 54px; }
+    .sv-now-playing { top: 12px; left: 12px; padding: 7px 12px 7px 7px; }
     .sv-np-logo { width: 28px; height: 28px; }
-    .sv-controls-bar { left: 9px; right: 9px; bottom: 9px; padding: 8px 10px; gap: 8px; }
-    .sv-ctrl-btn { width: 34px; height: 34px; }
+    .sv-controls { left: 9px; right: 9px; bottom: 9px; gap: 8px; padding: 8px 10px; }
+    .sv-btn { width: 34px; height: 34px; }
     .sv-live-badge { display: none; }
   }
 
@@ -800,7 +823,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 </head>
@@ -808,7 +835,7 @@
 
 <div class="sv-main" id="sv-main">
 
-  <!-- ══ PLAYER ══ -->
+  <!-- PLAYER -->
   <div class="sv-player-wrap">
     <div class="sv-video-frame">
       <div class="sv-video-box" id="sv-video-box">
@@ -818,15 +845,15 @@
 
         <div class="sv-now-playing" id="sv-now-playing">
           <div class="sv-np-logo" id="sv-np-logo">—</div>
-          <div class="sv-now-text-group">
-            <span id="sv-now-text">Select a channel</span>
-            <span class="sv-now-sub" id="sv-now-sub"></span>
+          <div class="sv-np-text">
+            <div id="sv-now-text">Select a channel</div>
+            <div class="sv-np-sub" id="sv-now-sub"></div>
           </div>
         </div>
 
-        <div class="sv-loading-overlay" id="sv-loading">
+        <div class="sv-loading" id="sv-loading">
           <div class="sv-spinner"></div>
-          <span id="sv-loading-text">Loading stream…</span>
+          <div id="sv-loading-text">Loading stream…</div>
           <div class="sv-load-bar"></div>
         </div>
 
@@ -837,28 +864,27 @@
             </svg>
           </div>
           <div class="sv-error-title">Stream unavailable</div>
-          <small>This source may be offline. Try another channel.</small>
-          <button class="sv-retry" id="sv-retry">Retry</button>
+          <small>This source is offline. Pick another channel.</small>
+          <button class="sv-retry" id="sv-retry">Try again</button>
         </div>
 
-        <div class="sv-controls-bar" id="sv-controls-bar">
-          <button class="sv-ctrl-btn" id="sv-play-btn" title="Play / Pause (Space)" aria-label="Play or pause">
+        <div class="sv-controls" id="sv-controls">
+          <button class="sv-btn" id="sv-play-btn" title="Play / Pause (Space)" aria-label="Play or pause">
             <svg id="sv-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </button>
 
-          <div class="sv-volume-group">
-            <button class="sv-ctrl-btn" id="sv-mute-btn" title="Mute (M)" aria-label="Mute or unmute">
+          <div class="sv-vol-group">
+            <button class="sv-btn" id="sv-mute-btn" title="Mute (M)" aria-label="Mute or unmute">
               <svg id="sv-mute-icon" viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/><path d="M14 4.45v2.06c2.89.86 5 3.54 5 6.49s-2.11 5.63-5 6.49v2.06c4.01-.91 7-4.49 7-8.55s-2.99-7.64-7-8.55z"/></svg>
             </button>
-            <input type="range" class="sv-volume-slider" id="sv-volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+            <input type="range" class="sv-vol" id="sv-vol" min="0" max="1" step="0.01" value="1" aria-label="Volume">
           </div>
 
-          <div class="sv-ctrl-spacer"></div>
-
+          <div class="sv-spacer"></div>
           <div class="sv-live-badge"><span class="sv-dot"></span>LIVE</div>
-          <div class="sv-ctrl-divider"></div>
+          <div class="sv-divider"></div>
 
-          <button class="sv-ctrl-btn" id="sv-fs-btn" title="Fullscreen (F)" aria-label="Toggle fullscreen">
+          <button class="sv-btn" id="sv-fs-btn" title="Fullscreen (F)" aria-label="Toggle fullscreen">
             <svg id="sv-fs-icon" viewBox="0 0 24 24"><path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/></svg>
           </button>
         </div>
@@ -867,43 +893,39 @@
     </div>
   </div>
 
-  <!-- ══ SIDEBAR ══ -->
+  <!-- SIDEBAR -->
   <div class="sv-sidebar">
-    <div class="sv-sidebar-inner">
 
-      <div class="sv-brand">
-        <a class="sv-brand-mark" href="https://audiibly.com" target="_blank" rel="noopener noreferrer">
-          <div class="sv-brand-glyph">
-            <svg viewBox="0 0 24 24"><path d="M4 12h2l2-6 3 13 3-9 2 4h4"/></svg>
-          </div>
-          <div>
-            <div class="sv-brand-name">Audiibly</div>
-            <div class="sv-brand-tag">Live TV</div>
-          </div>
-        </a>
-        <a class="sv-brand-ext" href="https://audiibly.com" target="_blank" rel="noopener noreferrer" title="Visit Audiibly">
-          <svg viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-        </a>
-      </div>
-
-      <div class="sv-search-wrap">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input class="sv-search" type="text" placeholder="Search channels…" id="sv-search" autocomplete="off">
-        <button class="sv-search-clear" id="sv-search-clear" aria-label="Clear search">✕</button>
-      </div>
-
-      <div class="sv-cat-shell">
-        <div class="sv-cat-row" id="sv-cat-row"></div>
-      </div>
-
-      <div class="sv-list-head">
-        <span>Channels</span>
-        <span class="sv-count" id="sv-count"></span>
-      </div>
-
-      <div class="sv-channel-list" id="sv-channel-list"></div>
-
+    <div class="sv-brand">
+      <a class="sv-brand-mark" href="https://audiibly.com" target="_blank" rel="noopener noreferrer">
+        <span class="sv-brand-glyph">
+          <svg viewBox="0 0 24 24"><path d="M4 12h2l2-6 3 13 3-9 2 4h4"/></svg>
+        </span>
+        <span>
+          <span class="sv-brand-name">Audiibly</span>
+          <span class="sv-brand-tag" style="display:block">Live TV</span>
+        </span>
+      </a>
+      <a class="sv-brand-ext" href="https://audiibly.com" target="_blank" rel="noopener noreferrer" title="Visit Audiibly">
+        <svg viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+      </a>
     </div>
+
+    <div class="sv-search-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input class="sv-search" type="text" id="sv-search" placeholder="Search channels…" autocomplete="off">
+      <button class="sv-clear" id="sv-clear" aria-label="Clear search">✕</button>
+    </div>
+
+    <div class="sv-cats" id="sv-cats"></div>
+
+    <div class="sv-list-head">
+      <span>Channels</span>
+      <span class="sv-count" id="sv-count"></span>
+    </div>
+
+    <div class="sv-list" id="sv-list"></div>
+
   </div>
 
 </div>
@@ -911,176 +933,253 @@
 <script>
 'use strict';
 
-let CHANNELS = [];
-let hls = null;
-let activeIdx = -1;
-let activeCat = 'All';
-let idleTimer = null;
+var CHANNELS = [];
+var hls = null;
+var activeIdx = -1;
+var activeCat = 'All';
+var idleTimer = null;
 
-const video       = document.getElementById('sv-video');
-const videoBox    = document.getElementById('sv-video-box');
-const svMain      = document.getElementById('sv-main');
-const loadDiv     = document.getElementById('sv-loading');
-const loadingText = document.getElementById('sv-loading-text');
-const errDiv      = document.getElementById('sv-error');
-const nowText     = document.getElementById('sv-now-text');
-const nowSub      = document.getElementById('sv-now-sub');
-const npLogo      = document.getElementById('sv-np-logo');
-const countEl     = document.getElementById('sv-count');
-const listEl      = document.getElementById('sv-channel-list');
-const catRow      = document.getElementById('sv-cat-row');
-const searchEl    = document.getElementById('sv-search');
-const clearBtn    = document.getElementById('sv-search-clear');
+var video    = document.getElementById('sv-video');
+var videoBox = document.getElementById('sv-video-box');
+var svMain   = document.getElementById('sv-main');
+var loadDiv  = document.getElementById('sv-loading');
+var loadText = document.getElementById('sv-loading-text');
+var errDiv   = document.getElementById('sv-error');
+var nowText  = document.getElementById('sv-now-text');
+var nowSub   = document.getElementById('sv-now-sub');
+var npLogo   = document.getElementById('sv-np-logo');
+var countEl  = document.getElementById('sv-count');
+var listEl   = document.getElementById('sv-list');
+var catsEl   = document.getElementById('sv-cats');
+var searchEl = document.getElementById('sv-search');
+var clearBtn = document.getElementById('sv-clear');
 
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
-  ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
-
-const isImg = u => typeof u === 'string' && (u.startsWith('http') || u.startsWith('/'));
-
-/* ── viewport height fix ─────────────────────────────── */
-function setAppHeight() {
-  document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
-}
-setAppHeight();
-window.addEventListener('resize', setAppHeight);
-window.addEventListener('orientationchange', setAppHeight);
-
-const showLoading = on => loadDiv.classList.toggle('active', on);
-const showError   = on => errDiv.classList.toggle('active', on);
-
-/* ── load data ───────────────────────────────────────── */
-async function loadChannelsFromJson() {
-  try {
-    const res = await fetch('channels.json');
-    if (!res.ok) throw new Error('Failed to load channels');
-    CHANNELS = await res.json();
-
-    renderCategories();
-    applyFilters();
-
-    if (CHANNELS.length) loadChannel(0);
-  } catch (err) {
-    console.error(err);
-    listEl.innerHTML = `
-      <div class="sv-empty">
-        <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
-        <strong>Couldn't load channels</strong>
-        <span>Check that channels.json is reachable.</span>
-      </div>`;
-  }
-}
-
-/* ── categories ──────────────────────────────────────── */
-function renderCategories() {
-  const counts = CHANNELS.reduce((m, c) => {
-    m[c.category] = (m[c.category] || 0) + 1;
-    return m;
-  }, {});
-
-  const cats = ['All', ...Object.keys(counts).sort()];
-  catRow.innerHTML = '';
-
-  cats.forEach(cat => {
-    const n = cat === 'All' ? CHANNELS.length : counts[cat];
-    const chip = document.createElement('button');
-    chip.className = 'sv-cat-chip' + (cat === activeCat ? ' active' : '');
-    chip.dataset.cat = cat;
-    chip.innerHTML = `${esc(cat)}<span>${n}</span>`;
-    chip.addEventListener('click', () => {
-      activeCat = cat;
-      catRow.querySelectorAll('.sv-cat-chip').forEach(c =>
-        c.classList.toggle('active', c.dataset.cat === cat));
-      chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      applyFilters();
-    });
-    catRow.appendChild(chip);
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
   });
 }
 
-/* ── filtering ───────────────────────────────────────── */
+function isImg(u) {
+  return typeof u === 'string' && (u.indexOf('http') === 0 || u.charAt(0) === '/');
+}
+
+function initial(name) {
+  return esc(String(name || '?').trim().charAt(0).toUpperCase() || '?');
+}
+
+function showLoading(on) { loadDiv.classList.toggle('active', on); }
+function showError(on)   { errDiv.classList.toggle('active', on); }
+
+/* ── build a logo element with a safe text fallback ──────── */
+function makeLogo(ch, cls) {
+  var box = document.createElement('div');
+  box.className = cls;
+
+  if (isImg(ch.logo)) {
+    var img = document.createElement('img');
+    img.src = ch.logo;
+    img.alt = '';
+    img.loading = 'lazy';
+    img.onerror = function () {
+      box.textContent = initial(ch.name);
+    };
+    box.appendChild(img);
+  } else {
+    box.textContent = initial(ch.name);
+  }
+  return box;
+}
+
+/* ── load data ──────────────────────────────────────────── */
+function loadChannelsFromJson() {
+  fetch('channels.json')
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function (data) {
+      CHANNELS = Array.isArray(data) ? data : [];
+      CHANNELS.forEach(function (c, i) { c._i = i; });
+
+      renderCategories();
+      applyFilters();
+
+      if (CHANNELS.length) loadChannel(0);
+    })
+    .catch(function (err) {
+      console.error(err);
+      listEl.innerHTML =
+        '<div class="sv-empty">' +
+        '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>' +
+        '<strong>Channel list didn\'t load</strong>' +
+        '<span>Make sure channels.json sits next to this page.</span>' +
+        '</div>';
+      countEl.textContent = '';
+    });
+}
+
+/* ── categories ─────────────────────────────────────────── */
+function renderCategories() {
+  var counts = {};
+  CHANNELS.forEach(function (c) {
+    var k = c.category || 'Other';
+    counts[k] = (counts[k] || 0) + 1;
+  });
+
+  var cats = ['All'].concat(Object.keys(counts).sort());
+  catsEl.innerHTML = '';
+
+  cats.forEach(function (cat) {
+    var n = cat === 'All' ? CHANNELS.length : counts[cat];
+
+    var chip = document.createElement('button');
+    chip.className = 'sv-chip' + (cat === activeCat ? ' active' : '');
+    chip.dataset.cat = cat;
+    chip.innerHTML = esc(cat) + '<b>' + n + '</b>';
+
+    chip.addEventListener('click', function () {
+      activeCat = cat;
+      var all = catsEl.querySelectorAll('.sv-chip');
+      for (var i = 0; i < all.length; i++) {
+        all[i].classList.toggle('active', all[i].dataset.cat === cat);
+      }
+      applyFilters();
+      listEl.scrollTop = 0;
+    });
+
+    catsEl.appendChild(chip);
+  });
+}
+
+/* drag-to-scroll for the category rail (desktop convenience) */
+(function enableDragScroll(el) {
+  var down = false, startX = 0, startLeft = 0, moved = false;
+
+  el.addEventListener('mousedown', function (e) {
+    down = true; moved = false;
+    startX = e.pageX;
+    startLeft = el.scrollLeft;
+  });
+  window.addEventListener('mouseup', function () { down = false; });
+  el.addEventListener('mouseleave', function () { down = false; });
+  el.addEventListener('mousemove', function (e) {
+    if (!down) return;
+    var dx = e.pageX - startX;
+    if (Math.abs(dx) > 3) moved = true;
+    el.scrollLeft = startLeft - dx;
+  });
+  // swallow the click that ends a drag so it doesn't select a chip
+  el.addEventListener('click', function (e) {
+    if (moved) { e.stopPropagation(); e.preventDefault(); }
+  }, true);
+
+  // vertical wheel scrolls the rail horizontally
+  el.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      el.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }
+  }, { passive: false });
+})(catsEl);
+
+/* ── filtering ──────────────────────────────────────────── */
 function applyFilters() {
-  const q = searchEl.value.toLowerCase().trim();
+  var q = searchEl.value.toLowerCase().trim();
   clearBtn.classList.toggle('show', q.length > 0);
 
-  const filtered = CHANNELS.filter(c => {
-    const catOk = activeCat === 'All' || c.category === activeCat;
-    if (!catOk) return false;
+  var out = CHANNELS.filter(function (c) {
+    if (activeCat !== 'All' && c.category !== activeCat) return false;
     if (!q) return true;
-    return c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q);
+    return String(c.name).toLowerCase().indexOf(q) !== -1 ||
+           String(c.category).toLowerCase().indexOf(q) !== -1;
   });
 
-  renderChannels(filtered);
+  renderChannels(out);
 }
 
 searchEl.addEventListener('input', applyFilters);
-clearBtn.addEventListener('click', () => {
+clearBtn.addEventListener('click', function () {
   searchEl.value = '';
   applyFilters();
   searchEl.focus();
 });
 
-/* ── render list ─────────────────────────────────────── */
+/* ── render list ────────────────────────────────────────── */
 function renderChannels(list) {
   listEl.innerHTML = '';
-  countEl.textContent = CHANNELS.length ? `${list.length} / ${CHANNELS.length}` : '';
+  countEl.textContent = CHANNELS.length ? list.length + ' / ' + CHANNELS.length : '';
 
   if (!list.length) {
-    listEl.innerHTML = `
-      <div class="sv-empty">
-        <svg viewBox="0 0 24 24" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <strong>No channels found</strong>
-        <span>Try a different search or category.</span>
-      </div>`;
+    listEl.innerHTML =
+      '<div class="sv-empty">' +
+      '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>' +
+      '<strong>Nothing here</strong>' +
+      '<span>Clear the search or pick another category.</span>' +
+      '</div>';
     return;
   }
 
-  const frag = document.createDocumentFragment();
+  var frag = document.createDocumentFragment();
 
-  list.forEach((ch, i) => {
-    const realIdx = CHANNELS.indexOf(ch);
-    const btn = document.createElement('button');
+  list.forEach(function (ch) {
+    var idx = ch._i;
 
-    btn.className = 'sv-ch-btn' + (realIdx === activeIdx ? ' active' : '');
-    btn.dataset.idx = realIdx;
-    btn.style.setProperty('--i', Math.min(i, 24));
+    var row = document.createElement('button');
+    row.className = 'sv-row' + (idx === activeIdx ? ' active' : '');
+    row.dataset.idx = idx;
+    row.type = 'button';
 
-    const logo = isImg(ch.logo)
-      ? `<img src="${esc(ch.logo)}" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('${esc(ch.name.charAt(0))}'))">`
-      : esc(ch.name.charAt(0).toUpperCase());
+    row.appendChild(makeLogo(ch, 'sv-logo'));
 
-    btn.innerHTML = `
-      <div class="sv-ch-logo">${logo}</div>
-      <div class="sv-ch-info">
-        <div class="sv-ch-title">${esc(ch.name)}</div>
-        <div class="sv-ch-cat">${esc(ch.category)}</div>
-      </div>
-      <div class="sv-ch-live"></div>`;
+    var meta = document.createElement('div');
+    meta.className = 'sv-meta';
 
-    btn.addEventListener('click', () => loadChannel(realIdx));
-    frag.appendChild(btn);
+    var name = document.createElement('div');
+    name.className = 'sv-name';
+    name.textContent = ch.name;
+
+    var cat = document.createElement('div');
+    cat.className = 'sv-cat';
+    cat.textContent = ch.category || 'Other';
+
+    meta.appendChild(name);
+    meta.appendChild(cat);
+    row.appendChild(meta);
+
+    var pip = document.createElement('span');
+    pip.className = 'sv-pip';
+    row.appendChild(pip);
+
+    row.addEventListener('click', function () { loadChannel(idx); });
+    frag.appendChild(row);
   });
 
   listEl.appendChild(frag);
 }
 
-/* ── playback ────────────────────────────────────────── */
+/* ── playback ───────────────────────────────────────────── */
 function loadChannel(idx) {
-  const ch = CHANNELS[idx];
+  var ch = CHANNELS[idx];
   if (!ch) return;
 
   activeIdx = idx;
 
   nowText.textContent = ch.name;
-  nowSub.innerHTML = `${esc(ch.category)} <span class="sv-now-hd">HD</span>`;
-  npLogo.innerHTML = isImg(ch.logo)
-    ? `<img src="${esc(ch.logo)}" alt="" onerror="this.replaceWith(document.createTextNode('${esc(ch.name.charAt(0))}'))">`
-    : esc(ch.name.charAt(0).toUpperCase());
+  nowSub.innerHTML = esc(ch.category || 'Live') + ' <span class="sv-np-hd">HD</span>';
 
-  loadingText.textContent = `Loading ${ch.name}…`;
-  document.title = `${ch.name} — Audiibly Live`;
+  var fresh = makeLogo(ch, 'sv-np-logo');
+  fresh.id = 'sv-np-logo';
+  npLogo.replaceWith(fresh);
+  npLogo = fresh;
 
-  document.querySelectorAll('.sv-ch-btn').forEach(b =>
-    b.classList.toggle('active', Number(b.dataset.idx) === idx));
+  loadText.textContent = 'Loading ' + ch.name + '…';
+  document.title = ch.name + ' — Audiibly Live';
+
+  var rows = listEl.querySelectorAll('.sv-row');
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].classList.toggle('active', Number(rows[i].dataset.idx) === idx);
+  }
 
   showLoading(true);
   showError(false);
@@ -1091,17 +1190,17 @@ function loadChannel(idx) {
   video.removeAttribute('src');
   video.load();
 
-  if (window.Hls && Hls.isSupported()) {
+  if (window.Hls && window.Hls.isSupported()) {
     hls = new Hls({ enableWorker: true, lowLatencyMode: true });
     hls.loadSource(ch.url);
     hls.attachMedia(video);
 
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
       showLoading(false);
-      video.play().catch(() => {});
+      video.play().catch(function () {});
     });
 
-    hls.on(Hls.Events.ERROR, (_, data) => {
+    hls.on(Hls.Events.ERROR, function (_, data) {
       if (!data.fatal) return;
       showLoading(false);
       showError(true);
@@ -1109,11 +1208,11 @@ function loadChannel(idx) {
 
   } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
     video.src = ch.url;
-    video.addEventListener('loadedmetadata', () => {
+    video.addEventListener('loadedmetadata', function () {
       showLoading(false);
-      video.play().catch(() => {});
+      video.play().catch(function () {});
     }, { once: true });
-    video.addEventListener('error', () => {
+    video.addEventListener('error', function () {
       showLoading(false);
       showError(true);
     }, { once: true });
@@ -1124,30 +1223,31 @@ function loadChannel(idx) {
   }
 }
 
-document.getElementById('sv-retry').addEventListener('click', () => {
+document.getElementById('sv-retry').addEventListener('click', function () {
   if (activeIdx >= 0) loadChannel(activeIdx);
 });
 
-/* ── controls ────────────────────────────────────────── */
-const playIcon = document.getElementById('sv-play-icon');
-const muteIcon = document.getElementById('sv-mute-icon');
-const volumeSlider = document.getElementById('sv-volume-slider');
+/* ── controls ───────────────────────────────────────────── */
+var playIcon = document.getElementById('sv-play-icon');
+var muteIcon = document.getElementById('sv-mute-icon');
+var volSlider = document.getElementById('sv-vol');
 
-const ICON_PLAY  = '<path d="M8 5v14l11-7z"/>';
-const ICON_PAUSE = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
-const ICON_SOUND = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/><path d="M14 4.45v2.06c2.89.86 5 3.54 5 6.49s-2.11 5.63-5 6.49v2.06c4.01-.91 7-4.49 7-8.55s-2.99-7.64-7-8.55z"/>';
-const ICON_MUTED = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M19 9l-4.5 4.5M14.5 9l4.5 4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>';
+var ICON_PLAY  = '<path d="M8 5v14l11-7z"/>';
+var ICON_PAUSE = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+var ICON_SOUND = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M16.5 12c0-1.77-1-3.29-2.5-4.03v8.06c1.5-.74 2.5-2.26 2.5-4.03z"/><path d="M14 4.45v2.06c2.89.86 5 3.54 5 6.49s-2.11 5.63-5 6.49v2.06c4.01-.91 7-4.49 7-8.55s-2.99-7.64-7-8.55z"/>';
+var ICON_MUTED = '<path d="M3 10v4h4l5 5V5L7 10H3z"/><path d="M19 9l-4.5 4.5M14.5 9l4.5 4.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>';
 
 function togglePlay() {
-  video.paused ? video.play().catch(() => {}) : video.pause();
+  if (video.paused) video.play().catch(function () {});
+  else video.pause();
 }
 
 function toggleMute() {
   video.muted = !video.muted;
   if (!video.muted && video.volume === 0) {
     video.volume = 0.6;
-    volumeSlider.value = 0.6;
-    updateVolumeFill();
+    volSlider.value = 0.6;
+    updateVolFill();
   }
   updateMuteIcon();
 }
@@ -1156,90 +1256,101 @@ function updateMuteIcon() {
   muteIcon.innerHTML = (video.muted || video.volume === 0) ? ICON_MUTED : ICON_SOUND;
 }
 
-function updateVolumeFill() {
-  volumeSlider.style.setProperty('--vol-pct', `${Number(volumeSlider.value) * 100}%`);
+function updateVolFill() {
+  volSlider.style.setProperty('--vol-pct', (Number(volSlider.value) * 100) + '%');
 }
 
 document.getElementById('sv-play-btn').addEventListener('click', togglePlay);
 document.getElementById('sv-mute-btn').addEventListener('click', toggleMute);
 
-video.addEventListener('play',  () => { playIcon.innerHTML = ICON_PAUSE; armIdle(); });
-video.addEventListener('pause', () => {
+video.addEventListener('play', function () { playIcon.innerHTML = ICON_PAUSE; armIdle(); });
+video.addEventListener('pause', function () {
   playIcon.innerHTML = ICON_PLAY;
   clearTimeout(idleTimer);
   videoBox.classList.remove('sv-idle');
 });
 video.addEventListener('volumechange', updateMuteIcon);
-video.addEventListener('waiting', () => showLoading(true));
-video.addEventListener('playing', () => { showLoading(false); showError(false); });
+video.addEventListener('waiting', function () { showLoading(true); });
+video.addEventListener('playing', function () { showLoading(false); showError(false); });
 
-volumeSlider.addEventListener('input', () => {
-  video.volume = Number(volumeSlider.value);
+volSlider.addEventListener('input', function () {
+  video.volume = Number(volSlider.value);
   video.muted = false;
   updateMuteIcon();
-  updateVolumeFill();
+  updateVolFill();
 });
-updateVolumeFill();
+updateVolFill();
 
-/* ── fullscreen ──────────────────────────────────────── */
-const fsIcon = document.getElementById('sv-fs-icon');
-const ICON_FS_ENTER = '<path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/>';
-const ICON_FS_EXIT  = '<path d="M5 16H3v5h5v-2H5v-3zm-2-8h2V5h3V3H3v5zm13 11h3v-3h2v-5h-5v5h-2v3zm3-11V5h-3V3h5v5h-2z"/>';
+/* ── fullscreen ─────────────────────────────────────────── */
+var fsIcon = document.getElementById('sv-fs-icon');
+var ICON_FS_ENTER = '<path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/>';
+var ICON_FS_EXIT  = '<path d="M5 16H3v5h5v-2H5v-3zm-2-8h2V5h3V3H3v5zm13 11h3v-3h2v-5h-5v5h-2v3zm3-11V5h-3V3h5v5h-2z"/>';
 
 function toggleFullscreen() {
-  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
 
   if (!isFs) {
-    const req = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
+    // iOS Safari only allows fullscreen on the video element itself
+    if (!videoBox.requestFullscreen && !videoBox.webkitRequestFullscreen &&
+        video.webkitEnterFullscreen) {
+      video.webkitEnterFullscreen();
+      return;
+    }
+
+    var req = videoBox.requestFullscreen || videoBox.webkitRequestFullscreen;
     if (req) {
-      const r = req.call(videoBox);
+      var r = req.call(videoBox);
       if (r && typeof r.catch === 'function') {
-        r.catch(() => {
-          const fb = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
-          fb && fb.call(svMain);
+        r.catch(function () {
+          var fb = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+          if (fb) fb.call(svMain);
         });
       }
     } else {
-      const fb = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
-      fb && fb.call(svMain);
+      var fb2 = svMain.requestFullscreen || svMain.webkitRequestFullscreen;
+      if (fb2) fb2.call(svMain);
     }
   } else {
-    const exit = document.exitFullscreen || document.webkitExitFullscreen;
-    exit && exit.call(document);
+    var exit = document.exitFullscreen || document.webkitExitFullscreen;
+    if (exit) exit.call(document);
   }
 }
 
 document.getElementById('sv-fs-btn').addEventListener('click', toggleFullscreen);
 
 function onFsChange() {
-  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
   fsIcon.innerHTML = isFs ? ICON_FS_EXIT : ICON_FS_ENTER;
   armIdle();
 }
 document.addEventListener('fullscreenchange', onFsChange);
 document.addEventListener('webkitfullscreenchange', onFsChange);
 
-/* ── idle chrome ─────────────────────────────────────── */
+/* ── idle chrome ────────────────────────────────────────── */
 function armIdle() {
   clearTimeout(idleTimer);
   videoBox.classList.remove('sv-idle');
   if (!video.paused) {
-    idleTimer = setTimeout(() => videoBox.classList.add('sv-idle'), 2800);
+    idleTimer = setTimeout(function () { videoBox.classList.add('sv-idle'); }, 2800);
   }
 }
 videoBox.addEventListener('mousemove', armIdle);
 videoBox.addEventListener('touchstart', armIdle, { passive: true });
 
-/* ── keyboard ────────────────────────────────────────── */
-document.addEventListener('keydown', e => {
+/* ── keyboard ───────────────────────────────────────────── */
+document.addEventListener('keydown', function (e) {
   if (e.target.tagName === 'INPUT') {
-    if (e.key === 'Escape') { searchEl.value = ''; applyFilters(); searchEl.blur(); }
+    if (e.key === 'Escape') {
+      searchEl.value = '';
+      applyFilters();
+      searchEl.blur();
+    }
     return;
   }
 
-  const key = e.key.toLowerCase();
+  var key = e.key.toLowerCase();
 
-  if (key === 'f')      toggleFullscreen();
+  if (key === 'f') toggleFullscreen();
   else if (key === 'm') toggleMute();
   else if (key === '/') { e.preventDefault(); searchEl.focus(); }
   else if (e.key === ' ') { e.preventDefault(); togglePlay(); }
@@ -1248,10 +1359,15 @@ document.addEventListener('keydown', e => {
 });
 
 function step(dir) {
-  const btns = [...listEl.querySelectorAll('.sv-ch-btn')];
-  if (!btns.length) return;
-  const cur = btns.findIndex(b => Number(b.dataset.idx) === activeIdx);
-  const next = btns[(cur + dir + btns.length) % btns.length];
+  var rows = listEl.querySelectorAll('.sv-row');
+  if (!rows.length) return;
+
+  var cur = -1;
+  for (var i = 0; i < rows.length; i++) {
+    if (Number(rows[i].dataset.idx) === activeIdx) { cur = i; break; }
+  }
+
+  var next = rows[(cur + dir + rows.length) % rows.length];
   loadChannel(Number(next.dataset.idx));
   next.scrollIntoView({ block: 'nearest' });
 }
