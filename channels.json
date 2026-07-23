@@ -332,7 +332,7 @@
   {
     "name": "CNN NEWS",
     "category": "News",
-    "logo": "https://is.gd/ywX5PG",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Cnn_logo_red_background.png",
     "url": "https://amg01448-samsungin-cnnnow-samsungin-4npqg.amagi.tv/playlist/amg01448-samsungin-cnnnow-samsungin/playlist.m3u8"
   },
   {
@@ -1430,25 +1430,25 @@
   {
     "name": "CGTN News",
     "category": "News",
-    "logo": "",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/25/CGTN.png",
     "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/cgtn.stream/playlist.m3u8"
   },
   {
     "name": "France 24",
     "category": "News",
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/6/65/FRANCE_24_logo.svg/1200px-FRANCE_24_logo.svg.png",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/8/8a/France24.png",
     "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/fr24.stream/playlist.m3u8"
   },
   {
     "name": "Sky News",
     "category": "News",
-    "logo": "",
+    "logo": "https://images.seeklogo.com/logo-png/12/1/sky-news-logo-png_seeklogo-127705.png",
     "url": "https://d39chvnxm26pgp.cloudfront.net/v1/master/72588bff830dec7b26d7cbbf5f3c24928aec5c03/cc-sthen6ms4vxgv-stage/WNSFO/ABR.m3u8"
   },
   {
     "name": "NHK World",
     "category": "News",
-    "logo": "",
+    "logo": "https://cdn.broadbandtvnews.com/wp-content/uploads/2017/12/14114443/NHK-WORLD-TV.jpg",
     "url": "http://103.175.73.12:8080/live/417/417_0.m3u8"
   },
   {
@@ -1834,5 +1834,11 @@
     "category": "Music",
     "logo": "https://upload.wikimedia.org/wikipedia/en/0/0f/ABC_Music_2018_logo.png",
     "url": "https://c.mjh.nz/abc-wa.m3u8"
+  },
+  {
+    "name": "ABC NEWS",
+    "category": "News",
+    "logo": "https://yt3.googleusercontent.com/sc9xa2bYk6pIuKX3qgMHSrxEkuPmg57JMl_lRaJqCZxuSIeQt1B6BV23c-16Q3b7Aep0on1b=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index.m3u8"
   }
 ]
