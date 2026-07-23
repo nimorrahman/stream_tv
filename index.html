@@ -573,6 +573,45 @@
   }
   .sv-search::placeholder { color: var(--faint); }
 
+  .sv-cat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+    max-height: 88px;
+    overflow-y: auto;
+    padding-right: 2px;
+  }
+  .sv-cat-row::-webkit-scrollbar { width: 3px; }
+  .sv-cat-row::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .sv-cat-chip {
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(18,20,29,0.7);
+    border: 1px solid var(--border-soft);
+    color: var(--text-dim);
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
+  }
+  .sv-cat-chip:hover {
+    background: var(--card-hover);
+    border-color: #313650;
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+  .sv-cat-chip.active {
+    background: linear-gradient(135deg, rgba(201,162,75,0.22), rgba(201,162,75,0.07));
+    border-color: rgba(201,162,75,0.5);
+    color: var(--gold-bright);
+    box-shadow: 0 4px 14px -6px rgba(201,162,75,0.35);
+  }
+
   .sv-channel-list {
     display: flex;
     flex-direction: column;
@@ -821,6 +860,7 @@
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input class="sv-search" type="text" placeholder="Search channels…" id="sv-search" oninput="filterChannels(this.value)">
       </div>
+      <div class="sv-cat-row" id="sv-cat-row"></div>
       <div class="sv-channel-list" id="sv-channel-list"></div>
     </div>
   </div>
@@ -870,7 +910,7 @@
       }
 
       CHANNELS = await response.json();
-
+      renderCategories();
       renderChannels(CHANNELS);
 
       if (CHANNELS.length > 0) {
@@ -1016,20 +1056,37 @@
     });
   }
 
-  function filterChannels(query) {
+let activeCat = 'All';
 
-    const q = query.toLowerCase().trim();
+  function renderCategories() {
+    const row = document.getElementById('sv-cat-row');
+    const cats = ['All', ...[...new Set(CHANNELS.map(c => c.category))].sort()];
+    row.innerHTML = '';
+    cats.forEach(cat => {
+      const chip = document.createElement('button');
+      chip.className = 'sv-cat-chip' + (cat === activeCat ? ' active' : '');
+      chip.textContent = cat;
+      chip.addEventListener('click', () => {
+        activeCat = cat;
+        row.querySelectorAll('.sv-cat-chip').forEach(c =>
+          c.classList.toggle('active', c.textContent === cat));
+        applyFilters();
+      });
+      row.appendChild(chip);
+    });
+  }
 
-    const filtered = q
-      ? CHANNELS.filter(
-          c =>
-            c.name.toLowerCase().includes(q) ||
-            c.category.toLowerCase().includes(q)
-        )
-      : CHANNELS;
-
+  function applyFilters() {
+    const q = document.getElementById('sv-search').value.toLowerCase().trim();
+    const filtered = CHANNELS.filter(c => {
+      const catOk = activeCat === 'All' || c.category === activeCat;
+      const qOk = !q || c.name.toLowerCase().includes(q) || c.category.toLowerCase().includes(q);
+      return catOk && qOk;
+    });
     renderChannels(filtered);
   }
+
+  function filterChannels() { applyFilters(); }
 
   /* ── PLAY / MUTE CONTROLS ──────────────────────────────── */
   const playIcon = document.getElementById('sv-play-icon');
