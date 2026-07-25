@@ -666,12 +666,6 @@
     "url": "https://dog.dg21bd.com/TBN24WEBUSA/index.m3u8"
   },
   {
-    "name": "Music Bangla",
-    "category": "Music",
-    "logo": "",
-    "url": "http://vmi3039524.contaboserver.net:5050/music/index.m3u8"
-  },
-  {
     "name": "Bengla Beats",
     "category": "Bangla",
     "logo": "://tplay.live/originals/bengali-beats/bengali-beats.png",
@@ -680,7 +674,7 @@
   {
     "name": "Channel-16",
     "category": "Music",
-    "logo": "",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Channel_16_Bangladesh_Logo.png",
     "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel16bd.stream/tracks-v1a1/mono.m3u8"
   },
   {
@@ -1400,14 +1394,8 @@
   {
     "name": "8XM",
     "category": "Music",
-    "logo": "",
+    "logo": "https://www.worldcall.net.pk/images/channels_list/8XM.jpg",
     "url": "http://125.209.88.166:45793/BRN/8XM.stream/playlist.m3u8"
-  },
-  {
-    "name": "Show Box",
-    "category": "Music",
-    "logo": "",
-    "url": "https://epiconvh.s.llnwi.net/showbox/master_1080.m3u8"
   },
   {
     "name": "Music India",
@@ -1846,5 +1834,47 @@
     "category": "Music",
     "logo": "https://play-lh.googleusercontent.com/DbTcLg_MkVPdnkXtOBtvRuLE3gftWIN8wZpShOaFtzvkIRNahKagnmPMn7ptBFhLfw_xsuKDlQyM-2sxeQ21Pw",
     "url": "https://secured.albportal.net:2083/AlbKanaleMusicTv/index.m3u8"
+  },
+  {
+    "name": "VeVo Music 70",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/1.png",
+    "url": "https://amg00056-vevotv-vevo70saunz-samsungau-xzszd.amagi.tv/playlist/amg00056-vevotv-vevo70saunz-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Music 80",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/2.png",
+    "url": "https://amg00056-vevotv-vevo80saunz-samsungau-rp5e3.amagi.tv/playlist/amg00056-vevotv-vevo80saunz-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Music 90",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/3.png",
+    "url": "https://amg00056-vevotv-vevo90saunz-samsungau-n6a0d.amagi.tv/playlist/amg00056-vevotv-vevo90saunz-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Music 2K",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/4.png",
+    "url": "https://d1s6jz7jeei17.cloudfront.net/playlist/amg00056-vevotv-vevo2kau-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Rock",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/5.png",
+    "url": "https://d2lyea6if8kkz9.cloudfront.net/playlist/amg00056-vevotv-vevoretrorockau-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Country",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/6-.png",
+    "url": "https://amg00056-vevotv-vevocountryau-samsungau-ktmqm.amagi.tv/playlist/amg00056-vevotv-vevocountryau-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Pop",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/7-.png",
+    "url": "https://d128y56w6v2kax.cloudfront.net/playlist/amg00056-vevotv-vevopopau-samsungau/playlist.m3u8"
   }
 ]
