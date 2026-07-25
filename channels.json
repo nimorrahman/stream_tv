@@ -1840,5 +1840,11 @@
     "category": "News",
     "logo": "https://yt3.googleusercontent.com/sc9xa2bYk6pIuKX3qgMHSrxEkuPmg57JMl_lRaJqCZxuSIeQt1B6BV23c-16Q3b7Aep0on1b=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index.m3u8"
+  },
+  {
+    "name": "A Music",
+    "category": "Music",
+    "logo": "https://play-lh.googleusercontent.com/DbTcLg_MkVPdnkXtOBtvRuLE3gftWIN8wZpShOaFtzvkIRNahKagnmPMn7ptBFhLfw_xsuKDlQyM-2sxeQ21Pw",
+    "url": "https://albportal.net/amusic.m3u8"
   }
 ]
