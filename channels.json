@@ -1845,6 +1845,6 @@
     "name": "A Music",
     "category": "Music",
     "logo": "https://secured.albportal.net:2083/AlbKanaleMusicTv/index.m3u8",
-    "url": "https://albportal.net/amusic.m3u8"
+    "url": "https://secured.albportal.net:2083/AlbKanaleMusicTv/index.m3u8"
   }
 ]
