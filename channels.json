@@ -332,7 +332,7 @@
   {
     "name": "CNN NEWS",
     "category": "News",
-    "logo": "https://is.gd/ywX5PG",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Cnn_logo_red_background.png",
     "url": "https://amg01448-samsungin-cnnnow-samsungin-4npqg.amagi.tv/playlist/amg01448-samsungin-cnnnow-samsungin/playlist.m3u8"
   },
   {
@@ -666,12 +666,6 @@
     "url": "https://dog.dg21bd.com/TBN24WEBUSA/index.m3u8"
   },
   {
-    "name": "Music Bangla",
-    "category": "Music",
-    "logo": "",
-    "url": "http://vmi3039524.contaboserver.net:5050/music/index.m3u8"
-  },
-  {
     "name": "Bengla Beats",
     "category": "Bangla",
     "logo": "://tplay.live/originals/bengali-beats/bengali-beats.png",
@@ -680,7 +674,7 @@
   {
     "name": "Channel-16",
     "category": "Music",
-    "logo": "",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Channel_16_Bangladesh_Logo.png",
     "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel16bd.stream/tracks-v1a1/mono.m3u8"
   },
   {
@@ -1400,14 +1394,8 @@
   {
     "name": "8XM",
     "category": "Music",
-    "logo": "",
+    "logo": "https://www.worldcall.net.pk/images/channels_list/8XM.jpg",
     "url": "http://125.209.88.166:45793/BRN/8XM.stream/playlist.m3u8"
-  },
-  {
-    "name": "Show Box",
-    "category": "Music",
-    "logo": "",
-    "url": "https://epiconvh.s.llnwi.net/showbox/master_1080.m3u8"
   },
   {
     "name": "Music India",
@@ -1430,25 +1418,25 @@
   {
     "name": "CGTN News",
     "category": "News",
-    "logo": "",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/2/25/CGTN.png",
     "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/cgtn.stream/playlist.m3u8"
   },
   {
     "name": "France 24",
     "category": "News",
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/6/65/FRANCE_24_logo.svg/1200px-FRANCE_24_logo.svg.png",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/8/8a/France24.png",
     "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/fr24.stream/playlist.m3u8"
   },
   {
     "name": "Sky News",
     "category": "News",
-    "logo": "",
+    "logo": "https://images.seeklogo.com/logo-png/12/1/sky-news-logo-png_seeklogo-127705.png",
     "url": "https://d39chvnxm26pgp.cloudfront.net/v1/master/72588bff830dec7b26d7cbbf5f3c24928aec5c03/cc-sthen6ms4vxgv-stage/WNSFO/ABR.m3u8"
   },
   {
     "name": "NHK World",
     "category": "News",
-    "logo": "",
+    "logo": "https://cdn.broadbandtvnews.com/wp-content/uploads/2017/12/14114443/NHK-WORLD-TV.jpg",
     "url": "http://103.175.73.12:8080/live/417/417_0.m3u8"
   },
   {
@@ -1824,9 +1812,69 @@
     "url": "https://vods2.aynaott.com/hindimovies/index.m3u8"
   },
   {
-    "name": "Al Arabia",
+    "name": "Peace TV (Bangla)",
+    "category": "Islamic",
+    "logo": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRnAX9I-53fYtdMmzSy1RbOeWPrgT5hp5wMY3QlumFZlqXY5lQs",
+    "url": "https://dzkyvlfyge.erbvr.com/PeaceTvBangla/index.m3u8"
+  },
+  {
+    "name": "ABC Music",
+    "category": "Music",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/0/0f/ABC_Music_2018_logo.png",
+    "url": "https://c.mjh.nz/abc-wa.m3u8"
+  },
+  {
+    "name": "ABC NEWS",
     "category": "News",
-    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/00/bf/10/00bf102d-4dcd-97b1-7758-d39772acb73c/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x630wa.png",
-    "url": "https://live.alarabiya.net/alarabiapublish/aaprograms.smil/playlist.m3u8"
+    "logo": "https://yt3.googleusercontent.com/sc9xa2bYk6pIuKX3qgMHSrxEkuPmg57JMl_lRaJqCZxuSIeQt1B6BV23c-16Q3b7Aep0on1b=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://abc-news-dmd-streams-1.akamaized.net/out/v1/701126012d044971b3fa89406a440133/index.m3u8"
+  },
+  {
+    "name": "A Music",
+    "category": "Music",
+    "logo": "https://play-lh.googleusercontent.com/DbTcLg_MkVPdnkXtOBtvRuLE3gftWIN8wZpShOaFtzvkIRNahKagnmPMn7ptBFhLfw_xsuKDlQyM-2sxeQ21Pw",
+    "url": "https://secured.albportal.net:2083/AlbKanaleMusicTv/index.m3u8"
+  },
+  {
+    "name": "VeVo Music 70",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/1.png",
+    "url": "https://amg00056-vevotv-vevo70saunz-samsungau-xzszd.amagi.tv/playlist/amg00056-vevotv-vevo70saunz-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Music 80",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/2.png",
+    "url": "https://amg00056-vevotv-vevo80saunz-samsungau-rp5e3.amagi.tv/playlist/amg00056-vevotv-vevo80saunz-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Music 90",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/3.png",
+    "url": "https://amg00056-vevotv-vevo90saunz-samsungau-n6a0d.amagi.tv/playlist/amg00056-vevotv-vevo90saunz-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Music 2K",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/4.png",
+    "url": "https://d1s6jz7jeei17.cloudfront.net/playlist/amg00056-vevotv-vevo2kau-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Rock",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/5.png",
+    "url": "https://d2lyea6if8kkz9.cloudfront.net/playlist/amg00056-vevotv-vevoretrorockau-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Country",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/6-.png",
+    "url": "https://amg00056-vevotv-vevocountryau-samsungau-ktmqm.amagi.tv/playlist/amg00056-vevotv-vevocountryau-samsungau/playlist.m3u8"
+  },
+  {
+    "name": "VeVo Pop",
+    "category": "Music",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/7-.png",
+    "url": "https://d128y56w6v2kax.cloudfront.net/playlist/amg00056-vevotv-vevopopau-samsungau/playlist.m3u8"
   }
 ]
