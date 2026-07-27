@@ -1882,11 +1882,5 @@
     "category": "Music",
     "logo": "https://woxtv.net/wp-content/uploads/2026/06/cropped-wox-3d-logo-cabecera-112x48.png",
     "url": "https://tuvideoonline.com.ar:3332/live/xlevelmedialive.m3u8"
-  },
-  {
-    "name": "Persiana SetMix",
-    "category": "Music",
-    "logo": "https://www.persianagroup.tv/assets/logos/setmix.png",
-    "url": "amchls.wns.live/hls/stream.m3u8"
   }
 ]
