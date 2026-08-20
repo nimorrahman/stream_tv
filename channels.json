@@ -1,21 +1,21 @@
 [
   {
-    "name": "BTV",
+    "name": "BTV News",
     "category": "Bangla",
-    "logo": "https://ssl.com.bd/sites/default/files/BTV%20Logo%20Gallery.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/index.m3u8"
+    "logo": "https://media.prothomalo.com/prothomalo-bangla%2F2024-12-31%2Fl11hxpwd%2Fbtv.JPG?rect=0%2C0%2C529%2C353&w=622&auto=format%2Ccompress&fmt=avif",
+    "url": "https://tvsen6.aynaott.com/opREbXLqJ2HFYPCXTJBa/index.m3u8"
   },
   {
     "name": "Somoy TV",
     "category": "Bangla",
     "logo": "https://dl.dropbox.com/s/leielj83em5kg7h/somoy_news.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1702/output/index.m3u8"
+    "url": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8"
   },
   {
     "name": "Ekattor TV",
     "category": "Bangla",
     "logo": "https://s4.gifyu.com/images/imagea02f4314e761661d.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1705/output/index.m3u8"
+    "url": "https://tvsen6.aynaott.com/EWDrV5QskgarZEUBb3pU/index.m3u8"
   },
   {
     "name": "Channel 24",
@@ -33,90 +33,60 @@
     "name": "Jamuna TV",
     "category": "Bangla",
     "logo": "https://dl.dropbox.com/s/k7z1dsec1jfjbkn/jamuna_tv_bd.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1701/output/index.m3u8"
+    "url": "https://tvsen6.aynaott.com/KGdZEdA7qQ43dmPkgk1j/index.m3u8"
   },
   {
     "name": "ATN News",
     "category": "Bangla",
     "logo": "https://dl.dropbox.com/s/4ldi1dp09s8o6bm/atn_news_bd.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1706/output/index.m3u8"
+    "url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8"
   },
   {
     "name": "ATN Bangla",
     "category": "Bangla",
     "logo": "https://s6.gifyu.com/images/image27cfa7002786c232.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1722/output/index.m3u8"
+    "url": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8"
   },
   {
     "name": "NTV",
     "category": "Bangla",
     "logo": "https://www.ntvbd.com/sites/default/files/aggregator/2020/02/17/ntv-channel_0.jpg",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1716/output/index.m3u8"
+    "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8"
   },
   {
     "name": "BanglaVision",
     "category": "Bangla",
     "logo": "https://s4.gifyu.com/images/image5c0bfa6b281be803.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1715/output/index.m3u8"
+    "url": "https://tvsen5.aynaott.com/tgUzpPc9r6xw/index.m3u8"
   },
   {
     "name": "Ekushey TV",
     "category": "Bangla",
     "logo": "https://s4.gifyu.com/images/image534fa27d7683f33d.png",
-    "url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8"
+    "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/ekusheytv-8-org.stream/index.m3u8"
   },
   {
     "name": "Channel I",
     "category": "Bangla",
-    "logo": "https://cdn.tvpassport.com/image/station/240x135/channel-i-bangla.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1723/output/index.m3u8"
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb-EGdnMMVEQB9WDBW770bkcc3lAPrZVe2HXphPXaR4QFOsnSnjosM8_w&s=10",
+    "url": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8"
   },
   {
     "name": "Deepto TV",
     "category": "Bangla",
-    "logo": "https://upload.wikimedia.org/wikipedia/en/3/31/Deepto_TV_logo.png",
-    "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8"
+    "logo": "https://jcwsw2vt33.gpcdn.net/uploads/images/2022/07/25/logos_1384ea456744d5914ba331fa72df78c8_goplay_deepto_logo_final_white.svg",
+    "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8"
   },
   {
-    "name": "Atn Bangla",
+    "name": "Enter TV",
     "category": "Bangla",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/ATN_Bangla.svg/2560px-ATN_Bangla.svg.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1722/output/1722-audio_113522_eng=113200-video=1692000.m3u8"
-  },
-  {
-    "name": "Ekushey TV",
-    "category": "Bangla",
-    "logo": "https://i.postimg.cc/C15wr1RW/Ekushey-Television-Logo-svg.png",
-    "url": "https://ekusheyserver.com/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8"
-  },
-  {
-    "name": "Ntv",
-    "category": "Bangla",
-    "logo": "https://i.postimg.cc/g27Qp4RD/Background-Eraser-20240628-105829130.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1716/output/1716-audio_113462_eng=113200-video=1692000.m3u8"
-  },
-  {
-    "name": "Deepto Tv Backup",
-    "category": "Bangla",
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Logo_of_Deepto_TV.svg/1200px-Logo_of_Deepto_TV.svg.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1711/output/index.m3u8"
-  },
-  {
-    "name": "Jamuna Tv",
-    "category": "Bangla",
-    "logo": "https://jamunagroup.com.bd/company-images/1662487622-mdshamimislam.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1701/output/1701-audio_113312_eng=113200-video=1692000.m3u8"
-  },
-  {
-    "name": "Enter10 Bangla",
-    "category": "Bangla",
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ea/Enterr10_Bangla.jpeg/200px-Enterr10_Bangla.jpeg",
-    "url": "https://amg01448-samsungin-enterr10bangla-samsungin-ad-gg.amagi.tv/playlist/amg01448-samsungin-enterr10bangla-samsungin/playlist.m3u8"
+    "logo": "https://scontent.fdac182-1.fna.fbcdn.net/v/t39.30808-6/597027233_122110517169097760_8484985410246371693_n.jpg?stp=dst-jpg_tt6&cstp=mx989x989&ctp=s989x989&_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=TAFgs5er3xQQ7kNvwHw0Lju&_nc_oc=AdpDQM9HPD-VOBR2uU9tIOz78epiE8tIxbRamhyTwJ7HGkqH684WwKlGNOUDuACy4jk&_nc_zt=23&_nc_ht=scontent.fdac182-1.fna&_nc_gid=27QSt8NPUwPE8hX8Thp8nw&_nc_ss=7b289&oh=00_AQGbJ-bGN1J7dh4UQAlzwFrlNVBFHonozSnjo630c3339g&oe=6A8D2A2C",
+    "url": "https://live1.entertv.com.bd/entertv/index.fmp4.m3u8"
   },
   {
     "name": "News18 Bangla",
     "category": "Bangla",
-    "logo": "https://jio.dinesh29.com.np/smart/ardinesh/logos/news18-bangla-news.png",
+    "logo": "https://yt3.googleusercontent.com/0pVAsTdgTX-iREI9xZUMsYbqjpclujOiC7mocZIvLlWYVmhKRP131kzwVzM-i63lQz2YMMXo=s160-c-k-c0x00ffffff-no-rj",
     "url": "https://amg01448-samsungin-news18bangla-samsungin-ad-qy.amagi.tv/playlist/amg01448-samsungin-news18bangla-samsungin/playlist.m3u8"
   },
   {
@@ -162,58 +132,10 @@
     "url": "https://deshitv.deshitv24.net/live/myStream/playlist.m3u8"
   },
   {
-    "name": "ATN BANGLA UK",
-    "category": "Bangla",
-    "logo": "https://i.ytimg.com/vi/GRCWbI5ZSFg/maxresdefault.jpg",
-    "url": "https://app.ncare.live/live-orgin/atnbanglauk-off.stream/playlist.m3u8"
-  },
-  {
-    "name": "ATN Bangla UK",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/ATN%20Bangla.png",
-    "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/atnbanglauk-off.stream/playlist.m3u8"
-  },
-  {
-    "name": "Deepto TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Deepto%20TV.jpeg",
-    "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8"
-  },
-  {
-    "name": "Enter 10 Bangla",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Enter%2010%20Bangla.jpeg",
-    "url": "https://live-bangla.akamaized.net/liveabr/pub-iobanglakp3sff/live_720p/chunks.m3u8"
-  },
-  {
-    "name": "DD Bangla",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Dd%20Bangla.png",
-    "url": "https://d3eyhgoylams0m.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/ed7bd2c7-8d10-4051-b397-2f6b90f99acb/2e9e32a4-c4f7-49c3-96d6-c4e3660c7e3f/2.m3u8"
-  },
-  {
     "name": "ABP Ananda",
     "category": "Bangla",
-    "logo": "",
+    "logo": "https://www.medianews4u.com/wp-content/uploads/2021/07/ABP-Anandas-Digital-arm-bags-lead-spot-among-Bengali-news-platforms-in-ComScore-May-2021-rankings.jpg",
     "url": "https://amg01448-samsungin-abpananda-samsungin-ad-pw.amagi.tv/playlist/amg01448-samsungin-abpananda-samsungin/playlist.m3u8"
-  },
-  {
-    "name": "Star Jalsha HD",
-    "category": "Bangla",
-    "logo": "https://i.postimg.cc/1tmcNHW3/Star-Jalsha-HD.jpg",
-    "url": "https://dhoomtv.xyz/live/P4B9TB9xR8/humongous2tonight/23218.ts"
-  },
-  {
-    "name": "ABP Ananda",
-    "category": "Bangla",
-    "logo": "https://i.postimg.cc/662vVv5x/ABP-Ananda.jpg",
-    "url": "https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/abp-ananda/1e4516fa-023a-4807-8e3d-479b346b4a62/2.m3u8"
-  },
-  {
-    "name": "Bangla Jago",
-    "category": "Bangla",
-    "logo": "https://i.postimg.cc/MZQcv8Hm/Bangla-Jago.jpg",
-    "url": "http://banglajagotv.livebox.co.in:80/banglajagohls/24x7.m3u8"
   },
   {
     "name": "DD Bangla",
@@ -224,13 +146,13 @@
   {
     "name": "R Plus News",
     "category": "Bangla",
-    "logo": "https://i.postimg.cc/3wPnKf19/Sony-Aath.jpg",
+    "logo": "https://yt3.googleusercontent.com/jHUhb1QejiTl3NPJucn-uKFwwJevnwfnKB5jFUbKivpYm5aBHERsHLwRrwZlX9bzAtQHDxq0Mj4=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://thelegitpro.in/pntv/rplusnews24x7/index.m3u8"
   },
   {
     "name": "TV9 Bangla",
     "category": "Bangla",
-    "logo": "https://i.postimg.cc/tTNPLBMs/24-Ghanta.jpg",
+    "logo": "https://yt3.googleusercontent.com/d8QNkJ7Jby9hVSTm67-E4nfbI-7CTgP262NPVGfYpoTZaxLw7uAOPxs5dJtARjEFQijsRsuiFQ=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9banaen8yq/liveabr/playlist.m3u8"
   },
   {
@@ -518,145 +440,43 @@
   {
     "name": "T Sports",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/T%20Sports.png",
-    "url": "https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8"
-  },
-  {
-    "name": "Gazi TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Gazi%20TV.jpg",
-    "url": "http://tvn1.chowdhury-shaheb.com/gazitv/index.m3u8"
+    "logo": "https://tscdn.tsports.com/uploads/settings/logo.png",
+    "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8"
   },
   {
     "name": "Maasranga TV",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Maasranga%20TV.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1722/output/1722.m3u8"
-  },
-  {
-    "name": "NTV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/NTV.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1716/output/1716.m3u8"
-  },
-  {
-    "name": "NTV UK",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/NTV.png",
-    "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/ntvuk00332211.stream/playlist.m3u8"
+    "logo": "https://play-lh.googleusercontent.com/K0QxllTd7Xh2BNqHq4qstZjp8bjWfPxb8whmlOuXafVNsGyscUNJLuk_r9sHz5WsFH11GbE_tbop0aPKBC0xuQ",
+    "url": "https://mtv.sunplex.live/MAASRANGA/index.m3u8"
   },
   {
     "name": "SATV",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/SATV.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1720/output/1720.m3u8"
-  },
-  {
-    "name": "Deepto TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Deepto%20TV.jpeg",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1711/output/1711.m3u8"
-  },
-  {
-    "name": "Mohona TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Mohona%20TV.png",
-    "url": "http://103.229.254.25:7001/play/a05t/index.m3u8"
-  },
-  {
-    "name": "Desh TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Desh%20TV.png",
-    "url": "https://bozztv.com/rongo/rongo-DeshTV/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Bangla TV Europe",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Bangla%20TV.png",
-    "url": "https://byphdgllyk.gpcdn.net/hls/banglatveurope/index.m3u8"
-  },
-  {
-    "name": "Channel 9",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Channel%209.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1729/output/1729.m3u8"
+    "logo": "https://play-lh.googleusercontent.com/MQLz__NP_we1JJhSm7rIp5eSKaAjuTwqFS0rOG8GFpAvheeQBKip5JUGI3QcpytFZkkNNoKCKaWbTjJBVrig",
+    "url": "https://tvsen6.aynaott.com/rELXiuUXqbgzPb06Npom/index.m3u8"
   },
   {
     "name": "Green TV",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Green%20TV.png",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHLLTe_2ddfxYSoXDSD7D54Gbn57FJBuJ-6YV-PydK7_IjOZ-Pdj08iRdY&s=10",
     "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/greentv.stream/live-orgin/greentv.stream/chunks.m3u8"
-  },
-  {
-    "name": "Channel S UK HD",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Channel%20S.jpeg",
-    "url": "http://103.161.153.165:8000/play/a02k/index.m3u8"
   },
   {
     "name": "Srk Tv",
     "category": "Bangla",
-    "logo": "https://ibb.co.com/nPXPTPK",
+    "logo": "https://yt3.googleusercontent.com/SI5MlFyc4HNhXu-NO9wrFXhssF3y5FAYfo9gGdnt72dUqV-NxPGPkxltLLa1btgv8O0cEB7l6jE=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://srknowapp.ncare.live/srktvhlswodrm/srktv.stream/playlist.m3u8"
-  },
-  {
-    "name": "Channel S HD",
-    "category": "Bangla",
-    "logo": "https://i.ibb.co/QmPPKgg/20240826-231747.png",
-    "url": "http://103.229.254.25:7001/play/a060/index.m3u8"
-  },
-  {
-    "name": "Somoy TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Somoy%20TV.jpeg",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1702/output/1702.m3u8"
-  },
-  {
-    "name": "Independent TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Independent%20Television.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1704/output/1704.m3u8"
-  },
-  {
-    "name": "Ekattor TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Ekattor%20TV.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1705/output/1705.m3u8"
-  },
-  {
-    "name": "ATN News",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/ATN%20News.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1706/output/1706.m3u8"
-  },
-  {
-    "name": "Channel 1 News 4K",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/refs/heads/main/Channel%201.png",
-    "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel1bd.stream/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Star News",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/refs/heads/main/Star%20News.jpg",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1710/output/1701.m3u8"
-  },
-  {
-    "name": "Channel 24",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/channel%2024.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1703/output/1703.m3u8"
   },
   {
     "name": "News 24",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/News%2024.png",
+    "logo": "https://yt3.googleusercontent.com/FK8kaDWHXG4F4yCVGbGP9gE5hNOOTBTXof6KFMrhj3BZ2yW0oHy7PxJRRP8QdMZfGWCNTG3L4g=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1708/output/index.m3u8"
   },
   {
     "name": "DBC News",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/DBC%20News.png",
+    "logo": "https://yt3.googleusercontent.com/ytc/AIdro_mcjICfjqYwOn4eljNmtsZLBpOmW0t0JlzJUhXSslAkBVo=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1728/output/1728.m3u8"
   },
   {
@@ -666,22 +486,10 @@
     "url": "https://dog.dg21bd.com/TBN24WEBUSA/index.m3u8"
   },
   {
-    "name": "Bengla Beats",
-    "category": "Bangla",
-    "logo": "://tplay.live/originals/bengali-beats/bengali-beats.png",
-    "url": "https://tplay.live/originals/bengali-beats/index.m3u8"
-  },
-  {
     "name": "Channel-16",
     "category": "Music",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Channel_16_Bangladesh_Logo.png",
     "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel16bd.stream/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Bengla",
-    "category": "Bangla",
-    "logo": "",
-    "url": "https://poweredbyjibon.myziboplay.xyz/zibo/index.m3u8"
   },
   {
     "name": "Peace TV Bangla",
@@ -756,57 +564,21 @@
     "url": "https://aasthaott.akamaized.net/110923/smil:arihant.smil/chunklist_b1928000.m3u8"
   },
   {
-    "name": "G-Serise",
-    "category": "Bangla",
-    "logo": "",
-    "url": "https://vods2.aynaott.com/gseriesDrama/tracks-v1a1/mono.ts.m3u8"
-  },
-  {
-    "name": "Sony Aath",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/56e54462053b1b278b80b532c89c01f17e360fd5/Sony%20Aath.jpeg",
-    "url": "http://198.195.239.50:8095/SonyAath/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Star Jalsha",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/mAathStar%20Jalsha.png",
-    "url": "http://198.195.239.50:8095/bdixbd.net_StarJalshaHD/video.m3u8"
-  },
-  {
-    "name": "Zee Bangla HD",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/zee%20Bangla.png",
-    "url": "http://103.161.153.165:8000/play/zeebnhd/index.m3u8"
-  },
-  {
-    "name": "Colors Bangla",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Colors%20Bangla.png",
-    "url": "http://103.229.254.25:7001/play/a076/index.m3u8"
-  },
-  {
-    "name": "Sun Bangla HD",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Sun%20Bangla.png",
-    "url": "http://103.161.153.165:8000/play/a03k/index.m3u8"
-  },
-  {
     "name": "R Plus Gold",
     "category": "Bangla",
-    "logo": "",
-    "url": "https://cdn-4.pishow.tv/live/1231/1231_1.m3u8"
+    "logo": "https://static.wikia.nocookie.net/etv-gspn-bangla/images/1/16/RPlus_Gold_logo_%282025%29.png/revision/latest/scale-to-width-down/985?cb=20260530023141",
+    "url": "https://vglivessai.akamaized.net/sg/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/cf883da3-f9f5-4c70-b0ef-b3ac2e2ad1e3/index.m3u8"
   },
   {
     "name": "AAKASH AATH",
     "category": "Bangla",
-    "logo": "http://tv.digitalview.live:8080/images/COkEO-FWL6Un57bQno1oDDZsiBeWCSjxPVZv0hLJ3dQmW5aAA-8mIeuB88P0SUdrjBBSFEHQ2ZXiddKtVfnJCQ.png",
+    "logo": "https://jiotvimages.cdn.jio.com/dare_images/images/channel/5e7e35a1e640364eb38c06c67dee7179.png",
     "url": "https://cdn-4.pishow.tv/live/969/master.m3u8"
   },
   {
-    "name": "Bangla Movies",
+    "name": "Bangla Plus Movies",
     "category": "Bangla",
-    "logo": "",
+    "logo": "https://scontent.fdac182-1.fna.fbcdn.net/v/t39.30808-6/330147857_671258108107511_1189978213346751517_n.jpg?stp=dst-jpg_tt6&cstp=mx960x960&ctp=s960x960&_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=6Iyypoy1kvIQ7kNvwGpJoOE&_nc_oc=AdpTE1zMvNkKsaQjwauMLHGwNb-8ZKV7J-Dl14od7tZobXPGWS8t5WJxroZTYqwJT9k&_nc_zt=23&_nc_ht=scontent.fdac182-1.fna&_nc_gid=7tO_EmRj8NJTBEsey3BEfQ&_nc_ss=7b289&oh=00_AQF-37RrCdjvrZa91fK_rP732lZVZinDn7MOG9G-pffv-w&oe=6A8D1FB9",
     "url": "https://live-stream.utkalbongo.com/hls/livebanglatvstream.m3u8"
   },
   {
@@ -848,49 +620,31 @@
   {
     "name": "Sangeet Bangla",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Sangeet%20Bangla.jpeg",
+    "logo": "https://yt3.googleusercontent.com/FGx9xqm5eU1DZXDk4ZDRQDK9fyhvZ2LR6gKXhZcJeFunvG9SwT8SB01SxbiD3GDL8MqMKxWXHQ=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://cdn-4.pishow.tv/live/1143/master.m3u8"
-  },
-  {
-    "name": "R Plus News",
-    "category": "Bangla",
-    "logo": "",
-    "url": "https://thelegitpro.in/pntv/rplusnews24x7/tracks-v1a1/mono.m3u8"
   },
   {
     "name": "Calcutta News",
     "category": "Bangla",
-    "logo": "https://jio.dinesh29.com.np/smart/ardinesh/logos/calcutta-news.png",
+    "logo": "https://yt3.googleusercontent.com/wAJb5LaucF7wltdBKODGnXiAGkbb5J2Yn22G_NTZ3vonHux3zsT59DXPvh4j_6YAsnq2IozDzg=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://akdnetwork.co.in/live/cnnew/index.m3u8"
   },
   {
     "name": "Kolkata TV",
     "category": "Bangla",
-    "logo": "https://jio.dinesh29.com.np/smart/ardinesh/logos/kolkata-tv.png",
+    "logo": "https://play-lh.googleusercontent.com/SnXVsJqAsykrTuuo7IBiZMkan6wakfYd7ULf7fongJLsnvB7RDHoh8JrJDSa3gHf8xNYXxv3jBz7d9u_pkcqXg",
     "url": "https://cdn.ottlive.co.in/kolkatatv/index.m3u8"
   },
   {
-    "name": "TV9 Bangla",
+    "name": "Republic Bangla",
     "category": "Bangla",
-    "logo": "https://jio.dinesh29.com.np/smart/ardinesh/logos/tv9-bangla.png",
-    "url": "https://amg01448-samsungin-tv9bangla-samsungin-9lgnh.amagi.tv/playlist/amg01448-samsungin-tv9bangla-samsungin/playlist.m3u8"
-  },
-  {
-    "name": "R Bangla",
-    "category": "Bangla",
-    "logo": "",
-    "url": "https://tvsen5.aynaott.com/R_Bangla/tracks-v1a1/mono.ts.m3u8"
-  },
-  {
-    "name": "NK",
-    "category": "Bangla",
-    "logo": "",
+    "logo": "https://yt3.googleusercontent.com/ytc/AIdro_nvgVv3ZKeS6nLI_ZGZw-pZpt88bQpFPZNbUOADI3Bvz9k=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://amg01218-republictvfast-amg01218c1-samsung-in-1918.playouts.now.amagi.tv/playlist/amg01218-republictvfast-rbangla-samsungin/playlist.m3u8"
   },
   {
     "name": "NK TV Bangla",
     "category": "Bangla",
-    "logo": "",
+    "logo": "https://jiotvimages.cdn.jio.com/dare_images/images/channel/19882e79d666c48e72d1bda6e4678ee7.png",
     "url": "https://nktv.smartstream.video/smartstream-us/nkbangla/nkbangla/playlist.m3u8"
   },
   {
@@ -1722,40 +1476,16 @@
     "url": "http://145.239.5.177/559/mpegts"
   },
   {
-    "name": "BTV Chattogram",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/BTV%20National.png",
-    "url": "https://streams.btvlive.gov.bd/live/37f2df30-3edf-42f3-a2ee-6185002c841c/BD/a707f2dc-9704-413a-a67c-17c64a77c350/index.m3u8"
-  },
-  {
-    "name": "BTV Sangsad",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/BTV%20National.png",
-    "url": "https://streams.btvlive.gov.bd/live/37f2df30-3edf-42f3-a2ee-6185002c841c/BD/9ee3b4f9-fd0a-47c5-a135-2575c5691613/index.m3u8"
-  },
-  {
-    "name": "BTV News",
-    "category": "Bangla",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4GdTIOJgWg5_BCr3ZDvEzBOMt6gt0QoybcQ&usqp=CAU",
-    "url": "https://streams.btvlive.gov.bd/live/37f2df30-3edf-42f3-a2ee-6185002c841c/BD/d96eb7f4-83c2-4472-9597-3568390a8ebf/index.m3u8"
-  },
-  {
     "name": "RTV",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/RTV.png",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJbwU6KEZiNRJBOLPmJAVv5kgYty1BIWkPsVvRSkaPavWkXILWQNY4vRQ7&s=10",
     "url": "https://tvsen6.aynaott.com/rtv/tracks-v1a1/mono.ts.m3u8"
-  },
-  {
-    "name": "Asian TV",
-    "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Asian%20Tv.png",
-    "url": "https://mtlivestream.com/hls/asian/ytlive/index.m3u8"
   },
   {
     "name": "Bangla TV",
     "category": "Bangla",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Bangla%20TV.png",
-    "url": "https://tvsen6.aynaott.com/banglatv/index.m3u8?e=1779283758&u=78be6644-0a65-48ec-81a4-089ac65a2619&token=f3e9e2737e35147900c0f4add619ead6"
+    "logo": "https://yt3.googleusercontent.com/j3qqeVGILhnKq2jjhqfqSjiuucx6ff2xz4EMzVNw8Z-ZT9CtH0Pq9DekvLLQaKgGIHQTiRcjjA=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://tvsen6.aynaott.com/39ee93nUbCCmm5LsyD4t/index.m3u8"
   },
   {
     "name": "ZB Cinema",
