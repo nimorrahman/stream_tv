@@ -164,14 +164,14 @@
   {
     "name": "9xM",
     "category": "Music",
-    "logo": "https://i.ibb.co.com/KxC4ccD0/Casio-opening-bot-logo-4k-scaled.png",
-    "url": "https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/9xm/a731c680-6a62-4174-bc98-186fe654724a/0.m3u8"
+    "logo": "https://i1.sndcdn.com/avatars-0SMgzjmQbJmOMolq-sDnbxA-t1080x1080.jpg",
+    "url": "https://wiselp.wiseplayout.com/9XM/master.m3u8"
   },
   {
-    "name": "B>U Music",
+    "name": "9x Jawla",
     "category": "Music",
-    "logo": "https://i.ibb.co.com/KxC4ccD0/Casio-opening-bot-logo-4k-scaled.png",
-    "url": "https://d3kdywbtdfbp9z.cloudfront.net/v1/manifest/93ce20f0f52760bf38be911ff4c91ed02aa2fd92/dff423e0-3c82-46d6-9ecb-3baa96b5694a/4598c408-0e38-488c-9b64-fc845d1ea2b6/0.m3u8"
+    "logo": "https://yt3.googleusercontent.com/ytc/AIdro_m6XPXFgtJwZtiGgJ8hAG8uYP64x3rXyAMCZq7vRlBCtss=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8"
   },
   {
     "name": "B4U Movies",
@@ -1672,5 +1672,11 @@
     "category": "Music",
     "logo": "https://www.ptcnetwork.com/wp-content/uploads/2021/09/music.jpg",
     "url": "https://d2lk5u59tns74c.cloudfront.net/out/v1/f913cf893c594f73b114216e74a2efbc/index.m3u8"
+  },
+  {
+    "name": "Epic Music",
+    "category": "Music",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/3/3a/Epic-Music.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original",
+    "url": "https://mumt04.tangotv.in/m18aqlK4EPICMUSIC/index.m3u8"
   }
 ]
