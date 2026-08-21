@@ -1636,5 +1636,41 @@
     "category": "Bangla",
     "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/d9a15eb2-a621-44fc-9de9-04b01c58e347.png?w=768",
     "url": "http://103.190.133.68:1935/news21live/live/playlist.m3u8"
+  },
+  {
+    "name": "Music India",
+    "category": "Music",
+    "logo": "https://yt3.googleusercontent.com/37FYUcoQ_3dUlKl9JtaUhqby0cl6IkRtajcIv135VB1sW03vhohhxn27OVYrNK2W7r5OphpT=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://cdn-2.pishow.tv/live/226/master.m3u8"
+  },
+  {
+    "name": "Zoom Music",
+    "category": "Music",
+    "logo": "https://i1.sndcdn.com/avatars-000120257144-5fcxjn-t240x240.jpg",
+    "url": "https://pubads.g.doubleclick.net/ssai/event/JCAm25qkRXiKcK1AJMlvKQ/master.m3u8"
+  },
+  {
+    "name": "YRF Music",
+    "category": "Music",
+    "logo": "https://yt3.googleusercontent.com/nf15u1K12VXgBLh5HTf0asDF5Fc36RsUICRi8xY1Cs0QhAL_jmtW07wAUdRzrYDBKwv_KIa09Q=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8"
+  },
+  {
+    "name": "Bengali Beats",
+    "category": "Music",
+    "logo": "https://yt3.googleusercontent.com/ytc/AIdro_kISWM2EaVD9nagJOOR_uvf8fQ3n5gezuyQQD9wo5Dq7w=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209587/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "name": "Sangeet Bangla",
+    "category": "Music",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBzEbml0Xlyo23FPqW1vVaT6dNrMx_9LqpBme2MytkSBvy6MITU2DbZl4&s=10",
+    "url": "https://cdn-4.pishow.tv/live/1143/master.m3u8"
+  },
+  {
+    "name": "PTC Music",
+    "category": "Music",
+    "logo": "https://www.ptcnetwork.com/wp-content/uploads/2021/09/music.jpg",
+    "url": "https://d2lk5u59tns74c.cloudfront.net/out/v1/f913cf893c594f73b114216e74a2efbc/index.m3u8"
   }
 ]
