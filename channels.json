@@ -1618,5 +1618,23 @@
     "category": "Music",
     "logo": "https://yt3.googleusercontent.com/fZzIIVCbLNQdBQ2fwVHZA5XBMbym3uxvYAbhJDz0_qlprzBXcV0KEPnJh5TIoXb5xSBiSL8W=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://protokolldns.xyz/johaniterweb44547dsd/index.m3u8"
+  },
+  {
+    "name": "Boishakhi TV",
+    "category": "Bangla",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/c/c7/Boishakhi_TV_logo.svg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original",
+    "url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8"
+  },
+  {
+    "name": "Rajdhani TV",
+    "category": "Bangla",
+    "logo": "https://assets-prod.services.toffeelive.com/KECGB54BuUSiBsg_dHyj/posters/58af9c58-ed80-458c-af13-cf381680cec6.png",
+    "url": "https://stream.shariarsuvo.com/hls5/rajdhanicable.m3u8"
+  },
+  {
+    "name": "News21",
+    "category": "Bangla",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/d9a15eb2-a621-44fc-9de9-04b01c58e347.png?w=768",
+    "url": "http://103.190.133.68:1935/news21live/live/playlist.m3u8"
   }
 ]
