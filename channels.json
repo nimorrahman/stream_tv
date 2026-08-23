@@ -331,111 +331,15 @@
   },
   {
     "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://103.179.25.147:8181/T-SPORTS/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://tvsen7.aynaott.com/tsports-hd/tracks-v1a1/mono.ts.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
     "category": "Live",
     "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
     "url": "http://198.195.239.50:8095/Tsports/tracks-v1a1/mono.m3u8"
   },
   {
     "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://27.124.71.27/T-Sports/index.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
     "category": "Live",
     "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
     "url": "http://198.195.239.50:8095/PTV-kutta/video.m3u8"
-  },
-  {
-    "name": "Live Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "https://tvsen7.aynaott.com/sspts1/tracks-v1a1/mono.ts.m3u8"
-  },
-  {
-    "name": "Live Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://198.195.239.50:8095/Eurosport/index.m3u8"
-  },
-  {
-    "name": "Willow",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://198.195.239.50:8095/WiLLow/index.m3u8"
-  },
-  {
-    "name": "Nagorik TV",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://198.195.239.50:8095/nagorik/tracks-v1a1/mono.m3u8"
-  },
-  {
-    "name": "Live Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://103.161.153.165:8000/play/a02f/index.m3u8"
-  },
-  {
-    "name": "Premier League",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "https://premierleagpl23.akamaized.net/hls/live/2107108/tapmad47832/level_3.m3u8"
-  },
-  {
-    "name": "Live Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://103.229.254.25:7001/play/a087/index.m3u8"
-  },
-  {
-    "name": "Willow",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://27.124.71.27/Willow_Extra/index.m3u8"
-  },
-  {
-    "name": "Live Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://tvn1.chowdhury-shaheb.com/starsport1/index.m3u8"
-  },
-  {
-    "name": "Live Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "http://tvn1.chowdhury-shaheb.com/starsport2/index.m3u8"
-  },
-  {
-    "name": "Sharq Game TV",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "https://stream.snexus.co/live/SHARQ_GAME_TV/main_stream.m3u8"
-  },
-  {
-    "name": "T Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "https://live.tsports.com/mobile_hls/tsports_live_1/playlist.m3u8"
-  },
-  {
-    "name": "T Sports",
-    "category": "Sports",
-    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPCvTmUhiKDs4ehoVpFLh7xwdCNK2-N_gNFqnaOM4YRQ&s=10",
-    "url": "https://live.tsports.com/mobile_hls/tsports_live_3/playlist.m3u8"
   },
   {
     "name": "T Sports",
@@ -924,54 +828,6 @@
     "url": "https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/bollywood-hd/d3227daf-ea13-48c9-95a4-1619862d136e/0.m3u8"
   },
   {
-    "name": "Star Sports 1 HD",
-    "category": "Sports",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Star%20Sports%201%40.jpeg",
-    "url": "http://41.205.93.154/STARSPORTS1/index.m3u8"
-  },
-  {
-    "name": "Sony Sports Ten 2 HD",
-    "category": "Sports",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/56e54462053b1b278b80b532c89c01f17e360fd5/Sony%20Sports%20Ten%202.png",
-    "url": "http://103.229.254.25:7001/play/a0ef/index.m3u8"
-  },
-  {
-    "name": "Sony Sports Ten 3 HD",
-    "category": "Sports",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/56e54462053b1b278b80b532c89c01f17e360fd5/Sony%20Sports%20Ten%203.png",
-    "url": "http://103.99.249.139/sonyten3/index.m3u8"
-  },
-  {
-    "name": "DD Sports 2.0",
-    "category": "Sports",
-    "logo": "",
-    "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8"
-  },
-  {
-    "name": "Eurosports HD",
-    "category": "Sports",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Eurosports.png",
-    "url": "http://103.161.153.165:8000/play/a01b/index.m3u8"
-  },
-  {
-    "name": "PTV Sports",
-    "category": "Sports",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/PTV%20Sports.png",
-    "url": "http://163.61.227.29:8000/play/a05l/40652310.m3u8"
-  },
-  {
-    "name": "A Sports",
-    "category": "Sports",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/A%20Sports.png",
-    "url": "http://163.61.227.29:8000/play/a03t/58044238.m3u8"
-  },
-  {
-    "name": "Bein Sports 1",
-    "category": "Sports",
-    "logo": "",
-    "url": "http://103.161.153.165:8000/play/a03z/index.m3u8"
-  },
-  {
     "name": "Discovery Bangla",
     "category": "Documentary",
     "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Discovery%20.png",
@@ -1248,18 +1104,6 @@
     "url": "https://nomawnoijl.gpcdn.net/akash/screem/playlist.m3u8"
   },
   {
-    "name": "Sports Legends",
-    "category": "Sports",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770377900139.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/sportslegends/playlist.m3u8"
-  },
-  {
-    "name": "Flash Guys HD",
-    "category": "Sports",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378074527.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/flashguys/playlist.m3u8"
-  },
-  {
     "name": "BuddyStar HD",
     "category": "Kids",
     "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379038530.png",
@@ -1300,24 +1144,6 @@
     "category": "Movies",
     "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380460488.png",
     "url": "https://nomawnoijl.gpcdn.net/akash/intelligence/playlist.m3u8"
-  },
-  {
-    "name": "Sports Range",
-    "category": "Sports",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380601958.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/sportrange/playlist.m3u8"
-  },
-  {
-    "name": "Thunder Er",
-    "category": "Sports",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380791303.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/thunder/playlist.m3u8"
-  },
-  {
-    "name": "Fighters",
-    "category": "Sports",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770380942670.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/fighter/playlist.m3u8"
   },
   {
     "name": "Smarty",
@@ -1362,12 +1188,6 @@
     "url": "https://nomawnoijl.gpcdn.net/akash/originals/playlist.m3u8"
   },
   {
-    "name": "Crazy Ex",
-    "category": "Sports",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778085745609.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/crazy_ex/playlist.m3u8"
-  },
-  {
     "name": "Delicious",
     "category": "Live",
     "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778086478755.png",
@@ -1387,93 +1207,9 @@
   },
   {
     "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://streams.btvlive.gov.bd/live/37f2df30-3edf-42f3-a2ee-6185002c841c/BD/355ba051-9a60-48aa-adcf-5a6c64da8c5c/index.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://tvsen7.aynaott.com/tsports-hd/index.m3u8?e=1779283784&u=78be6644-0a65-48ec-81a4-089ac65a2619&token=3b4c5a2cfa872fa7f91ffbfb4aa0f658"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://tvsen5.aynaott.com/PtvSports/index.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://amg26268-amg26268c14-freelivesports-emea-10267.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg26268-sportsstudio-tycsports-freelivesportsemea/playlist.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://cdn.tv-rds.workers.dev/TYCSPT.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
     "category": "Live",
     "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
     "url": "http://66.102.126.10:8000/play/a076/index.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://ua.online24.pm/play/1101/350B326FB34F4B8/video.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://ua.online24.pm/play/1102/350B326FB34F4B8/video.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://ua.online24.pm/play/1103/350B326FB34F4B8/video.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://ua.online24.pm/play/1104/350B326FB34F4B8/video.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://37b4c228.wurl.com/manifest/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWZyX0ZJRkFQbHVzRnJlbmNoX0hMUw/6f5437c5-e015-4754-8476-c8c6d27d3a55/1.m3u8"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "https://tvsen7.aynaott.com/foxsports2/index.m3u8?e=1779283790&amp;u=78be6644-0a65-48ec-81a4-089ac65a2619&amp;token=cbb7f40b4af7be51a91e0629a5ac7238"
-  },
-  {
-    "name": "Football World Cup 2026",
-    "category": "Sports",
-    "logo": "https://carboncredits.com/wp-content/uploads/2025/09/shutterstock_2306088965-e1757112807302.jpg",
-    "url": "http://145.239.5.177/559/mpegts"
   },
   {
     "name": "RTV",
@@ -1678,5 +1414,29 @@
     "category": "Music",
     "logo": "https://upload.wikimedia.org/wikipedia/en/3/3a/Epic-Music.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original",
     "url": "https://mumt04.tangotv.in/m18aqlK4EPICMUSIC/index.m3u8"
+  },
+  {
+    "name": "T-Sports",
+    "category": "Sports",
+    "logo": "https://yt3.googleusercontent.com/bFiobvUTC9dzqtqmHrGpMvIlQ2SpWYVKQFd3M8iP0hKqENuPOUNNVzaQQoJufoIFH-_M0UYn7w=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8"
+  },
+  {
+    "name": "A-Sports",
+    "category": "Sports",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/0/0c/A_Sports_Logo.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original",
+    "url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "name": "Willow Sports",
+    "category": "Sports",
+    "logo": "https://www.trillertv.com/thumbs/o/picon/100/1292_200x200.jpg",
+    "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8"
+  },
+  {
+    "name": "Star Sports 2",
+    "category": "Sports",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UhXTztcmcB6v6J_Uh6O47EGH9-FSzTsIwtnq4TtjuQ&s=10",
+    "url": "https://tvsen7.aynaott.com/ssport2hd/index.m3u8"
   }
 ]
