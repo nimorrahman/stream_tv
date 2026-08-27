@@ -102,18 +102,6 @@
     "url": "https://cdn-globecast.akamaized.net/live/eds/saudi_sunnah/hls_roku/index.m3u8"
   },
   {
-    "name": "Discovery Hindi",
-    "category": "Documentary",
-    "logo": "https://bdiptv.stream/uploads/tv_image/discovery.png",
-    "url": "https://d1g8wgjurz8via.cloudfront.net/bpk-tv/Discoverychannel2/default/manifest.mpd"
-  },
-  {
-    "name": "Love Nature",
-    "category": "Documentary",
-    "logo": "https://upload.wikimedia.org/wikipedia/en/1/1d/Love_Nature_TV.png",
-    "url": "https://cdn1.logichost.in/ajmantv/live/playlist.m3u8"
-  },
-  {
     "name": "Animal Planet HD",
     "category": "Documentary",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Animal_Planet_logo.svg/1280px-Animal_Planet_logo.svg.png",
@@ -230,13 +218,13 @@
   {
     "name": "Wild Life",
     "category": "Documentary",
-    "logo": "",
+    "logo": "https://scontent.fdac182-1.fna.fbcdn.net/v/t39.30808-6/461869922_501493479371657_2181670046498141892_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=4IwQjZx2FWEQ7kNvwEzHL_g&_nc_oc=AdpNrahG_krI3paLlYaFF0FDc8r_F0Rxct4H-yA2Il-0pWazBCUYiPVmpSigpuHZMHU&_nc_zt=23&_nc_ht=scontent.fdac182-1.fna&_nc_gid=NaCokA44HnG3LGWhqju_Dw&_nc_ss=7b289&oh=00_AQGlQgVmtznzseEiHuN3dC1K8mAfomZaBF1t8gjNLXrgWg&oe=6A965CDD",
     "url": "https://wildearth-plex.amagi.tv/master.m3u8"
   },
   {
     "name": "ACCU WEATHER",
     "category": "Documentary",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/5/5d/AccuWeather_2021.svg",
+    "logo": "https://static0.anpoimages.com/wordpress/wp-content/uploads/2020/04/accuweather-new-logo-hero.png",
     "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00684-accuweather-accuweather-plex/playlist.m3u8?v=1"
   },
   {
@@ -828,105 +816,39 @@
     "url": "https://d35j504z0x2vu2.cloudfront.net/v1/manifest/0bc8e8376bd8417a1b6761138aa41c26c7309312/bollywood-hd/d3227daf-ea13-48c9-95a4-1619862d136e/0.m3u8"
   },
   {
-    "name": "Discovery Bangla",
-    "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Discovery%20.png",
-    "url": "http://202.70.146.135:8000/play/a05z/index.m3u8"
-  },
-  {
-    "name": "Nat Geo HD",
-    "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/National%20Geographic%20Channel.png",
-    "url": "http://103.229.254.25:7001/play/a038/index.m3u8"
-  },
-  {
-    "name": "Nat Geo HD",
-    "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/National%20Geographic%20Channel.png",
-    "url": "http://202.70.146.135:8000/play/a05o/index.m3u8"
-  },
-  {
     "name": "BBC Earth",
     "category": "Documentary",
-    "logo": "",
-    "url": "https://d3u3pfhhvuad9k.cloudfront.net/playlist/amg00793-bbcstudios-bbcearta-lgus/playlist.m3u8"
-  },
-  {
-    "name": "BBC Earth",
-    "category": "Documentary",
-    "logo": "",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzH8WRqxrLdvIRCwp79thqHDARnBze84dvTmoPpnIkw0lLzaDw_ecHu-Kd&s=10",
     "url": "https://amg00793-bbcstudios-amg00793c3-lg-us-2528.playouts.now.amagi.tv/playlist/amg00793-bbcstudios-bbcearta-lgus/playlist.m3u8"
   },
   {
-    "name": "CGTN Documentary",
+    "name": "Wild Earth SA",
     "category": "Documentary",
-    "logo": "https://i.postimg.cc/8k0rH0MK/CGTN-Documentary-logo.png",
-    "url": "https://livedoc.cgtn.com/1000d/prog_index.m3u8"
-  },
-  {
-    "name": "Wild Earth",
-    "category": "Documentary",
-    "logo": "",
-    "url": "https://wildearth-roku.amagi.tv/masterR720P.m3u8"
-  },
-  {
-    "name": "Colors Infinity HD",
-    "category": "Documentary",
-    "logo": "https://gd.mdsharifulislamnayon.workers.dev/1:/TV%20LOGO/colors%20infinity.jpeg",
-    "url": "http://103.229.254.25:7001/play/a0du/index.m3u8"
-  },
-  {
-    "name": "History TV 18",
-    "category": "Documentary",
-    "logo": "https://images.toffeelive.com/images/program/2429/logo/240x240/mobile_logo_009938001674474908.png",
-    "url": "http://103.229.254.25:7001/play/a02z/index.m3u8"
-  },
-  {
-    "name": "Travel XP GB",
-    "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Travel%20XP.png",
-    "url": "https://travelxp-travelxp-1-gb.samsung.wurl.tv/3000.m3u8"
-  },
-  {
-    "name": "Travel XP English NL",
-    "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/mBanglaavel%20XP.png",
-    "url": "https://travelxp-travelxp-3-nl.samsung.wurl.tv/playlist.m3u8"
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBQ31NKeSwXYDLo9OfKZAqTdo0Q9xpXVejHMbuU0egN7u5ZqvwQ2EHjZ0&s=10",
+    "url": "https://wildearth-adsfree-ono.amagi.tv/playlist.m3u8"
   },
   {
     "name": "Travel XP English EU",
     "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Travel%20XP.png",
+    "logo": "https://nayeemps1.wordpress.com/wp-content/uploads/2026/07/06ce0953-f4b6-43fd-af63-7959f2e525cc.png?w=768",
     "url": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8"
   },
   {
     "name": "Travel XP English NZ",
     "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Travel%20XP.png",
+    "logo": "https://pbs.twimg.com/profile_images/1143020755094929408/8b7P5hZ6_400x400.png",
     "url": "https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Travel XP English SE",
-    "category": "Documentary",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Travel%20XP.png",
-    "url": "https://travelxp-travelxp-1-se.samsung.wurl.tv/playlist.m3u8"
-  },
-  {
-    "name": "Food Food",
-    "category": "Documentary",
-    "logo": "",
-    "url": "http://103.175.73.12:8080/live/143/143_0.m3u8"
   },
   {
     "name": "CGTN Docment",
     "category": "Documentary",
-    "logo": "",
+    "logo": "https://yt3.googleusercontent.com/I53k7liq3FT7AExyBPnnXR5L8I9UB88_5ZVu0K2EmF_MYzFeank6kv3_ogUht2uSdhtSdEOg=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://english-livebkali.cgtn.com/live/doccgtn_1.m3u8"
   },
   {
     "name": "Discover Pakistan TV",
     "category": "Documentary",
-    "logo": "",
+    "logo": "https://play-lh.googleusercontent.com/gQ5dS4XGtTVeaK8CzF0VL8ehw5A85NR65cmSXZr5e0Xur8-oCsQL4bE0Jh3BkcntDmgyY7XfYOdztTZf0BZF",
     "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/discoverpakistan.stream/playlist.m3u8"
   },
   {
