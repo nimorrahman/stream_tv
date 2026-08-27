@@ -1360,5 +1360,11 @@
     "category": "Sports",
     "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8UhXTztcmcB6v6J_Uh6O47EGH9-FSzTsIwtnq4TtjuQ&s=10",
     "url": "https://tvsen7.aynaott.com/ssport2hd/index.m3u8"
+  },
+  {
+    "name": "Ryan and Friends",
+    "category": "Kids",
+    "logo": "https://play-lh.googleusercontent.com/vzWnbhqy4MPVi52-4Tjoeto5vI5TswFxUtm13o3sjUU-o-WYUhwwEFpyV88QBJ3HOawySQaNXC4ZKGQwTm7P",
+    "url": "https://ryanandfriends-samsungau.amagi.tv/playlist.m3u8"
   }
 ]
