@@ -192,12 +192,6 @@
     "url": "https://v4-pan-n79-cdn-01.live.cdn.cgates.lt/live/dash/561301/index.mpd"
   },
   {
-    "name": "Duck TV",
-    "category": "Kids",
-    "logo": "https://i.postimg.cc/zBCLNtGZ/Duronto.jpg",
-    "url": "https://d2lmgfyblo9rak.cloudfront.net/playlist.m3u8"
-  },
-  {
     "name": "Jungle Book",
     "category": "Kids",
     "logo": "https://i.imgur.com/ubZMeQv.jpg",
@@ -854,20 +848,8 @@
   {
     "name": "Tom & Jarry",
     "category": "Kids",
-    "logo": "h",
+    "logo": "https://static.wikia.nocookie.net/cartoonnetwork/images/b/b5/SeriesTitle-TomandJerry.png/revision/latest?cb=20260603032442",
     "url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/playlist.m3u8"
-  },
-  {
-    "name": "Sony Yay",
-    "category": "Kids",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/56e54462053b1b278b80b532c89c01f17e360fd5/Sony%20Yay.png",
-    "url": "http://103.182.170.32:8888/play/a04m"
-  },
-  {
-    "name": "Nick JR",
-    "category": "Kids",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Nick.png",
-    "url": "http://103.182.170.32:8888/play/a02q"
   },
   {
     "name": "Zoo Moo",
@@ -1026,28 +1008,10 @@
     "url": "https://nomawnoijl.gpcdn.net/akash/screem/playlist.m3u8"
   },
   {
-    "name": "BuddyStar HD",
-    "category": "Kids",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379038530.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/buddystar/playlist.m3u8"
-  },
-  {
     "name": "Luxel HD",
     "category": "Live",
     "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378560772.png",
     "url": "https://nomawnoijl.gpcdn.net/akash/luxell/playlist.m3u8"
-  },
-  {
-    "name": "Joy",
-    "category": "Kids",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770378874717.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/joy/playlist.m3u8"
-  },
-  {
-    "name": "Funny Junior HD",
-    "category": "Kids",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770379573329.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/funnyjunior/playlist.m3u8"
   },
   {
     "name": "Crimes",
@@ -1068,24 +1032,6 @@
     "url": "https://nomawnoijl.gpcdn.net/akash/intelligence/playlist.m3u8"
   },
   {
-    "name": "Smarty",
-    "category": "Kids",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381107924.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/smarty/playlist.m3u8"
-  },
-  {
-    "name": "Lucky Family",
-    "category": "Kids",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381248531.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/luckyfamily/playlist.m3u8"
-  },
-  {
-    "name": "Kids Stars",
-    "category": "Kids",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770381398090.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/kidsstars/playlist.m3u8"
-  },
-  {
     "name": "Party Universe",
     "category": "Music",
     "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778083145889.png",
@@ -1096,12 +1042,6 @@
     "category": "Live",
     "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778086065071.png",
     "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1713/output/index.m3u8"
-  },
-  {
-    "name": "Nikki",
-    "category": "Kids",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1778083459294.png",
-    "url": "https://nomawnoijl.gpcdn.net/akash/nikky/playlist.m3u8"
   },
   {
     "name": "Originals",
@@ -1366,5 +1306,35 @@
     "category": "Kids",
     "logo": "https://play-lh.googleusercontent.com/vzWnbhqy4MPVi52-4Tjoeto5vI5TswFxUtm13o3sjUU-o-WYUhwwEFpyV88QBJ3HOawySQaNXC4ZKGQwTm7P",
     "url": "https://ryanandfriends-samsungau.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Disney Cartoon",
+    "category": "Kids",
+    "logo": "https://yt3.googleusercontent.com/_WcHGpEZpyOHL0SmNWyFyLe28xbIZ5W0-aOUKwcOTjJDsVThLsFQU2vMRIvZNpqWHganABXR=s900-c-k-c0x00ffffff-no-rj",
+    "url": "http://45.166.93.156:9999/play/a0f3/index.m3u8"
+  },
+  {
+    "name": "Neo TV Cartoon",
+    "category": "Kids",
+    "logo": "https://play-lh.googleusercontent.com/EhSJuWGyfWgaJ55Q4U1fQIHKRuHEP3hGDX5Gj-8NF7TcscvhOK4b9VWwN_0i3EvAZkTWK7SNmqKCN3x9FrvkaQ",
+    "url": "https://videostream.shockmedia.com.ar:19360/neotvdigital/neotvdigital.m3u8"
+  },
+  {
+    "name": "ABC Entertainment (Kids)",
+    "category": "Kids",
+    "logo": "https://static.wikia.nocookie.net/iepfanon/images/1/1d/ABC_Entertains.svg/revision/latest?cb=20240611210138",
+    "url": "https://c.mjh.nz/abc-me.m3u8"
+  },
+  {
+    "name": "ABC Kids",
+    "category": "Kids",
+    "logo": "https://play-lh.googleusercontent.com/0OhMynxk9ev9dXsfZrRTGwD1IzS-zBojlfyJaQjnuFRJ_M3tRZ-yssC0ORqxz6RXB3I-FmOoIh_nQnpNl9HPZQ",
+    "url": "https://c.mjh.nz/abc-kids.m3u8"
+  },
+  {
+    "name": "Cartoon Channel 4K",
+    "category": "Kids",
+    "logo": "https://www.awn.com/sites/default/files/styles/large_featured/public/image/featured/logo_1280x720_0.jpg?itok=N_skCH0X",
+    "url": "https://lightning-fnf-samsungaus.amagi.tv/playlist.m3u8"
   }
 ]
