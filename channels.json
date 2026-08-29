@@ -270,12 +270,6 @@
     "url": "https://rt-rtd.rttv.com/dvr/rtdoc/playlist.m3u8?v=1"
   },
   {
-    "name": "Aljazeera HD Backup 🛜v",
-    "category": "News",
-    "logo": "https://i.ibb.co/CzCnTHV/aljazeera-home-tv.png",
-    "url": "https://d1cy85syyhvqz5.cloudfront.net/v1/master/7b67fbda7ab859400a821e9aa0deda20ab7ca3d2/aljazeeraLive/AJE/index.m3u8"
-  },
-  {
     "name": "Breaking News",
     "category": "News",
     "logo": "https://i.postimg.cc/ZnD8CtvQ/BBC.jpg",
@@ -364,12 +358,6 @@
     "category": "Bangla",
     "logo": "https://yt3.googleusercontent.com/ytc/AIdro_mcjICfjqYwOn4eljNmtsZLBpOmW0t0JlzJUhXSslAkBVo=s900-c-k-c0x00ffffff-no-rj",
     "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1728/output/1728.m3u8"
-  },
-  {
-    "name": "TBN 24 USA",
-    "category": "News",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/TBN24.png",
-    "url": "https://dog.dg21bd.com/TBN24WEBUSA/index.m3u8"
   },
   {
     "name": "Channel-16",
@@ -918,18 +906,6 @@
     "url": "http://103.175.73.12:8080/live/158/158_0.m3u8"
   },
   {
-    "name": "Aljazeera",
-    "category": "News",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/Al%20Jazeera%20.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1721/output/index.m3u8"
-  },
-  {
-    "name": "BBC World",
-    "category": "News",
-    "logo": "https://raw.githubusercontent.com/subirkumarpaul/Logo/main/BBC%20World%20News.png",
-    "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs15"
-  },
-  {
     "name": "CGTN News",
     "category": "News",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/2/25/CGTN.png",
@@ -958,18 +934,6 @@
     "category": "Movies",
     "logo": "https://m.media-amazon.com/images/M/MV5BNTE0MGVkOTEtYTQzMC00ZGQ5LWEzN2ItZGNkMTgzOTg3MDI2XkEyXkFqcGdeQXVyMTMyMTM0Mzcz._V1_FMjpg_UX1000_.jpg",
     "url": "https://vhoichoi.viewlift.com/Renditions/20240918/1726653787189_88a8sna0ns9a8s7tf/hls/1726653787189_88a8sna0ns9a8s7tf.m3u8"
-  },
-  {
-    "name": "DBC News HD",
-    "category": "News",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770186306600.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1728/output/index.m3u8"
-  },
-  {
-    "name": "Star News",
-    "category": "News",
-    "logo": "https://tstatic.akash-go.com/cms-ui/images/custom-content/1770189826301.png",
-    "url": "https://owrcovcrpy.gpcdn.net/bpk-tv/1710/output/index.m3u8"
   },
   {
     "name": "Islamic TV",
@@ -1336,5 +1300,11 @@
     "category": "Kids",
     "logo": "https://www.awn.com/sites/default/files/styles/large_featured/public/image/featured/logo_1280x720_0.jpg?itok=N_skCH0X",
     "url": "https://lightning-fnf-samsungaus.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Fox Live Now",
+    "category": "News",
+    "logo": "https://yt3.googleusercontent.com/AqzY5ePezRAQ2136-TbM_88d43JfIovkzztge92WKQ4K_ISfJMFA9yuX0Nw87DLWms4W9r2c3Q=s900-c-k-c0x00ffffff-no-rj",
+    "url": "https://fox-foxnewsnow-vizio.amagi.tv/playlist.m3u8"
   }
 ]
