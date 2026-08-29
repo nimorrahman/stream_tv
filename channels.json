@@ -1312,5 +1312,11 @@
     "category": "Documentary",
     "logo": "https://digitalcontent.prensariozone.com/wp-content/uploads/2022/10/gustotv-logo-516.jpg",
     "url": "https://amg01077-gusto-gustous-distro.amagi.tv/playlist.m3u8"
+  },
+  {
+    "name": "Haunt TV",
+    "category": "Documentary",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFP4T8PYn5c4svfHfbEr57VP5bf-r0RXNAvnsKF8hb1ZtfSPtzX8c3ruE&s=10",
+    "url": "https://bamca-haunttv-lg.amagi.tv/playlist.m3u8"
   }
 ]
