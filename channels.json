@@ -1348,5 +1348,11 @@
     "category": "Bangla",
     "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCK600FM2ijHiL91-fQ60GM7TEvdFDa3WwY0UV1JWf7OqzpsC0T3ykWfs&s=10",
     "url": "https://app.uckingcrazy1.workers.dev/api/play/My%20Tv.m3u8"
+  },
+  {
+    "name": "Mohona TV",
+    "category": "Bangla",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAMaBNlAGH7RsVs4a8hjK0e097ojE_WbIDJp1M7KkBw8VOyFZASf38Gd9U&s=10",
+    "url": "https://app.uckingcrazy1.workers.dev/api/play/Mohona%20Tv.m3u8"
   }
 ]
